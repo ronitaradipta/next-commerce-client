@@ -1,41 +1,68 @@
 import React from "react";
+import pembayaran from "../../assets/images/pembayaran.png";
+import pengiriman from "../../assets/images/pengiriman.png";
+import keamanan from "../../assets/images/94b9cbbfd8a95136b1b0ab6ba81f4f3e.png";
+import FooterList from "./element/FooterList";
 
 const Footer = () => {
+  const titleStyle = "text-sm font-semibold";
+
+  // generate year copyright
+  const createYear = () => {
+    const year = new Date().getFullYear();
+    return year;
+  };
+
+  const layananPelanggan = [
+    {
+      title: "Bantuan",
+      link: "#",
+    },
+    {
+      title: "Syarat dan Ketentuan",
+      link: "#",
+    },
+    {
+      title: "Kebijakan Privasi",
+      link: "#",
+    },
+  ];
+
+  const jelajahiNextCommerce = [
+    {
+      title: "Tentang Kami",
+      link: "#",
+    },
+    {
+      title: "Blog",
+      link: "#",
+    },
+    {
+      title: "Daftar Official Store",
+      link: "#",
+    },
+  ];
+
   return (
     <footer className="bg-gray-50 py-12">
-      <div className="flex justify-between container mx-auto flex-wrap">
+      <div className="flex justify-between container mx-auto flex-wrap px-5">
         <div className="flex flex-col gap-8">
-          <div>
-            <h3 className="text-sm font-semibold">Layanan Pelanggan</h3>
-            <ul>
-              <li className="text-sm text-gray-700 mt-3">Bantuan</li>
-              <li className="text-sm text-gray-700 mt-3">
-                Syarat dan Ketentuan
-              </li>
-              <li className="text-sm text-gray-700 mt-3">Kebijakan Privasi</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold">Jelajahi NextCommerce</h3>
-            <ul>
-              <li className="text-sm text-gray-700 mt-3">Tentang Kami</li>
-              <li className="text-sm text-gray-700 mt-3">Blog</li>
-              <li className="text-sm text-gray-700 mt-3">
-                Daftar Official Store
-              </li>
-            </ul>
-          </div>
+          <FooterList data={layananPelanggan} title="Layanan Pelanggan" />
+          <FooterList
+            data={jelajahiNextCommerce}
+            title="Jelajati NextCommerce"
+          />
         </div>
         <div className="flex flex-col mt-8 md:mt-0">
-          <h3 className="text-sm font-semibold mb-3">Pembayaran</h3>
-          <img src="../public/images/pembayaran.png" alt="pembayaran" />
+          <h3 className={titleStyle}>Pembayaran</h3>
+          <img src={pembayaran} alt="pembayaran" />
         </div>
         <div className="flex flex-col mt-8 md:mt-0">
-          <h3 className="text-sm font-semibold mb-3">Pengiriman</h3>
-          <img src="../public/images/pengiriman.png" alt="pengiriman" />
+          <h3 className={titleStyle}>Pengiriman</h3>
+          <img src={pengiriman} alt="pengiriman" />
         </div>
         <div className="mt-8 md:mt-0">
-          <h3 className="text-sm font-semibold">Ikuti Kami</h3>
+          <h3 className={titleStyle}>Ikuti Kami</h3>
           <ul>
             <li className="text-sm text-gray-700 mt-3 flex items-center gap-1">
               <svg
@@ -80,17 +107,13 @@ const Footer = () => {
           </ul>
         </div>
         <div className="mt-8 md:mt-0">
-          <h3 className="text-sm font-semibold mb-3">Keamanan</h3>
-          <img
-            src="../public/images/94b9cbbfd8a95136b1b0ab6ba81f4f3e.png"
-            alt=""
-            className="w-28"
-          />
+          <h3 className={titleStyle}>Keamanan</h3>
+          <img src={keamanan} alt="" className="w-28" />
         </div>
       </div>
       <hr className="border-t-gray-300 mt-9 border-t-2" />
       <p className="mt-9 text-sm text-gray-500 text-center">
-        © NextCommerce 2023. Hak Cipta Dilindungi
+        © NextCommerce {createYear()}. Hak Cipta Dilindungi
       </p>
     </footer>
   );
