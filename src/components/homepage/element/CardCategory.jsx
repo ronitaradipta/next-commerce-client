@@ -5,10 +5,10 @@ const CardCategory = ({ data }) => {
     "bg-gray-100 w-full rounded-lg flex flex-col items-center justify-center h-36 text-center";
 
   return (
-    <div className={cardStyle}>
+    <a href="#" className={cardStyle}>
       {/* <img src={data.image} alt={data.title} className="w-20" /> */}
       <p className="text-sm">{data}</p>
-    </div>
+    </a>
   );
 };
 

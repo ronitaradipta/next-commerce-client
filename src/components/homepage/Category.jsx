@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../services/api";
 import React, { useEffect, useState } from "react";
 import CardCategory from "./element/CardCategory";
 
@@ -10,9 +10,7 @@ const Category = () => {
 
   const fetchAllCategory = async () => {
     try {
-      const category = await axios.get(
-        "https://fakestoreapi.com/products/categories"
-      );
+      const category = await api.get("/products/categories");
       setDatas(category.data);
     } catch (error) {
       console.log(error);

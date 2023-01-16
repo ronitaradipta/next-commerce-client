@@ -5,8 +5,8 @@ const CardProduct = ({ data }) => {
   const cardImage = "w-full h-48";
 
   return (
-    <div className={cardStyle}>
-      <img src={data.image} alt={data.title} className={cardImage} />
+    <a href="#" className={cardStyle}>
+      <img src={data.thumbnail} alt={data.title} className={cardImage} />
       <div className="p-3 flex flex-col gap-2">
         <h3 className="text-xs line-clamp-2">{data.title}</h3>
         <p className="font-bold">{data.price}</p>
@@ -25,12 +25,12 @@ const CardProduct = ({ data }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <p className="text-xs text-gray-400">{data.rating.rate}</p>
+            <p className="text-xs text-gray-400">{data.rating}</p>
           </div>
           <p className="text-xs text-gray-400">Terjual 3rb+</p>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

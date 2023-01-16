@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../services/api";
 import React, { useEffect, useState } from "react";
 import Spinner from "../loading/Spinner";
 import CardProduct from "./element/CardProduct";
@@ -13,10 +13,8 @@ const ProductRecommendations = () => {
 
   const fetchData = async () => {
     try {
-      const product = await axios.get(
-        `https://fakestoreapi.com/products?limit=${limit}`
-      );
-      setDatas(product.data);
+      const product = await api.get(`/products/?limit=${limit}`);
+      setDatas(product.data.products);
       if (loading) {
         setLimit(limit + 6);
         setLoading(false);
