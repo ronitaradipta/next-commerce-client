@@ -1,10 +1,12 @@
 import React from "react";
-import AboutUs from "../components/homepage/AboutUs";
-import Banner from "../components/homepage/Banner";
-import Category from "../components/homepage/Category";
-import Footer from "../components/homepage/Footer";
-import Header from "../components/homepage/header";
-import ProductRecommendations from "../components/homepage/ProductRecommendations";
+import {
+  AboutUs,
+  Banner,
+  Category,
+  Footer,
+  Header,
+  ProductRecommendations,
+} from "../components";
 
 const Homepage = () => {
   return (
