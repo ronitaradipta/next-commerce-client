@@ -5,21 +5,25 @@ import api from "../../../services/api";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../loading/Spinner";
 
 const SearchProduct = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [productResults, setProductResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const fetchSearch = async () => {
-    const response = await api.get(`/products/search?q=${inputSearch}`);
-
-    setProductResults(response.data.products);
+    if (loading) {
+      const response = await api.get(`/products/search?q=${inputSearch}`);
+      setProductResults(response.data.products);
+      setLoading(false);
+    }
   };
 
   const handleChangeInput = (e) => {
     setInputSearch(e.target.value);
-    fetchSearch();
+    setLoading(true);
   };
 
   const searchSumbit = (e) => {
@@ -50,22 +54,27 @@ const SearchProduct = () => {
             onChange={debouncedChangeHandler}
             required
           />
-          <button
-            type="submit"
-            className="text-white absolute right-1 bottom-0.5 font-medium text-sm px-2 py-2"
-          >
-            <IconContext.Provider
-              value={{ className: "text-gray-600 w-6 h-6" }}
+          {!inputSearch && (
+            <button
+              type="submit"
+              className="text-white absolute right-1 bottom-0.5 font-medium text-sm px-2 py-2"
             >
-              <MdOutlineSearch />
-            </IconContext.Provider>
-          </button>
+              <IconContext.Provider
+                value={{ className: "text-gray-600 w-6 h-6" }}
+              >
+                <MdOutlineSearch />
+              </IconContext.Provider>
+            </button>
+          )}
         </div>
       </form>
       {inputSearch && (
         <div className="w-full max-h-96 py-4 px-6 bg-white border text-gray-900 border-gray-300 rounded-lg absolute overflow-auto">
           <ul>
-            {productResults.length > 0 &&
+            {loading && <Spinner />}
+
+            {!loading &&
+              productResults.length > 0 &&
               productResults.map((item) => {
                 return (
                   <a href="#" className="w-full py-3 block group" key={item.id}>
@@ -83,8 +92,9 @@ const SearchProduct = () => {
                   </a>
                 );
               })}
-
-            {productResults.length === 0 && "Tidak ada produk yang cocok"}
+            {!loading &&
+              productResults.length === 0 &&
+              "Tidak ada produk yang cocok"}
           </ul>
         </div>
       )}
