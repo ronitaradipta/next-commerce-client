@@ -5,17 +5,17 @@ import { FaStore } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const UserMenuCard = () => {
+const UserMenu = () => {
   const listMenu = [
+    {
+      title: "Kembali Ke Beranda",
+      icon: <FaStore />,
+      link: "/",
+    },
     {
       title: "Profile Saya",
       icon: <RiUserSettingsFill />,
       link: "/profile",
-    },
-    {
-      title: "Menu Seller",
-      icon: <FaStore />,
-      link: "/store-dashboard",
     },
   ];
 
@@ -52,4 +52,4 @@ const UserMenuCard = () => {
   );
 };
 
-export default UserMenuCard;
+export default UserMenu;

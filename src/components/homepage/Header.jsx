@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/images/logo.png";
 import { IconContext } from "react-icons";
 import { MdArrowDropDown, MdShoppingCart } from "react-icons/md";
-import { RiUserSettingsFill } from "react-icons/ri";
-import { FaStore } from "react-icons/fa";
 import SearchProduct from "./element/SearchProduct";
 import { Link } from "react-router-dom";
 import CartList from "./element/CartList";
 import api from "../../services/api";
 import Cookies from "js-cookie";
 import UserMenuCard from "../auth/elements/UserMenuCard";
+import ClickOutsideHide from "../../utils/ClickOutsideHide";
 
 const Header = () => {
   const [cartDatas, setcartDatas] = useState([]);
@@ -30,18 +29,16 @@ const Header = () => {
 
   useEffect(() => {
     fetchCartData();
+  }, []);
+
+  const userButton = useRef(null);
+  const cartButton = useRef(null);
+
+  useEffect(() => {
     if (dataUser) {
       setUser(JSON.parse(dataUser));
     }
   }, []);
-
-  const showCart = () => {
-    setShowCartContainer((prev) => !prev);
-  };
-
-  const showUserMenu = () => {
-    setShowMenu((prev) => !prev);
-  };
 
   return (
     <header className="shadow-sm sticky top-0 bg-white z-10">
@@ -54,40 +51,51 @@ const Header = () => {
           </div>
           <SearchProduct />
           <div className="flex items-center justify-end relative">
-            <a className="w-8 h-8 md:mr-4 cursor-pointer" onClick={showCart}>
-              <IconContext.Provider
-                value={{
-                  className: "text-gray-600 w-8 h-8 hover:text-gray-500",
-                }}
+            <ClickOutsideHide
+              reff={cartButton}
+              state={setShowCartContainer}
+              className="flex items-center"
+            >
+              <a
+                className="w-8 h-8 md:mr-4 cursor-pointer"
+                onClick={() => setShowCartContainer((prev) => !prev)}
               >
-                <MdShoppingCart />
-              </IconContext.Provider>
-            </a>
+                <IconContext.Provider
+                  value={{
+                    className: "text-gray-600 w-8 h-8 hover:text-gray-500",
+                  }}
+                >
+                  <MdShoppingCart />
+                </IconContext.Provider>
+              </a>
+            </ClickOutsideHide>
             {showCartContainer && <CartList data={cartDatas} />}
 
             {user && (
-              <div
-                className="flex items-center gap-3 cursor-pointer relative"
-                onClick={showUserMenu}
-              >
-                <img
-                  src={user.image}
-                  alt="profile"
-                  className="w-11 rounded-full border border-gray-400"
-                />
-                <div className="flex gap-2 items-center">
-                  <p className="text-sm">Hi, {user.firstName}</p>
-                  <IconContext.Provider
-                    value={{
-                      className: "text-gray-600 w-8 h-8 hover:text-gray-500",
-                    }}
-                  >
-                    <MdArrowDropDown />
-                  </IconContext.Provider>
+              <ClickOutsideHide reff={userButton} state={setShowMenu}>
+                <div
+                  className="flex items-center gap-3 cursor-pointer relative"
+                  onClick={() => setShowMenu((prev) => !prev)}
+                >
+                  <img
+                    src={user.image}
+                    alt="profile"
+                    className="w-11 rounded-full border border-gray-400"
+                  />
+                  <div className="flex gap-2 items-center">
+                    <p className="text-sm">Hi, {user.firstName}</p>
+                    <IconContext.Provider
+                      value={{
+                        className: "text-gray-600 w-8 h-8 hover:text-gray-500",
+                      }}
+                    >
+                      <MdArrowDropDown />
+                    </IconContext.Provider>
+                  </div>
                 </div>
-                {showMenu && <UserMenuCard />}
-              </div>
+              </ClickOutsideHide>
             )}
+            {showMenu && <UserMenuCard />}
 
             {!user && (
               <button className="bg-emerald-500 text-white px-5 py-3 rounded-lg hover:bg-emerald-600 text-sm hidden md:block">
