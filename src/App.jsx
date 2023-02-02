@@ -1,7 +1,8 @@
-import { Homepage } from "./pages";
+// import { Homepage } from "./pages";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
-  return <Homepage />;
+  return <ProductDetailPage />;
 }
 
 export default App;
