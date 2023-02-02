@@ -28,6 +28,7 @@ const SearchProduct = () => {
 
   const searchSumbit = (e) => {
     e.preventDefault();
+    setInputSearch("");
     return navigate(`/search-results/${inputSearch}`);
   };
 
@@ -35,6 +36,11 @@ const SearchProduct = () => {
     debounce(handleChangeInput, 300),
     []
   );
+
+  const handleClickListSearch = (menu) => {
+    navigate(`/search-results/${menu}`);
+    setInputSearch("");
+  };
 
   useEffect(() => {
     if (inputSearch) {
@@ -77,7 +83,11 @@ const SearchProduct = () => {
               productResults.length > 0 &&
               productResults.map((item) => {
                 return (
-                  <a href="#" className="w-full py-3 block group" key={item.id}>
+                  <a
+                    className="w-full py-3 block group cursor-pointer"
+                    onClick={() => handleClickListSearch(item.title)}
+                    key={item.id}
+                  >
                     <li className=" group-hover:text-emerald-500 group flex gap-2">
                       <IconContext.Provider
                         value={{

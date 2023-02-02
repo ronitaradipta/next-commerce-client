@@ -57,7 +57,7 @@ const Header = () => {
               className="flex items-center"
             >
               <a
-                className="w-8 h-8 md:mr-4 cursor-pointer"
+                className="w-8 h-8 md:mr-4 cursor-pointer relative"
                 onClick={() => setShowCartContainer((prev) => !prev)}
               >
                 <IconContext.Provider
@@ -67,6 +67,13 @@ const Header = () => {
                 >
                   <MdShoppingCart />
                 </IconContext.Provider>
+                {cartDatas.length ? (
+                  <div className="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 animate-bounce text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">
+                    {cartDatas.length}
+                  </div>
+                ) : (
+                  ""
+                )}
               </a>
             </ClickOutsideHide>
             {showCartContainer && <CartList data={cartDatas} />}

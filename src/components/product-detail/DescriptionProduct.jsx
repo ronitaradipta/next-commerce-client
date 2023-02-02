@@ -4,10 +4,10 @@ import Description from "./layouts/Description";
 import Toko from "./layouts/Toko";
 import Ulasan from "./layouts/Ulasan";
 
-function DescriptionProduct() {
+function DescriptionProduct({ data }) {
   return (
-    <section>
-      <Description />
+    <section className="w-4/12">
+      <Description data={data} />
       <Toko />
       <Ulasan />
     </section>

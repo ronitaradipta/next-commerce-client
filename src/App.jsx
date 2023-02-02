@@ -1,4 +1,4 @@
-import { Homepage, LoginPage } from "./pages";
+import { Homepage, LoginPage, ProductDetailPage } from "./pages";
 import { Route, Routes } from "react-router-dom";
 import { ErrorPage, SearchResults } from "./pages";
 import HeaderFooter from "./components/layout/HeaderFooter";
@@ -22,6 +22,15 @@ function App() {
           </HeaderFooter>
         }
       />
+      <Route
+        path="/product-detail/:idData"
+        element={
+          <HeaderFooter>
+            <ProductDetailPage />
+          </HeaderFooter>
+        }
+      />
+
       <Route
         path="/search-results/:query"
         element={
