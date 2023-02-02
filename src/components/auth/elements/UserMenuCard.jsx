@@ -4,6 +4,7 @@ import { RiUserSettingsFill } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const UserMenuCard = () => {
   const listMenu = [
@@ -19,8 +20,12 @@ const UserMenuCard = () => {
     },
   ];
 
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
     Cookies.remove("user");
+    Cookies.remove("token");
+    navigate("/login");
   };
 
   return (
@@ -43,11 +48,12 @@ const UserMenuCard = () => {
         );
       })}
       <hr className="border border-t-gray-200 mt-2" />
-      <Link to="/login" onClick={handleLogOut}>
-        <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4">
-          Log Out
-        </button>
-      </Link>
+      <button
+        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
+        onClick={handleLogOut}
+      >
+        Log Out
+      </button>
     </div>
   );
 };

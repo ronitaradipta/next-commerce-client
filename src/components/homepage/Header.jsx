@@ -93,9 +93,9 @@ const Header = () => {
                     </IconContext.Provider>
                   </div>
                 </div>
+                {showMenu && <UserMenuCard />}
               </ClickOutsideHide>
             )}
-            {showMenu && <UserMenuCard />}
 
             {!user && (
               <button className="bg-emerald-500 text-white px-5 py-3 rounded-lg hover:bg-emerald-600 text-sm hidden md:block">

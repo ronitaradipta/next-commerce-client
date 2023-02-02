@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { ErrorPage, SearchResults } from "./pages";
 import HeaderFooter from "./components/layout/HeaderFooter";
 import RegisterPage from "./pages/RegisterPage";
-import { Auth } from "./middleware/Auth";
+import { NonUserAuth, UserAuth } from "./middleware/Auth";
 import DashboardStore from "./pages/DashboardStore";
 import StoreSetting from "./pages/StoreSetting";
 import DetailTransactions from "./pages/DetailTransactions";
@@ -33,25 +33,67 @@ function App() {
       <Route
         path="/login"
         element={
-          <Auth>
+          <NonUserAuth>
             <LoginPage />
-          </Auth>
+          </NonUserAuth>
         }
       />
       <Route
         path="/register"
         element={
-          <Auth>
+          <NonUserAuth>
             <RegisterPage />
-          </Auth>
+          </NonUserAuth>
         }
       />
-      <Route path="/store-dashboard" element={<DashboardStore />} />
-      <Route path="/add-product" element={<AddProduct />} />
-      <Route path="/list-products" element={<ProductList />} />
-      <Route path="/store-transaction" element={<DetailTransactions />} />
-      <Route path="/store-settings" element={<StoreSetting />} />
-      <Route path="/profile" element={<UserProfileSetting />} />
+      <Route
+        path="/store-dashboard"
+        element={
+          <UserAuth>
+            <DashboardStore />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/add-product"
+        element={
+          <UserAuth>
+            <AddProduct />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/list-products"
+        element={
+          <UserAuth>
+            <ProductList />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/store-transaction"
+        element={
+          <UserAuth>
+            <DetailTransactions />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/store-settings"
+        element={
+          <UserAuth>
+            <StoreSetting />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <UserAuth>
+            <UserProfileSetting />
+          </UserAuth>
+        }
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
