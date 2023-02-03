@@ -1,34 +1,131 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Homepage, LoginPage, ProductDetailPage } from "./pages";
+import { Route, Routes } from "react-router-dom";
+import { ErrorPage, SearchResults } from "./pages";
+import HeaderFooter from "./components/layout/HeaderFooter";
+import RegisterPage from "./pages/RegisterPage";
+import { NonUserAuth, UserAuth } from "./middleware/Auth";
+import DashboardStore from "./pages/DashboardStore";
+import StoreSetting from "./pages/StoreSetting";
+import DetailTransactions from "./pages/DetailTransactions";
+import ProductList from "./pages/ProductList";
+import AddProduct from "./pages/AddProduct";
+import UserProfileSetting from "./pages/UserProfileSetting";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HeaderFooter>
+            <Homepage />
+          </HeaderFooter>
+        }
+      />
+      <Route
+        path="/product-detail/:idData"
+        element={
+          <HeaderFooter>
+            <ProductDetailPage />
+          </HeaderFooter>
+        }
+      />
+
+      <Route
+        path="/checkout/:idData"
+        element={
+          <HeaderFooter>
+            <CheckoutPage />
+          </HeaderFooter>
+        }
+      />
+
+      <Route
+        path="/search-results/:query"
+        element={
+          <HeaderFooter>
+            <SearchResults />
+          </HeaderFooter>
+        }
+      />
+
+      <Route
+        path="/category/:cat"
+        element={
+          <HeaderFooter>
+            <SearchResults />
+          </HeaderFooter>
+        }
+      />
+
+      <Route
+        path="/login"
+        element={
+          <NonUserAuth>
+            <LoginPage />
+          </NonUserAuth>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <NonUserAuth>
+            <RegisterPage />
+          </NonUserAuth>
+        }
+      />
+      <Route
+        path="/store-dashboard"
+        element={
+          <UserAuth>
+            <DashboardStore />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/add-product"
+        element={
+          <UserAuth>
+            <AddProduct />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/list-products"
+        element={
+          <UserAuth>
+            <ProductList />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/store-transaction"
+        element={
+          <UserAuth>
+            <DetailTransactions />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/store-settings"
+        element={
+          <UserAuth>
+            <StoreSetting />
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <UserAuth>
+            <UserProfileSetting />
+          </UserAuth>
+        }
+      />
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
