@@ -1,6 +1,9 @@
-import { Homepage, LoginPage, ProductDetailPage } from "./pages";
+import Homepage from "./pages/Homepage";
+import LoginPage from "./pages/LoginPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import { Route, Routes } from "react-router-dom";
-import { ErrorPage, SearchResults } from "./pages";
+import ErrorPage from "./pages/ErrorPage";
+import SearchResults from "./pages/SearchResults";
 import HeaderFooter from "./components/layout/HeaderFooter";
 import RegisterPage from "./pages/RegisterPage";
 import { NonUserAuth, UserAuth } from "./middleware/Auth";

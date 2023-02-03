@@ -1,5 +1,7 @@
 import React, { lazy, Suspense } from "react";
-import { AboutUs, Banner, Category } from "../components";
+import AboutUs from "../components/homepage/AboutUs";
+import Banner from "../components/homepage/Banner";
+import Category from "../components/homepage/Category";
 import ProductLoading from "../components/loading/ProductLoading";
 const ProductRecommendations = lazy(() =>
   import("../components/homepage/ProductRecommendations")
