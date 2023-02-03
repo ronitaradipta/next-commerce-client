@@ -14,7 +14,7 @@ const UserAuth = ({ children }) => {
   if (Cookies.get("user")) {
     return children;
   } else if (!Cookies.get("user")) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 };
 

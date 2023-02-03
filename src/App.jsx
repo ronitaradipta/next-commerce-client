@@ -14,6 +14,7 @@ import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
 import UserProfileSetting from "./pages/UserProfileSetting";
 import CheckoutPage from "./pages/CheckoutPage";
+import TransactionSuccess from "./pages/TransactionSuccess";
 
 function App() {
   return (
@@ -38,9 +39,19 @@ function App() {
       <Route
         path="/checkout/:idData"
         element={
-          <HeaderFooter>
-            <CheckoutPage />
-          </HeaderFooter>
+          <UserAuth>
+            <HeaderFooter>
+              <CheckoutPage />
+            </HeaderFooter>
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/transaction-success"
+        element={
+          <UserAuth>
+            <TransactionSuccess />
+          </UserAuth>
         }
       />
 
