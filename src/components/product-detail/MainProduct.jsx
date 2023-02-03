@@ -29,7 +29,7 @@ function MainProduct() {
       <div className="container flex mx-auto py-20 px-40 space-x-6">
         <ImageProduct data={product} />
         <DescriptionProduct data={product} />
-        <PemesananProduct data={product} />
+        <PemesananProduct data={product} idData={idData} />
         <hr />
       </div>
     </main>

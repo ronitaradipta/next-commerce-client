@@ -25,8 +25,8 @@ const Category = () => {
     <section>
       <h2>Kategori Pilihan</h2>
       <div className={cardContainer}>
-        {datas.map((data) => {
-          return <CardCategory data={data} key={data} />;
+        {datas.map((data, idx) => {
+          return <CardCategory data={data} image={idx} key={data} />;
         })}
       </div>
     </section>

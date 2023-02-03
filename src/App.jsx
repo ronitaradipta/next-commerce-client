@@ -10,6 +10,7 @@ import DetailTransactions from "./pages/DetailTransactions";
 import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
 import UserProfileSetting from "./pages/UserProfileSetting";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -32,6 +33,15 @@ function App() {
       />
 
       <Route
+        path="/checkout/:idData"
+        element={
+          <HeaderFooter>
+            <CheckoutPage />
+          </HeaderFooter>
+        }
+      />
+
+      <Route
         path="/search-results/:query"
         element={
           <HeaderFooter>
@@ -39,6 +49,16 @@ function App() {
           </HeaderFooter>
         }
       />
+
+      <Route
+        path="/category/:cat"
+        element={
+          <HeaderFooter>
+            <SearchResults />
+          </HeaderFooter>
+        }
+      />
+
       <Route
         path="/login"
         element={

@@ -5,22 +5,29 @@ import TableListProducts from "../components/DashboardStore/element/TableListPro
 import { useEffect } from "react";
 import api from "../services/api";
 import { Link } from "react-router-dom";
+import Spinner from "../components/loading/Spinner";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [limit, setLimit] = useState(5);
   const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const number = 5;
 
   const fetchProduct = async () => {
     try {
-      if (!hasMore) return;
+      setIsLoading(true);
+      if (!hasMore) {
+        setIsLoading(false);
+        return;
+      }
       const response = await api.get(`/products/?limit=${limit}`);
       const newData = response.data.products;
       if (newData.length < limit) {
         setHasMore(false);
       }
       setProducts(newData);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -34,9 +41,6 @@ const ProductList = () => {
     const scrollTop = document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
     const clientHeight = document.documentElement.clientHeight;
-    console.log("top: ", scrollTop);
-    console.log("client: ", clientHeight);
-    console.log("scroll ", scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight - 3) {
       setLimit(limit + number);
     }
@@ -80,6 +84,11 @@ const ProductList = () => {
       <div className="bg-white w-full rounded-lg mt-6">
         <TableListProducts data={products} />
       </div>
+      {isLoading && (
+        <div className="flex justify-center mt-5">
+          <Spinner />
+        </div>
+      )}
     </LayoutDashboard>
   );
 };

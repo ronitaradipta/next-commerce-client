@@ -1,10 +1,9 @@
-import React from "react";
-import {
-  AboutUs,
-  Banner,
-  Category,
-  ProductRecommendations,
-} from "../components";
+import React, { lazy, Suspense } from "react";
+import { AboutUs, Banner, Category } from "../components";
+import ProductLoading from "../components/loading/ProductLoading";
+const ProductRecommendations = lazy(() =>
+  import("../components/homepage/ProductRecommendations")
+);
 
 const Homepage = () => {
   return (
@@ -13,7 +12,9 @@ const Homepage = () => {
         <Banner />
         <Category />
         <hr className="border-t-gray-300 mt-6 border-t-2" />
-        <ProductRecommendations />
+        <Suspense fallback={<ProductLoading />}>
+          <ProductRecommendations />
+        </Suspense>
         <hr className="border-t-gray-300 mt-6 border-t-2" />
         <AboutUs />
       </main>

@@ -9,22 +9,24 @@ function Description({ data }) {
 
       <div className="flex items-center space-x-4 my-3">
         <p className="font-normal text-sm">Terjual 10RB+</p>
-        <p className="font-normal text-xs">⭐ {data.rating}</p>
+        <p className="font-normal text-xs">⭐ {data && data.rating}</p>
       </div>
 
       <div className="my-1">
-        <h3 className="font-bold text-3xl">${data.price}</h3>
+        <h3 className="font-bold text-3xl">${data && data.price}</h3>
       </div>
 
       <div className="flex items-center space-x-2 my-1 mb-7">
         <div className="rounded-lg bg-red-300 px-1 py-0">
           <p className="text-semibold font-normal text-red-600">
-            {Math.ceil(data.discountPercentage)}%
+            {data && Math.ceil(data.discountPercentage)}%
           </p>
         </div>
         <div>
           <p className="font-normal text-sm line-through text-gray-500">
-            ${Math.ceil((100 / (100 - data.discountPercentage)) * data.price)}
+            $
+            {data &&
+              Math.ceil((100 / (100 - data.discountPercentage)) * data.price)}
           </p>
         </div>
       </div>

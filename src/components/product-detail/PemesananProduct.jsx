@@ -6,7 +6,7 @@ import api from "../../services/api";
 import Spinner from "../loading/Spinner";
 import ModalCardAtc from "./layouts/ModalCardAtc";
 
-function PemesananProduct({ data }) {
+function PemesananProduct({ data, idData }) {
   const [activity, SetActivity] = useState("");
   const [note, setNote] = useState("");
   const [isAddNote, setIsAddNote] = useState(false);
@@ -155,7 +155,7 @@ function PemesananProduct({ data }) {
           >
             {loading ? <Spinner /> : "Tambahkan ke Keranjang"}
           </button>
-          <Link to="checkout">
+          <Link to={`/checkout/${idData}`}>
             <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">
               Langsung Checkout
             </button>

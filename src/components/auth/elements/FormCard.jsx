@@ -11,6 +11,7 @@ const FormCard = ({
   loading,
   onSubmit,
   children,
+  errMessage,
 }) => {
   return (
     <div className="w-1/2 flex justify-center items-center bg-emerald-500">
@@ -32,6 +33,11 @@ const FormCard = ({
             <span className="text-emerald-500 font-semibold ml-1">{link}</span>
           </Link>
         </p>
+        {errMessage && errMessage === "Invalid credentials" && (
+          <p className="text-center text-red-500 p-2">
+            Email atau password salah
+          </p>
+        )}
       </div>
     </div>
   );

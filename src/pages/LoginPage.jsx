@@ -12,6 +12,7 @@ const LoginPage = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const LoginPage = () => {
       Cookies.set("user", JSON.stringify(response.data), { expires: 1 });
     } catch (error) {
       console.log(error);
+      setErrorMsg(error.response.data.message);
       setLoading(false);
     }
   };
@@ -54,6 +56,7 @@ const LoginPage = () => {
         onChange={handleChangeInput}
         loading={loading}
         onSubmit={loginUser}
+        errMessage={errorMsg}
       >
         <InputElement
           type="text"
