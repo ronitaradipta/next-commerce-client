@@ -15,6 +15,8 @@ import AddProduct from "./pages/AddProduct";
 import UserProfileSetting from "./pages/UserProfileSetting";
 import CheckoutPage from "./pages/CheckoutPage";
 import TransactionSuccess from "./pages/TransactionSuccess";
+import StorePage from "./pages/StorePage";
+import StoreRegisterPage from "./pages/StoreRegisterPage";
 
 function App() {
   return (
@@ -97,6 +99,7 @@ function App() {
           </UserAuth>
         }
       />
+      {/* just fix by fiqri oemry */}
       <Route
         path="/add-product"
         element={
@@ -135,6 +138,16 @@ function App() {
           <UserAuth>
             <UserProfileSetting />
           </UserAuth>
+        }
+      />
+      {/* newly added by : fiqri oemry */}
+      <Route path="/store-info" element={<StorePage />} />
+      <Route
+        path="/register-store"
+        element={
+          <NonUserAuth>
+            <StoreRegisterPage />
+          </NonUserAuth>
         }
       />
       <Route path="*" element={<ErrorPage />} />

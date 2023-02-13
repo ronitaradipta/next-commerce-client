@@ -27,17 +27,14 @@ const AddProduct = () => {
   return (
     <div className="bg-gray-100 min-h-[100vh]">
       <HeaderDashboard />
-      <div className="w-10/12 mx-auto pt-10 pb-20">
+      <div className="w-full px-5 md:px-0 md:w-10/12 mx-auto pt-10 pb-20">
         <TitlePage title="Tambah Produk" />
-        <div className="w-full bg-white rounded-lg flex p-6 gap-6 mt-6 shadow-md">
-          <div className="w-3/12">
+        <div className="w-full bg-white rounded-lg flex flex-wrap p-6  mt-6 shadow-md">
+          <div className="w-full lg:w-3/12 pr-5">
             <h3 className="font-semibold text-base mb-6">Upload Gambar</h3>
-            <p className="text-sm">
-              Format gambar .jpg .jpeg .png dan ukuran minimum 300 x 300px
-              (Untuk gambar optimal gunakan ukuran minimum 700 x 700 px).
-            </p>
+            <p className="text-sm">Format gambar .jpg .jpeg .png dan ukuran minimum 300 x 300px (Untuk gambar optimal gunakan ukuran minimum 700 x 700 px).</p>
           </div>
-          <div className="grid grid-cols-5 gap-4 w-full ">
+          <div className="w-full lg:w-[75%] flex flex-wrap">
             <InputMedia title="Foto Utama" name="fotoutama" id="fotoutama" />
             <InputMedia title="Foto 2" name="foto2" id="foto2" />
             <InputMedia title="Foto 3" name="foto3" id="foto3" />
@@ -46,33 +43,18 @@ const AddProduct = () => {
           </div>
         </div>
         <div className="w-full bg-white p-6 mt-6 rounded-lg shadow-md">
-          <InputAddProduct
-            label="Nama Produk"
-            placeholder="Contoh : Tas Selempang Pria"
-            type="text"
-          />
+          <InputAddProduct label="Nama Produk" placeholder="Contoh : Tas Selempang Pria" type="text" />
           <InputSelect label="Kategori" data={datas} />
-          <TextArea
-            label="Deskripsi Produk"
-            placeholder="Tulis deskripsi produk..."
-          />
+          <TextArea label="Deskripsi Produk" placeholder="Tulis deskripsi produk..." />
           <InputAddProduct label="Harga" placeholder="Rp..." type="number" />
           <SwitchToggle label="Status Produk" />
-          <InputAddProduct
-            label="Stok Produk"
-            placeholder="Masukkan jumlah stok"
-            type="number"
-          />
+          <InputAddProduct label="Stok Produk" placeholder="Masukkan jumlah stok" type="number" />
         </div>
-        <div className="w-full mt-6 flex justify-end gap-4">
+        <div className="w-full mt-6 flex justify-center md:justify-end gap-4">
           <Link to="/store-dashboard">
-            <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">
-              Batal
-            </button>
+            <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">Batal</button>
           </Link>
-          <button className="font-medium p-3 bg-emerald-500 text-white w-48 rounded-md">
-            Tambah Produk
-          </button>
+          <button className="font-medium p-3 bg-emerald-500 text-white w-48 rounded-md">Tambah Produk</button>
         </div>
       </div>
     </div>
