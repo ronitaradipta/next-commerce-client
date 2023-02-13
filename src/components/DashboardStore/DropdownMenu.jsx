@@ -21,7 +21,7 @@ const DropdownMenu = ({ icon }) => {
                   } h-5 w-5 transition-transform duration-300`}
                 />
               </Disclosure.Button>
-              <Disclosure.Panel className="pl-6 pb-2 text-sm">
+              <Disclosure.Panel className="pl-2 md:pl-6 pb-2 text-sm">
                 <Link to="/add-product">
                   <p className="hover:bg-gray-200 py-3 pl-2 rounded-md">
                     Tambah Produk

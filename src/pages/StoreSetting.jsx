@@ -7,10 +7,10 @@ const StoreSetting = () => {
   return (
     <LayoutDashboard>
       <TitlePage title="Toko Sederhana" />
-      <div className="bg-white p-6 w-full rounded-lg shadow-lg mt-6 flex gap-6">
+      <div className=" bg-white px-8 py-8 lg:px-20 w-full rounded-lg shadow-lg mt-6 flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start">
         <img src={store} alt="image" className="w-40 h-40" />
-        <div className="w-4/12">
-          <p className="text-sm mb-4">
+        <div className="md:w-4/12 px-12 md:px-1">
+          <p className="text-sm mb-4 ">
             Ukuran optimal 300 x 300 piksel dengan Besar file: Maksimum
             10.000.000 bytes (10 Megabytes). Ekstensi file yang diperbolehkan:
             JPG, JPEG, PNG
@@ -19,7 +19,7 @@ const StoreSetting = () => {
             Edit Foto Toko
           </button>
         </div>
-        <div className="w-4/12">
+        <div className=" md:w-4/12 px-12 md:px-1">
           <h3 className="text-base font-semibold mb-3">Nama Toko</h3>
           <p className="text-sm mb-3">Toko Sederhana</p>
           <h3 className="text-base font-semibold mb-3">Deskripsi Toko</h3>
