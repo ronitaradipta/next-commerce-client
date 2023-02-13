@@ -1,12 +1,18 @@
-import React from "react";
+import { Fragment, useState } from "react";
+import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
 import { MdClose } from "react-icons/md";
 import { MdShareLocation } from "react-icons/md";
-import { siCepat } from "../../../assets/store/sicepat_logo.jpg";
+import siCepat from "../../../assets/store/sicepat_logo.jpg";
 
 const StoreDetails = ({ setModalBox }) => {
+  const [open, setOpen] = useState(0);
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
+  };
   return (
-    <div className="bg-[rgba(0,0,0,0.2)] z-[99] fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center" onClick={setModalBox}>
-      <div className="mx-auto max-w-screen-lg flex items-center justify-center absolute z-[999]  ">
+    <div className="bg-[rgba(0,0,0,0.2)] z-[99] fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center">
+      <div className="mx-auto max-w-screen-lg flex items-center justify-center">
         <div className="w-[95%] md:w-[85%] max-h-[90vh]  bg-white rounded-xl flex flex-col text-[35px] ">
           <div className="header relative h-[20%] py-5 flex justify-center items-center border-b-2 ">
             <h2 className="text-[20px] font-bold">TOKO SERBA ADA SEMUA</h2>
@@ -37,7 +43,27 @@ const StoreDetails = ({ setModalBox }) => {
                 </div>
                 <div className="store_description w-full md:w-[70%] pl-10">
                   <div className="title text-[20px] font-semibold pb-5 border-b-2  py-5 ">Catatan Toko</div>
-                  <div className="title text-[20px] font-semibold pb-5 border-b-2  py-5 ">Catatan Toko</div>
+                  <Fragment>
+                    <Accordion open={open === 1}>
+                      <AccordionHeader className="text-[15px]" onClick={() => handleOpen(1)}>
+                        Tentang Toko Kami
+                      </AccordionHeader>
+                      <AccordionBody className="text-[12px]">Toko kami telah ada sejak 2019. Kami melayani dengan memberikan produk produk yang terjamin kualitasnya</AccordionBody>
+                    </Accordion>
+                    <Accordion open={open === 2}>
+                      <AccordionHeader className="text-[15px]" onClick={() => handleOpen(2)}>
+                        Info Tentang Pengiriman
+                      </AccordionHeader>
+                      <AccordionBody className="text-[12px]">
+                        <p>Batas pemesanan :</p>
+                        <p>- Reguler sampai jam 16.00 Instan 15.00 Sameday 14.00 </p>
+                        <p>- Untuk orderan yang masuk sebelum jam yang ditentukan, akan di proses di hari yang sama.</p>
+                        <p>- Untuk hari minggu kami hanya menerima pesanan. </p>
+                        <p>- Pesanan yang masuk di hari minggu, akan di proses di hari senin ya. </p>
+                        <p>- Thanks pengertiannya kakak :)</p>
+                      </AccordionBody>
+                    </Accordion>
+                  </Fragment>
                 </div>
               </div>
 
