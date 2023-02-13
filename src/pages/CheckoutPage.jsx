@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import api from "../services/api";
 import toko1 from "../assets/images/img/toko.jpg";
 const CheckoutPage = () => {
@@ -197,9 +197,11 @@ const CheckoutPage = () => {
           <p className="font-bold text-lg">Total Tagihan</p>
           <p className="font-bold">${totalPurchase}</p>
         </div>
-        <button className="bg-emerald-500 py-2 rounded-lg text-white">
-          Lanjutkan Pembayaran
-        </button>
+        <Link to="/transaction-success">
+          <button className="bg-emerald-500 py-2 w-full rounded-lg text-white">
+            Lanjutkan Pembayaran
+          </button>
+        </Link>
       </div>
     </main>
   );

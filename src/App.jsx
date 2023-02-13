@@ -1,6 +1,9 @@
-import { Homepage, LoginPage, ProductDetailPage } from "./pages";
+import Homepage from "./pages/Homepage";
+import LoginPage from "./pages/LoginPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import { Route, Routes } from "react-router-dom";
-import { ErrorPage, SearchResults } from "./pages";
+import ErrorPage from "./pages/ErrorPage";
+import SearchResults from "./pages/SearchResults";
 import HeaderFooter from "./components/layout/HeaderFooter";
 import RegisterPage from "./pages/RegisterPage";
 import { NonUserAuth, UserAuth } from "./middleware/Auth";
@@ -11,6 +14,7 @@ import ProductList from "./pages/ProductList";
 import AddProduct from "./pages/AddProduct";
 import UserProfileSetting from "./pages/UserProfileSetting";
 import CheckoutPage from "./pages/CheckoutPage";
+import TransactionSuccess from "./pages/TransactionSuccess";
 
 function App() {
   return (
@@ -35,9 +39,19 @@ function App() {
       <Route
         path="/checkout/:idData"
         element={
-          <HeaderFooter>
-            <CheckoutPage />
-          </HeaderFooter>
+          <UserAuth>
+            <HeaderFooter>
+              <CheckoutPage />
+            </HeaderFooter>
+          </UserAuth>
+        }
+      />
+      <Route
+        path="/transaction-success"
+        element={
+          <UserAuth>
+            <TransactionSuccess />
+          </UserAuth>
         }
       />
 

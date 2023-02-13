@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CardProduct } from "../components";
 import CheckBoxElement from "../components/SearchResults/CheckBoxElement";
 import InputPriceElement from "../components/SearchResults/InputPriceElement";
 import SelectElement from "../components/SearchResults/SelectElement";
+import CardProduct from "../components/homepage/element/CardProduct";
 import api from "../services/api";
 
 const SearchResults = () => {
