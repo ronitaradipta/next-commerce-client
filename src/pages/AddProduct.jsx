@@ -50,7 +50,7 @@ const AddProduct = () => {
           <SwitchToggle label="Status Produk" />
           <InputAddProduct label="Stok Produk" placeholder="Masukkan jumlah stok" type="number" />
         </div>
-        <div className="w-full mt-6 flex justify-end gap-4">
+        <div className="w-full mt-6 flex justify-center md:justify-end gap-4">
           <Link to="/store-dashboard">
             <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">Batal</button>
           </Link>

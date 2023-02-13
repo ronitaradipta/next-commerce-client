@@ -2,12 +2,12 @@ import React from "react";
 import { BsShare } from "react-icons/bs";
 import { BsShop } from "react-icons/bs";
 import { FaStar } from "react-icons/fa";
-import { storeStatus } from "../../assets/store/store-status-gold.png";
-import { storeLogo } from "../../assets/store/store-logo.png";
+import storeStatus from "../../assets/store/store-status-gold.png";
+import storeLogo from "../../assets/store/store-logo.png";
 
 const StoreInfo = ({ setModalBox }) => {
   return (
-    <div className="px-5 py-5 w-full flex flex-wrap justify-between items-center mt-5 border rounded-xl">
+    <div className="px-0 md:px-5 py-5 w-full flex flex-wrap justify-between items-center mt-5 border rounded-xl">
       <div className="leftside flex justify-center md:justify-start w-full md:w-1/2">
         <div className="store_display flex items-center mr-5">
           <div className="image_border border-2 rounded-full w-[80px] h-[80px] overflow-hidden ">
@@ -17,7 +17,7 @@ const StoreInfo = ({ setModalBox }) => {
         <div className="store_info">
           <div className="store_name flex items-center gap-2">
             <span className="store-status w-[20px] h-[20px] overflow-hidden">
-              <img className="object-cover " src={storeStatus} alt="storesLogoStatus" />
+              <img className="object-cover" src={storeStatus} alt="storesLogoStatus" />
             </span>
             <h2 className="text-[20px] font-bold">Toko Serba Ada semua</h2>
           </div>
@@ -52,19 +52,19 @@ const StoreInfo = ({ setModalBox }) => {
               <FaStar className="text-yellow-400" />
               <h2 className="text-[15px] font-bold">4.8</h2>
             </div>
-            <div className="title text-[15px] text-center">Rating & Ulasan</div>
+            <div className="title text-[13px] lg:text-[15px] text-center">Rating & Ulasan</div>
           </div>
           <div className="review flex flex-col items-center px-5 border-r-2">
             <div className="star flex items-center gap-2">
               <h2 className="text-[15px] font-bold">± 2 jam</h2>
             </div>
-            <div className="title text-[15px] text-center">Pesanan diproses</div>
+            <div className="title text-[13px] lg:text-[15px] text-center">Pesanan diproses</div>
           </div>
           <div className="review flex flex-col items-center px-5 ">
             <div className="star flex items-center gap-2">
               <h2 className="text-[15px] font-bold">Buka 24 Jam</h2>
             </div>
-            <div className="title text-[15px] text-center">Jam Operasi Toko</div>
+            <div className="title text-[13px] lg:text-[15px] text-center">Jam Operasi Toko</div>
           </div>
         </div>
       </div>
