@@ -20,18 +20,18 @@ const SideBarDashboard = () => {
     !menuToggle ? "w-7 h-7" : "w-6 h-6"
   } transition-all duration-300`;
 
-  const menuStyle = `w-full text px-3 text-base font-medium flex items-center gap-2 ${
+  const menuStyle = `w-full px-3 text-sm md:text-base font-medium flex items-center gap-2 ${
     !menuToggle && "justify-center"
   }`;
 
   return (
     <div
       className={`${
-        menuToggle ? "w-2/12" : "w-20"
-      } min-h-[100vh] bg-white border-r border-gray-300 py-4 sticky top-0 left-0 transition-all duration-300`}
+        menuToggle ? "md:w-4/12 lg:w-2/12" : "w-20"
+      } min-h-[150vh] bg-white border-r border-gray-300 py-4 sticky top-0 left-0 transition-all duration-300`}
     >
       <button
-        className="flex items-center justify-center text-gray-500 gap-2 font-medium cursor-pointer w-full"
+        className="flex items-center justify-center text-gray-500 font-medium cursor-pointer w-full text-sm"
         onClick={() => setMenuToggle((prev) => !prev)}
       >
         <MdChevronLeft
@@ -41,16 +41,16 @@ const SideBarDashboard = () => {
         />
         {menuToggle && "Sembunyikan Menu"}
       </button>
-      <div className="py-3 border-t border-b border-gray-300 mt-8 flex gap-3 items-center justify-center px-4">
+      <div className="py-3 border-t border-b border-gray-300 mt-4 md:mt-6 lg:mt:8 flex gap-3 items-center justify-center px-4">
         <img src={store} alt="store" className="w-9" />
         {menuToggle && (
           <div>
-            <h3 className="text-base font-semibold">Toko Sederhana</h3>
+            <h3 className="text-sm md:text-base font-semibold">Toko Sederhana</h3>
             <p className="text-gray-500 text-sm">Surabaya</p>
           </div>
         )}
       </div>
-      <div className="mt-16">
+      <div className="mt-4 md:mt-10 lg:mt-16">
         <ul>
           <ListMenu
             icon={<MdDashboard className={iconStyle} />}
