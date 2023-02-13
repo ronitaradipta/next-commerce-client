@@ -6,7 +6,7 @@ const SwitchToggle = ({ label }) => {
 
   return (
     <label className="mb-6 w-full flex">
-      <span className="font-semibold text-base w-2/12">{label}</span>
+      <span className="font-semibold text-base w-full md:w-[20%]">{label}</span>
       <Switch
         checked={enabled}
         onChange={setEnabled}
