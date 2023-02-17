@@ -67,7 +67,7 @@ const Header = () => {
                 >
                   <MdShoppingCart />
                 </IconContext.Provider>
-                {cartDatas.length ? (
+                {user && cartDatas.length ? (
                   <div className="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 animate-bounce text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">
                     {cartDatas.length}
                   </div>
@@ -76,7 +76,7 @@ const Header = () => {
                 )}
               </a>
             </ClickOutsideHide>
-            {showCartContainer && <CartList data={cartDatas} />}
+            {showCartContainer && <CartList data={cartDatas} user={user} />}
 
             {user && (
               <ClickOutsideHide reff={userButton} state={setShowMenu}>

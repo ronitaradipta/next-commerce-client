@@ -10,7 +10,7 @@ const CardProduct = ({ data }) => {
       <div className={cardStyle}>
         <img src={data.thumbnail} alt={data.title} className={cardImage} />
         <div className="p-3 flex flex-col gap-2">
-          <h3 className="text-xs line-clamp-2">{data.title}</h3>
+          <h3 className="text-xs">{data.title}</h3>
           <p className="font-bold">{data.price}</p>
           <p className="text-xs text-gray-400">Jakarta Barat</p>
           <div className="flex justify-between items-center">
