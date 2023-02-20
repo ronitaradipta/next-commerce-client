@@ -77,7 +77,7 @@ function PemesananProduct({ data, idData }) {
 
   return (
     <>
-      <div className="border px-4 py-2 w-4/12">
+      <div className="border p-2 w-full md:w-[33%]">
         <div className="mb-5">
           <h3 className="font-semibold text-lg">Atur jumlah dan catatan</h3>
         </div>
@@ -92,12 +92,7 @@ function PemesananProduct({ data, idData }) {
               >
                 <button>-</button>
               </div>
-              <input
-                value={inputQty}
-                className="total--barang w-8 text-center appearance-none"
-                onChange={handleOnChange}
-                type="text"
-              />
+              <input value={inputQty} className="total--barang w-8 text-center appearance-none" onChange={handleOnChange} type="text" />
               <div
                 className="btn--plus px-4 py-3 text-emerald-500 hover:cursor-pointer"
                 onClick={() => {
@@ -109,8 +104,7 @@ function PemesananProduct({ data, idData }) {
             </div>
             <div className="">
               <p className="font-normal text-sm">
-                Stok sisa{" "}
-                <span className="stok--sisa">{data.stock - inputQty}</span>
+                Stok sisa <span className="stok--sisa">{data.stock - inputQty}</span>
               </p>
             </div>
           </div>
@@ -120,18 +114,19 @@ function PemesananProduct({ data, idData }) {
               <button onClick={addNoteHandler}>✏️ Tambahkan catatan</button>
             </p>
             {isAddNote && (
-              <form onSubmit={addHandler} className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Tambahkan Catatan"
-                  onChange={(e) => {
-                    SetActivity(e.target.value);
-                  }}
-                />
-                <div className="text-right">
-                  <button className="bg-emerald-500 py-2 px-4 text-white rounded-md ">
-                    Tambah
-                  </button>
+              <form onSubmit={addHandler} className="flex flex-wrap ">
+                <div className="w-full md:w-[75%] pr-2 mb-5">
+                  <input
+                    className="border px-2 py-2 w-full "
+                    type="text"
+                    placeholder="Tambahkan Catatan"
+                    onChange={(e) => {
+                      SetActivity(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="text-right md:w-[25%]">
+                  <button className="bg-emerald-500 py-2 px-4 text-white rounded-md ">Tambah</button>
                 </div>
               </form>
             )}
@@ -143,22 +138,15 @@ function PemesananProduct({ data, idData }) {
               <p className="font-normal text-sm mx-3">Subtotal</p>
             </div>
             <div>
-              <h3 className="font-bold text-lg mx-3">
-                $ {data.price * inputQty}
-              </h3>
+              <h3 className="font-bold text-lg mx-3">$ {data.price * inputQty}</h3>
             </div>
           </div>
 
-          <button
-            className="border rounded-lg w-full p-3 mt-4 bg-emerald-500 text-white font-medium text-sm flex justify-center"
-            onClick={handleCheckout}
-          >
+          <button className="border rounded-lg w-full p-3 mt-4 bg-emerald-500 text-white font-medium text-sm flex justify-center" onClick={handleCheckout}>
             {loading ? <Spinner /> : "Tambahkan ke Keranjang"}
           </button>
           <Link to={`/checkout/${idData}`}>
-            <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">
-              Langsung Checkout
-            </button>
+            <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">Langsung Checkout</button>
           </Link>
         </section>
         <ModalCardAtc isOpen={isOpen} setIsOpen={setIsOpen} />

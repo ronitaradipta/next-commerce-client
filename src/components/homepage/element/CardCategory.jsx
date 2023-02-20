@@ -19,34 +19,12 @@ import womenBag from "../../../assets/images/categories/women-bag.png";
 import otomotive from "../../../assets/images/categories/otomotive.png";
 
 const CardCategory = ({ data, image }) => {
-  const images = [
-    handphone,
-    komputer,
-    fragrance,
-    skincare,
-    groceries,
-    homedecoration,
-    furniture,
-    pakaianPria,
-    womenDress,
-    womenShoes,
-    pakaianPria,
-    sepatu,
-    jamTangan,
-    jamTangan,
-    womenBag,
-    elektronik,
-    aksesoris,
-    otomotive,
-    otomotive,
-    hobi,
-  ];
+  const images = [handphone, komputer, fragrance, skincare, groceries, homedecoration, furniture, pakaianPria, womenDress, womenShoes, pakaianPria, sepatu, jamTangan, jamTangan, womenBag, elektronik, aksesoris, otomotive, otomotive, hobi];
 
-  const cardStyle =
-    "bg-gray-100 w-full rounded-lg flex flex-col items-center justify-center h-36 text-center cursor-pointer";
+  const cardStyle = "bg-gray-100 w-full rounded-lg flex flex-col items-center justify-center h-36 text-center cursor-pointer";
 
   return (
-    <Link to={`category/${data}`}>
+    <Link className="p-1 w-1/3 sm:w-[20%] md:w-[16.5%] lg:w-[12.5%] xl:w-[10%]" to={`category/${data}`}>
       <div className={cardStyle}>
         <img src={images[image]} alt="category" className="w-20" />
         <p className="text-sm">{data}</p>

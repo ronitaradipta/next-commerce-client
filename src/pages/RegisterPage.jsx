@@ -24,48 +24,14 @@ const RegisterPage = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-wrap">
       <LeftContainer />
-      <FormCard
-        title="Daftar"
-        button="DAFTAR"
-        link="Login"
-        question="Sudah Punya Akun?"
-        route="/login"
-        onChange={handleChangeInput}
-        loading={loading}
-        onSubmit={registerUser}
-      >
-        <InputElement
-          type="text"
-          placeholder="username"
-          name="username"
-          onChange={handleChangeInput}
-        />
-        <InputElement
-          type="email"
-          placeholder="email"
-          name="email"
-          onChange={handleChangeInput}
-        />
-        <InputElement
-          type="phone"
-          placeholder="No Hp"
-          name="phone"
-          onChange={handleChangeInput}
-        />
-        <InputElement
-          type="password"
-          placeholder="password"
-          name="password"
-          onChange={handleChangeInput}
-        />
-        <InputElement
-          type="Password"
-          placeholder="Konfirmasi Password"
-          name="password"
-          onChange={handleChangeInput}
-        />
+      <FormCard title="Daftar" button="DAFTAR" link="Login" question="Sudah Punya Akun?" route="/login" onChange={handleChangeInput} loading={loading} onSubmit={registerUser}>
+        <InputElement type="text" placeholder="username" name="username" onChange={handleChangeInput} />
+        <InputElement type="email" placeholder="email" name="email" onChange={handleChangeInput} />
+        <InputElement type="phone" placeholder="No Hp" name="phone" onChange={handleChangeInput} />
+        <InputElement type="password" placeholder="password" name="password" onChange={handleChangeInput} />
+        <InputElement type="Password" placeholder="Konfirmasi Password" name="password" onChange={handleChangeInput} />
       </FormCard>
     </div>
   );

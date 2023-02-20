@@ -6,7 +6,7 @@ const CardProductStore = ({ data }) => {
   const cardImage = "w-full h-[200px] rounded-t-lg";
 
   return (
-    <div className="div w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5  p-2 mb-4">
+    <div className="div w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5  p-2 mb-4">
       <Link to={`/product-detail/${data.id}`}>
         <div className={cardStyle}>
           <img src={data.thumbnail} alt={data.title} className={cardImage} />
