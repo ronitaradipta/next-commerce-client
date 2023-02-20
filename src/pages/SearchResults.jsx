@@ -44,8 +44,8 @@ const SearchResults = () => {
 
   return (
     <div className="bg-gray-100">
-      <div className="container py-6 px-5 mx-auto flex gap-8">
-        <div className="w-2/12">
+      <div className="flex flex-wrap px-5 py-5 mx-auto ">
+        <div className="w-full md:w-[20%] mb-5">
           <h2>Filter</h2>
           <div className="bg-white shadow-md rounded-lg p-4 mt-4">
             <div>
@@ -58,11 +58,9 @@ const SearchResults = () => {
               <CheckBoxElement label="Jakarta" />
               <CheckBoxElement label="Denpasar" />
               <CheckBoxElement label="Surabaya" />
-              <button className="text-emerald-500 text-sm font-medium">
-                Lihat Selengkapnya
-              </button>
+              <button className="text-emerald-500 text-sm font-medium">Lihat Selengkapnya</button>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-col">
               <h3 className="font-semibold">Harga</h3>
               <InputPriceElement placeholder="Harga Max" />
               <InputPriceElement placeholder="Harga Min" />
@@ -73,9 +71,9 @@ const SearchResults = () => {
             </div>
           </div>
         </div>
-        <div className="w-10/12">
+        <div className="w-full md:w-[80%] pl-0 md:pl-5">
           <h2>Pencarian : {query}</h2>
-          <div className="grid grid-cols-5 mt-4 gap-5">
+          <div className="flex flex-wrap ">
             {searchProducts.length > 0 &&
               searchProducts.map((data) => {
                 return <CardProduct data={data} key={data.id} />;

@@ -9,7 +9,7 @@ const ProductRecommendations = () => {
   const [loading, setLoading] = useState(false);
 
   // styles
-  const cardContainerStyle = "grid grid-cols-2 md:grid-cols-6 gap-6 mt-6";
+  const cardContainerStyle = "flex flex-wrap justify-start";
 
   const fetchData = async () => {
     try {
@@ -42,10 +42,7 @@ const ProductRecommendations = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <button
-          className="border-2 border-emerald-500 font-medium text-emerald-500 rounded-lg w-80 py-3 flex items-center justify-center"
-          onClick={loadMoreData}
-        >
+        <button className="border-2 border-emerald-500 font-medium text-emerald-500 rounded-lg w-80 py-3 flex items-center justify-center" onClick={loadMoreData}>
           {loading ? <Spinner /> : "Tampilkan Lebih Banyak"}
         </button>
       </div>

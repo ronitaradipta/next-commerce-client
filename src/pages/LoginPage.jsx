@@ -45,31 +45,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-wrap">
       <LeftContainer />
-      <FormCard
-        title="Login"
-        button="LOG IN"
-        link="Daftar"
-        question="Pengguna Baru?"
-        route="/register"
-        onChange={handleChangeInput}
-        loading={loading}
-        onSubmit={loginUser}
-        errMessage={errorMsg}
-      >
-        <InputElement
-          type="text"
-          placeholder="Username/email"
-          name="username"
-          onChange={handleChangeInput}
-        />
-        <InputElement
-          type="password"
-          placeholder="password"
-          name="password"
-          onChange={handleChangeInput}
-        />
+      <FormCard title="Login" button="LOG IN" link="Daftar" question="Pengguna Baru?" route="/register" onChange={handleChangeInput} loading={loading} onSubmit={loginUser} errMessage={errorMsg}>
+        <InputElement type="text" placeholder="Username/email" name="username" onChange={handleChangeInput} />
+        <InputElement type="password" placeholder="password" name="password" onChange={handleChangeInput} />
         <p className="text-sm text-gray-500">Lupa password</p>
       </FormCard>
     </div>
