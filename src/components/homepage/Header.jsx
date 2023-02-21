@@ -115,19 +115,21 @@ const Header = () => {
                 <Link to="/login">Daftar/Login</Link>
               </button>
             )}
-            <div className="md:hidden">
-              <button
-                onClick={toggleMenu}
-                className="outline-none focus:outline-none"
-                type="button"
-              >
-                {isMenuOpen ? (
-                  <FaTimes className="text-gray-500 text-2xl" />
-                ) : (
-                  <FaBars className="text-gray-500 text-2xl" />
-                )}
-              </button>
-            </div>
+            {!user && (
+              <div className="md:hidden">
+                <button
+                  onClick={toggleMenu}
+                  className="outline-none focus:outline-none"
+                  type="button"
+                >
+                  {isMenuOpen ? (
+                    <FaTimes className="text-gray-500 text-2xl" />
+                  ) : (
+                    <FaBars className="text-gray-500 text-2xl" />
+                  )}
+                </button>
+              </div>
+            )}
             <div
               className={`${
                 isMenuOpen ? "" : "hidden"
