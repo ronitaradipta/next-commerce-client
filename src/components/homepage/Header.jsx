@@ -43,7 +43,12 @@ const Header = () => {
   return (
     <header className="shadow-sm sticky top-0 bg-white z-10">
       <div className="container py-6 px-5 mx-auto">
-        <nav className="flex justify-between items-center gap-2">
+          <div className=" flex justify-center items-center md:hidden py-2">
+            <Link to="/">
+              <img src={logo} className='w-[250px]' alt="nextcommerce" />
+            </Link>
+          </div>
+        <nav className="flex justify-between items-center gap-4">
           <div className="w-2/12 hidden md:block">
             <Link to="/">
               <img src={logo} alt="nextcommerce" />
@@ -87,7 +92,7 @@ const Header = () => {
                   <img
                     src={user.image}
                     alt="profile"
-                    className="w-11 rounded-full border border-gray-400"
+                    className="w-11 rounded-full border border-gray-400 ml-3"
                   />
                   <div className="flex gap-2 items-center">
                     <p className="text-sm">Hi, {user.firstName}</p>
@@ -105,7 +110,7 @@ const Header = () => {
             )}
 
             {!user && (
-              <button className="bg-emerald-500 text-white px-5 py-3 rounded-lg hover:bg-emerald-600 text-sm hidden md:block">
+              <button className="bg-emerald-500 text-white px-2 md:px-5 py-3 rounded-lg hover:bg-emerald-600   md:text-sm text-[10px] md:block ml-4">
                 <Link to="/login">Daftar/Login</Link>
               </button>
             )}
