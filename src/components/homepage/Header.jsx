@@ -9,6 +9,7 @@ import api from "../../services/api";
 import Cookies from "js-cookie";
 import UserMenuCard from "../auth/elements/UserMenuCard";
 import ClickOutsideHide from "../../utils/ClickOutsideHide";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = () => {
   const [cartDatas, setcartDatas] = useState([]);
@@ -16,6 +17,11 @@ const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [user, setUser] = useState("");
   const dataUser = Cookies.get("user");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const fetchCartData = async () => {
     try {
@@ -109,6 +115,53 @@ const Header = () => {
                 <Link to="/login">Daftar/Login</Link>
               </button>
             )}
+            <div className="md:hidden">
+              <button
+                onClick={toggleMenu}
+                className="outline-none focus:outline-none"
+                type="button"
+              >
+                {isMenuOpen ? (
+                  <FaTimes className="text-gray-500 text-2xl" />
+                ) : (
+                  <FaBars className="text-gray-500 text-2xl" />
+                )}
+              </button>
+            </div>
+            <div
+              className={`${
+                isMenuOpen ? "" : "hidden"
+              } md:hidden fixed w-full h-full top-16 left-0 flex justify-center items-center`}
+            >
+              <div className="w-full bg-white md:w-1/2 min-h-[24rem] rounded-lg p-7 flex flex-col gap-3">
+                {!user && (
+                  <button className="bg-emerald-500 text-white px-5 py-3 rounded-lg hover:bg-emerald-600 text-sm">
+                    <Link to="/login">Daftar/login</Link>
+                  </button>
+                )}
+                <Link
+                  to="/"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/about"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
           </div>
         </nav>
       </div>
