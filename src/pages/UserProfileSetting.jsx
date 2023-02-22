@@ -18,8 +18,10 @@ const UserProfileSetting = () => {
     <div className="bg-gray-100 min-h-[100vh]">
       <Header />
       <div className="px-6">
-        <div className="mt-16  bg-white rounded-lg shadow-lg w-full flex flex-col md:flex-row gap-24 p-10 md:p-20">
-          <div className="w-full sm:w-2/5 flex flex-col items-center">
+
+        <div className="mt-16 bg-white rounded-lg shadow-lg w-full flex md:gap-7 lg:gap-24 p-10 lg:p-20 flex-col md:flex-row">
+          <div className="md:w-2/5 lg:w-2/12 flex flex-col items-center py-5">
+
             <img
               src={user.image}
               alt="profile"
@@ -60,8 +62,9 @@ const UserProfileSetting = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-5/12 mt-12 md:mt-0">
-            <h2>Alamat</h2>
+          <div className=" md:w-2/5 ">
+            <h2 className="mt-10 md:mt-0">Alamat</h2>
+
             <div className="border border-gray-300 rounded-lg w-full mt-4 p-4">
               <h3 className="font-semibold mb-3 text-lg sm:text-xl">
                 {user.firstName + " " + user.lastName}
