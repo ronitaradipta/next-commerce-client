@@ -6,7 +6,7 @@ import Ulasan from "./layouts/Ulasan";
 
 function DescriptionProduct({ data }) {
   return (
-    <section className="w-4/12">
+    <section className="p-2 w-full sm:w-1/2 md:w-[33%]  ">
       <Description data={data} />
       <Toko />
       <Ulasan />
