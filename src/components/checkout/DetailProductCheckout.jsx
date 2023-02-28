@@ -1,5 +1,4 @@
 import React from "react";
-import toko1 from "../../assets/images/img/toko.jpg";
 import InputQtyElement from "./element/InputQtyElement";
 
 const DetailProductCheckout = ({
@@ -11,7 +10,7 @@ const DetailProductCheckout = ({
   return (
     <div className="flex py-6 gap-9">
       <img
-        src={data && data.images[0].image}
+        src={data && data.images[0]?.image}
         alt=""
         className="md:w-2/12 w-4/12"
       />
@@ -31,13 +30,15 @@ const DetailProductCheckout = ({
         <div className="md:flex gap-4 mt-5">
           <div className="flex mb-3 md:mb-0">
             <img
-              src={data.storeImage}
+              src={data && data.storeImage}
               alt=""
               className="w-[50px] rounded-full"
             />
             <div>
-              <h4 className="font-medium text-gray-700">{data.storeName}</h4>
-              <p className="text-gray-500">{data.storeCity}</p>
+              <h4 className="font-medium text-gray-700">
+                {data && data.storeName}
+              </h4>
+              <p className="text-gray-500">{data && data.storeCity}</p>
             </div>
           </div>
 

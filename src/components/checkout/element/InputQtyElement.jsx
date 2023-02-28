@@ -1,20 +1,6 @@
 import React from "react";
 
-const InputQtyElement = ({ inputQty, setInputQty, data }) => {
-  const handleOnChange = (e) => {
-    const value = e.target.value;
-    if (!isNaN(value)) {
-      if (value > 0) {
-        if (e.target.value > data.stock) {
-          setInputQty(data.stock);
-        } else {
-          setInputQty(e.target.value);
-        }
-      } else {
-        setInputQty(0);
-      }
-    } else setInputQty(0);
-  };
+const InputQtyElement = ({ inputQty, setInputQty, data, handleOnChange }) => {
   return (
     <div className="flex space-x-9 border items-center flex-grow-0 font-normal text-lg">
       <div

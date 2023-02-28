@@ -7,7 +7,11 @@ import CheckoutSummary from "../components/checkout/element/CheckoutSummary";
 import { CourierSelect } from "../components/checkout/CourierSelect";
 const CheckoutPage = () => {
   const [product, setProduct] = useState("");
-  const [inputQty, setInputQty] = useState(0);
+  const [inputQty, setInputQty] = useState(1);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [dataCourier, setDataCourier] = useState(null);
+  const [selectedCourier, setSelectedCourier] = useState(0);
+  const [loading, setLoading] = useState(false);
   const { idData } = useParams();
 
   const fetchDetailProduct = async () => {
@@ -34,9 +38,71 @@ const CheckoutPage = () => {
     } else setInputQty(0);
   };
 
+  const handleOptionChange = (e) => {
+    const selectedOption = e.target.value;
+
+    setSelectedOption(selectedOption);
+  };
+
+  const fetchDataCourier = async () => {
+    try {
+      if (selectedOption) {
+        setLoading(true);
+        const response = await callApi.post(
+          `/services/courier/${selectedOption}`,
+          {
+            origin: "501",
+            destination: "114",
+            weight: 1700,
+          }
+        );
+        setDataCourier(response.data.data[0]);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      if (inputQty > 0) {
+        setLoading(true);
+        const response = await callApi.post(
+          `/orders/checkout/${product.storeId}`,
+          {
+            shippingCost: selectedCourier,
+            address: "jl jl yuk cuy",
+            regency: "Kuta selatan",
+            city: "Badung",
+            province: "Bali",
+            zipcode: "80361",
+            name: "Asep surasep",
+            email: "jojojo@gmail.com",
+            phone: "0812345678",
+          }
+        );
+        console.log(response);
+        setLoading(false);
+      } else {
+        alert("Qty Produk harus lebih besar dari 0");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchDetailProduct();
+    setSelectedOption("jne");
   }, []);
+
+  useEffect(() => {
+    fetchDataCourier();
+  }, [selectedOption]);
+
   return (
     <main className="container mx-auto px-6 lg:flex gap-10 mt-10 pb-36">
       <div className="lg:w-9/12 w-full">
@@ -50,9 +116,22 @@ const CheckoutPage = () => {
         />
         <hr className="border-t border-t-gray-300" />
         <DetailAddress />
-        <CourierSelect />
+        <CourierSelect
+          selectedOption={selectedOption}
+          dataCourier={dataCourier}
+          handleOptionChange={handleOptionChange}
+          selectedCourier={selectedCourier}
+          setSelectedCourier={setSelectedCourier}
+          loading={loading}
+        />
       </div>
-      <CheckoutSummary data={product} inputQty={inputQty} />
+      <CheckoutSummary
+        data={product}
+        inputQty={inputQty}
+        selectedCourier={selectedCourier}
+        handleCheckout={handleCheckout}
+        loading={loading}
+      />
     </main>
   );
 };
