@@ -17,6 +17,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import TransactionSuccess from "./pages/TransactionSuccess";
 import StorePage from "./pages/StorePage";
 import StoreRegisterPage from "./pages/StoreRegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 
 function App() {
   return (
@@ -150,6 +151,7 @@ function App() {
           </NonUserAuth>
         }
       />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

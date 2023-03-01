@@ -9,11 +9,28 @@ module.exports = {
     extend: {
       animation: {
         fadeIn: "fadeIn 1s ease-in-out",
+        popUp: "popUp 2.5s ease-in-out",
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
+          "0%": { opacity: 0, transform: "translateY(0px)" },
+          "100%": { opacity: 1, transform: "translateY(150px)" },
+        },
+        popUp: {
+          "0%": {
+            opacity: 0,
+            transform: "translateY(0px)",
+          },
+          "40%": {
+            opacity: 1,
+            transform: "translateY(150px)",
+          },
+          "75%": {
+            opacity: 1,
+          },
+          "100%": {
+            opacity: 0,
+          },
         },
       },
     },
