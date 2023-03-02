@@ -1,7 +1,7 @@
 import api from "../services/api";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import LeftContainer from "../components/auth/LeftContainer";
 import FormCard from "../components/auth/elements/FormCard";
 import InputElement from "../components/auth/elements/InputElement";
@@ -52,7 +52,7 @@ const LoginPage = () => {
           <InputElement type="text" placeholder="Username/email" name="username" onChange={handleChangeInput} />
           <InputElement type="password" placeholder="password" name="password" onChange={handleChangeInput} />
           <Link to="/forgot-password" className="text-sm text-gray-500">
-            Lupa password
+            Lupa password ?
           </Link>
         </FormCard>
       </div>
