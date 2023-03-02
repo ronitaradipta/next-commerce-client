@@ -20,7 +20,7 @@ const CardProduct = ({ data }) => {
     <Link className="w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 p-2 mb-4" to={`/product-detail/${data.id}`}>
         <div className={cardStyle}>
           {loadingImg ? (
-            <img src={data.thumbnail} alt={data.title} className={cardImage} />
+            <img src={data.image} alt={data.name} className={cardImage} />
           ): <Skeleton
           variant="rounded"
           animation='wave'
