@@ -17,6 +17,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import TransactionSuccess from "./pages/TransactionSuccess";
 import StorePage from "./pages/StorePage";
 import StoreRegisterPage from "./pages/StoreRegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -150,6 +152,8 @@ function App() {
           </NonUserAuth>
         }
       />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
