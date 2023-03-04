@@ -16,21 +16,21 @@ const ForgotPasswordPage = () => {
   const [ErrorMessage, setErrorMessage] = useState("");
   const [Notification, setNotification] = useState(false);
   const navigate = useNavigate();
-  const resetPassword = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const result = await callApi.post("/auth/forgot", {
+      const response = await callApi.post("/auth/forgot", {
         email: input.email,
       });
-      setSuccessMessage(result.data.msg);
+      setSuccessMessage(response.data.message);
       setLoading(false);
       setNotification(true);
       setTimeout(() => {
         navigate("/");
       }, 2500);
     } catch (error) {
-      console.log(error.response.data.msg);
+      setErrorMessage(error.response.data.message);
       setLoading(false);
     }
   };
@@ -59,7 +59,7 @@ const ForgotPasswordPage = () => {
         link2="login"
         onChange={handleChangeInput}
         loading={loading}
-        onSubmit={resetPassword}
+        onSubmit={handleSubmit}
         errMessage={ErrorMessage}
       >
         <InputElementForgot type="text" placeholder="Masukkan email kamu" name="email" onChange={handleChangeInput} />
