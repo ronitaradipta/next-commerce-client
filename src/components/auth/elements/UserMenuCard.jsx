@@ -24,7 +24,7 @@ const UserMenuCard = () => {
 
   const handleLogOut = () => {
     Cookies.remove("user");
-    Cookies.remove("token");
+    Cookies.remove("AccessToken");
     navigate("/login");
   };
 
@@ -36,8 +36,7 @@ const UserMenuCard = () => {
             <div className="flex gap-3 items-center group py-3">
               <IconContext.Provider
                 value={{
-                  className:
-                    "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
+                  className: "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
                 }}
               >
                 {item.icon}
@@ -48,10 +47,7 @@ const UserMenuCard = () => {
         );
       })}
       <hr className="border border-t-gray-200 mt-2" />
-      <button
-        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
-        onClick={handleLogOut}
-      >
+      <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4" onClick={handleLogOut}>
         Log Out
       </button>
     </div>
