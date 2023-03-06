@@ -1,5 +1,5 @@
 import callApi from "../services/callApi";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { useNavigate, Link } from "react-router-dom";
 import LeftContainer from "../components/auth/LeftContainer";
@@ -25,13 +25,12 @@ const LoginPage = () => {
         email: input.email,
         password: input.password,
       });
-      window.localStorage.setItem("email", input.email);
-      window.localStorage.setItem("password", input.password);
+      const data = { email: input.email, password: input.password };
       setLoading(false);
       setSuccessMessage(response.data.message);
       setNotification(true);
       setTimeout(() => {
-        navigate("/otp-verification");
+        navigate("/otp-verification", { state: { data } });
       }, 2500);
     } catch (error) {
       setErrorMessage(error.response.data.message);

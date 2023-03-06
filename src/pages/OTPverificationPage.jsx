@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FormCardOTP from "../components/OTPVerification/FormCardOTP";
 import InputElementOTP from "../components/OTPVerification/InputElementOTP";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import callApi from "../services/callApi";
 import Cookies from "js-cookie";
 
 const OTPverificationPage = () => {
-  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
-  const email = window.localStorage.getItem("email");
-
   const [loading, setLoading] = useState(false);
-  const [SuccessMessage, setSuccessMessage] = useState("");
+  const [countdown, setCountdown] = useState(30);
   const [ErrorMessage, setErrorMessage] = useState("");
-  const [Notification, setNotification] = useState(false);
-  const [countdown, setCountdown] = useState(30); // Set
+  const [Notification, setNotification] = useState(null);
+  const [SuccessMessage, setSuccessMessage] = useState("");
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { data } = state;
 
   //   catch the input field value and turn into array
   const handleChangeInput = (e, index) => {
@@ -23,6 +23,7 @@ const OTPverificationPage = () => {
     otpArray[index] = value;
     setOTP(otpArray);
   };
+
   const handleKeyDown = (e, index) => {
     // clear Error Message once field is filled
     setErrorMessage("");
@@ -73,9 +74,24 @@ const OTPverificationPage = () => {
     [otp, countdown]
   );
 
+  // Disable the resend button and set the countdown to 60 seconds then resend OTP
   const handleResendClick = async () => {
-    // Disable the button and set the countdown to 60 seconds
     setCountdown(30);
+    resendOTP();
+  };
+
+  const resendOTP = async () => {
+    try {
+      const response = await callApi.post("/auth/login", {
+        email: data.email,
+        password: data.password,
+      });
+      setLoading(false);
+      setSuccessMessage(response.data.message);
+      setNotification(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -86,17 +102,16 @@ const OTPverificationPage = () => {
     // join array into string
     const fullOTP = otp.join("");
     setLoading(true);
-
+    setNotification(false);
     try {
       const response = await callApi.post(`/auth/verify-otp`, {
-        email: email,
+        email: data.email,
         code: fullOTP,
       });
       setLoading(false);
-
-      Cookies.set("AccessToken", response.data.data.AccessToken, { expires: 1 });
-      Cookies.set("user", JSON.stringify(response.data.data), { expires: 1 });
       setSuccessMessage(response.data.message);
+      // Cookies.set("token", response.data.data.AccessToken, { expires: 1 });
+      Cookies.set("user", JSON.stringify(response.data.data), { expires: 1 });
       setNotification(true);
       setTimeout(() => {
         navigate("/");
@@ -117,7 +132,6 @@ const OTPverificationPage = () => {
         <p>{SuccessMessage}</p>
       </div>
       <div className="form_container p-5 min-w-[28rem] bg-white rounded-md">
-        {" "}
         <FormCardOTP
           title="OTP Verification"
           notification="Kode OTP telah dikirimkan ke"
@@ -129,7 +143,7 @@ const OTPverificationPage = () => {
           loading={loading}
           onSubmit={handleSubmit}
           ErrorMessage={ErrorMessage}
-          email={email}
+          email={data.email}
           onClick={handleResendClick}
           disabled={countdown > 0}
         >
