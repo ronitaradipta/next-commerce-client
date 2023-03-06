@@ -1,4 +1,4 @@
-import api from "../../services/api";
+import callApi from "../../services/callApi";
 import React, { useEffect, useState } from "react";
 import Spinner from "../loading/Spinner";
 import CardProduct from "./element/CardProduct";
@@ -13,10 +13,11 @@ const ProductRecommendations = () => {
 
   const fetchData = async () => {
     try {
-      const product = await api.get(`/products/?limit=${limit}`);
-      setDatas(product.data.products);
+      const product = await callApi.get(`/products/?${limit}`);
+      setDatas(product.data.data);
+      console.log(product.data.data);
       if (loading) {
-        setLimit(limit + 6);
+        setLimit(limit + 5);
         setLoading(false);
       }
     } catch (error) {
