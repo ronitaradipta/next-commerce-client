@@ -8,13 +8,13 @@ import Cookies from "js-cookie";
 const OTPverificationPage = () => {
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(30);
-  const [ErrorMessage, setErrorMessage] = useState("");
+  const [ErrorMessage, setErrorMessage] = useState(null);
   const [Notification, setNotification] = useState(null);
   const [SuccessMessage, setSuccessMessage] = useState("");
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { data } = state;
+  const { data } = state; // note : this data saved on local storage might having a security risk
 
   //   catch the input field value and turn into array
   const handleChangeInput = (e, index) => {
@@ -80,7 +80,9 @@ const OTPverificationPage = () => {
     resendOTP();
   };
 
+  // OTP RESEND
   const resendOTP = async () => {
+    setNotification(false);
     try {
       const response = await callApi.post("/auth/login", {
         email: data.email,
@@ -110,9 +112,9 @@ const OTPverificationPage = () => {
       });
       setLoading(false);
       setSuccessMessage(response.data.message);
-      // Cookies.set("token", response.data.data.AccessToken, { expires: 1 });
       Cookies.set("user", JSON.stringify(response.data.data), { expires: 1 });
       setNotification(true);
+      setOTP(["", "", "", "", "", ""]);
       setTimeout(() => {
         navigate("/");
       }, 2500);

@@ -25,8 +25,8 @@ const UserMenuCard = () => {
   const handleLogOut = async () => {
     Cookies.remove("user");
     try {
-      await callApi("users/logout");
-      navigate("/login");
+      const response = await callApi.get("/auth/logout");
+      if (response) navigate("/login");
     } catch (error) {
       console.log(error);
     }

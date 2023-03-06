@@ -53,7 +53,7 @@ const LoginPage = () => {
       <LeftContainer />
       <div className=" w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
         <FormCard title="Login" button="LOG IN" link="Daftar" question="Pengguna Baru?" route="/register" onChange={handleChangeInput} loading={loading} onSubmit={loginUser} ErrorMessage={ErrorMessage}>
-          <InputElement type="text" placeholder="Email" name="email" onChange={handleChangeInput} />
+          <InputElement type="text" placeholder="Username / Email" name="email" onChange={handleChangeInput} />
           <InputElement type="password" placeholder="password" name="password" onChange={handleChangeInput} />
           <Link to="/forgot-password" className="text-sm text-gray-500">
             Lupa password ?
