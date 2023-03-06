@@ -5,7 +5,7 @@ import { FaStore } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
+import callApi from "../../../services/callApi";
 const UserMenuCard = () => {
   const listMenu = [
     {
@@ -22,10 +22,14 @@ const UserMenuCard = () => {
 
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     Cookies.remove("user");
-    Cookies.remove("token");
-    navigate("/login");
+    try {
+      await callApi("users/logout");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -36,8 +40,7 @@ const UserMenuCard = () => {
             <div className="flex gap-3 items-center group py-3">
               <IconContext.Provider
                 value={{
-                  className:
-                    "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
+                  className: "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
                 }}
               >
                 {item.icon}
@@ -48,10 +51,7 @@ const UserMenuCard = () => {
         );
       })}
       <hr className="border border-t-gray-200 mt-2" />
-      <button
-        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
-        onClick={handleLogOut}
-      >
+      <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4" onClick={handleLogOut}>
         Log Out
       </button>
     </div>
