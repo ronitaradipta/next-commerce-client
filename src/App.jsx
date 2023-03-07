@@ -19,6 +19,7 @@ import StorePage from "./pages/StorePage";
 import StoreRegisterPage from "./pages/StoreRegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import OTPverificationPage from "./pages/OTPverificationPage";
 
 function App() {
   return (
@@ -153,7 +154,17 @@ function App() {
         }
       />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
       <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+
+      <Route
+        path="/otp-verification"
+        element={
+          <NonUserAuth>
+            <OTPverificationPage />
+          </NonUserAuth>
+        }
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

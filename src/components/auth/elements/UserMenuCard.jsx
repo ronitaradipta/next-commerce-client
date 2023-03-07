@@ -5,7 +5,7 @@ import { FaStore } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
+import callApi from "../../../services/callApi";
 const UserMenuCard = () => {
   const listMenu = [
     {
@@ -22,10 +22,14 @@ const UserMenuCard = () => {
 
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     Cookies.remove("user");
-    Cookies.remove("AccessToken");
-    navigate("/login");
+    try {
+      const response = await callApi.get("/auth/logout");
+      if (response) navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
