@@ -5,7 +5,7 @@ import DescriptionProduct from "./DescriptionProduct";
 import PemesananProduct from "./PemesananProduct";
 import { useParams } from "react-router";
 import { useEffect } from "react";
-import api from "../../services/api";
+import api from "../../services/callApi";
 
 function MainProduct() {
   const [product, setProduct] = useState("");
@@ -14,7 +14,8 @@ function MainProduct() {
   const fetchDetailProduct = async () => {
     try {
       const response = await api.get(`/products/${idData}`);
-      setProduct(response.data);
+      console.log(response.data.data);
+      setProduct(response.data.data);
     } catch (error) {
       console.log(error);
     }
