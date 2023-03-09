@@ -1,12 +1,16 @@
 import React from "react";
-import UserProfileDetails from "../components/DashboardUser/UserProfileDetails";
+import UserProfileComponent from "../components/DashboardUser/UserProfileComponent";
 import Header from "../components/homepage/Header";
 
 const UserProfileSetting = () => {
   return (
-    <div className="bg-gray-100 min-h-[100vh]">
+    <div className="min-h-[100vh] bg-gray-200 ">
       <Header />
-      <UserProfileDetails />
+      <div className="relative py-10 px-5 ">
+        <div className="bg-white rounded-lg shadow-lg">
+          <UserProfileComponent />
+        </div>
+      </div>
     </div>
   );
 };

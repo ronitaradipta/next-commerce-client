@@ -3,9 +3,10 @@ import React from "react";
 const DataProfile = ({ showEditData, user }) => {
   return (
     <div className="flex justify-between items-center">
-      <div className="name">{user}</div>
+      <div className="name">{user !== null ? user : "Belum diisi"}</div>
+
       <button id="btn-cancel-dob" className="px-3 py-2 text-green-500" type="button" onClick={showEditData}>
-        Edit Data
+        Ubah
       </button>
     </div>
   );
