@@ -1,4 +1,4 @@
-import api from "../../services/api";
+import callApi from "../../services/callApi";
 import React, { useEffect, useState } from "react";
 import CardCategory from "./element/CardCategory";
 
@@ -7,18 +7,18 @@ const Category = () => {
 
   // style
   const cardContainer = "flex flex-wrap justify-center";
-
-  const fetchAllCategory = async () => {
+// API 
+  const AllCategory = async () => {
     try {
-      const category = await api.get("/products/categories");
-      setDatas(category.data);
+      const category = await callApi.get("/categories");
+      setDatas(category.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchAllCategory();
+    AllCategory();
   }, []);
 
   return (
@@ -26,7 +26,7 @@ const Category = () => {
       <h2>Kategori Pilihan</h2>
       <div className={cardContainer}>
         {datas.map((data, idx) => {
-          return <CardCategory data={data} image={idx} key={data} />;
+          return <CardCategory data={data.name} image={data.image} key={data.slug} />;
         })}
       </div>
     </section>

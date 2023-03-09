@@ -1,12 +1,13 @@
-import callApi from "../services/callApi";
 import { useState } from "react";
 import Notification from "../components/loading/Notification";
+import callApi from "../services/callApi";
 import { useNavigate, Link } from "react-router-dom";
-import LeftContainer from "../components/auth/LeftContainer";
 import FormCard from "../components/auth/elements/FormCard";
+import LeftContainer from "../components/auth/LeftContainer";
 import InputElement from "../components/auth/elements/InputElement";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -17,6 +18,11 @@ const LoginPage = () => {
   const [isSuccess, setisSuccess] = useState(false);
   const navigate = useNavigate();
 
+
+  const handleChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+  
   const loginUser = async (e) => {
     try {
       e.preventDefault();
@@ -38,13 +44,12 @@ const LoginPage = () => {
     }
   };
 
-  const handleChangeInput = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
+
 
   return (
     <div className="flex h-screen flex-wrap justify-center">
       {isSuccess && <Notification SuccessMessage={SuccessMessage} />}
+
       <LeftContainer />
       <div className=" w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
         <FormCard title="Login" button="LOG IN" link="Daftar" question="Pengguna Baru?" route="/register" onChange={handleChangeInput} loading={loading} onSubmit={loginUser} ErrorMessage={ErrorMessage}>
