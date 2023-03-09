@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Spinner from "../loading/Spinner";
 
 const FormCardOTP = ({ title, button, loading, onSubmit, children, ErrorMessage, notification, email }) => {

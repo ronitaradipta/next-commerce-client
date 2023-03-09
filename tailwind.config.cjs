@@ -10,6 +10,7 @@ module.exports = {
       animation: {
         fadeIn: "fadeIn 1s ease-in-out",
         popUp: "popUp 2.5s ease-in-out",
+        modal: "modal 0.5s ease-in-out",
       },
       keyframes: {
         fadeIn: {
@@ -31,6 +32,10 @@ module.exports = {
           "100%": {
             opacity: 0,
           },
+        },
+        modal: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
       },
     },
