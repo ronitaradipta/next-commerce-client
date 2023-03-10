@@ -143,6 +143,7 @@ function App() {
           </UserAuth>
         }
       />
+
       {/* newly added by : fiqri oemry */}
       <Route path="/store-info" element={<StorePage />} />
       <Route
@@ -155,16 +156,16 @@ function App() {
       />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-
       <Route
-        path="/otp-verification"
+        path="/reset-password/:token"
         element={
           <NonUserAuth>
-            <OTPverificationPage />
+            <ResetPasswordPage />
           </NonUserAuth>
         }
       />
+
+      <Route path="/otp-verification" element={<OTPverificationPage />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

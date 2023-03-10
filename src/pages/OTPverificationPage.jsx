@@ -4,12 +4,13 @@ import InputElementOTP from "../components/OTPVerification/InputElementOTP";
 import { useNavigate, useLocation } from "react-router-dom";
 import callApi from "../services/callApi";
 import Cookies from "js-cookie";
+import Notification from "../components/loading/Notification";
 
 const OTPverificationPage = () => {
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setisSuccess] = useState(null);
   const [countdown, setCountdown] = useState(30);
   const [ErrorMessage, setErrorMessage] = useState(null);
-  const [Notification, setNotification] = useState(null);
   const [SuccessMessage, setSuccessMessage] = useState("");
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ const OTPverificationPage = () => {
 
   // OTP RESEND
   const resendOTP = async () => {
-    setNotification(false);
+    setisSuccess(false);
     try {
       const response = await callApi.post("/auth/login", {
         email: data.email,
@@ -90,7 +91,7 @@ const OTPverificationPage = () => {
       });
       setLoading(false);
       setSuccessMessage(response.data.message);
-      setNotification(true);
+      setisSuccess(true);
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +105,7 @@ const OTPverificationPage = () => {
     // join array into string
     const fullOTP = otp.join("");
     setLoading(true);
-    setNotification(false);
+    setisSuccess(false);
     try {
       const response = await callApi.post(`/auth/verify-otp`, {
         email: data.email,
@@ -113,7 +114,7 @@ const OTPverificationPage = () => {
       setLoading(false);
       setSuccessMessage(response.data.message);
       Cookies.set("user", JSON.stringify(response.data.data), { expires: 1 });
-      setNotification(true);
+      setisSuccess(true);
       setOTP(["", "", "", "", "", ""]);
       setTimeout(() => {
         navigate("/");
@@ -127,28 +128,9 @@ const OTPverificationPage = () => {
 
   return (
     <div className="min-h-screen mx-auto flex justify-center items-center bg-neutral-200">
-      <div className={`${Notification ? "flex" : "hidden"} mr-5 ml-5 fixed top-0 py-2 px-5 bg-green-500 opacity-0 rounded-md text-white translate-y-[150px] animate-popUp`}>
-        <svg aria-hidden="true" className="w-5 h-5 mr-1.5 text-black flex-shrink-0" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-        </svg>
-        <p>{SuccessMessage}</p>
-      </div>
+      {isSuccess && <Notification SuccessMessage={SuccessMessage} />}
       <div className="form_container p-5 min-w-[28rem] bg-white rounded-md">
-        <FormCardOTP
-          title="OTP Verification"
-          notification="Kode OTP telah dikirimkan ke"
-          button="VERIFIKASI"
-          question="Belum menerima email ?"
-          route="/register"
-          link="kirim ulang"
-          onChange={handleChangeInput}
-          loading={loading}
-          onSubmit={handleSubmit}
-          ErrorMessage={ErrorMessage}
-          email={data.email}
-          onClick={handleResendClick}
-          disabled={countdown > 0}
-        >
+        <FormCardOTP title="OTP Verification" notification="Kode OTP telah dikirimkan ke" button="VERIFIKASI" loading={loading} onSubmit={handleSubmit} ErrorMessage={ErrorMessage} email={data.email} onClick={handleResendClick}>
           {otp.map((otpField, index) => (
             <InputElementOTP key={index} type="text" name={`otp-${index}`} value={otpField} maxLength="1" onChange={(e) => handleChangeInput(e, index)} onKeyDown={(e) => handleKeyDown(e, index)} required />
           ))}
