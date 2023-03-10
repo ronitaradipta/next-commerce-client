@@ -15,8 +15,8 @@ const StoreProducts = () => {
     try {
       // const category = await api.get("/products/categories");
       const category = await callApi.get("/categories");
-      // setCategories(category.data); 
       setCategories(category.data.data); 
+      // setCategories(category.data.data); 
       console.log(category.data.data)
     } catch (error) {
       console.log(error);
@@ -63,12 +63,12 @@ const StoreProducts = () => {
       <div className="w-full md:w-1/5 mb-5">
         <div className="bg-white shadow-md rounded-lg p-4 mt-4">
           <div>
-            {/* <h3 className="font-semibold mb-3">Etalase Toko</h3>
+            <h3 className="font-semibold mb-3">Etalase Toko</h3>
             <SelectElement data={categories} />
           </div>
           <div>
             <h3 className="font-semibold mb-3">Kategori</h3>
-            <SelectElement data={categories} /> */}
+            <SelectElement data={categories} />
           </div>
         </div>
       </div>

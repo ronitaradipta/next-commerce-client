@@ -17,7 +17,7 @@ const StorePage = () => {
       // const response = await callApi.get(`/stores/${idData}`)
       const response = await callApi.get(`/stores/`)
       setStoreName(response.data)
-      console.log(response.data)
+      // console.log(response.data)
     }catch (error){
       console.log(error);
     }
