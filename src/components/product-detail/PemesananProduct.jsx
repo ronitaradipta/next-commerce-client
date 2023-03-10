@@ -92,7 +92,12 @@ function PemesananProduct({ data, idData }) {
               >
                 <button>-</button>
               </div>
-              <input value={inputQty} className="total--barang w-8 text-center appearance-none" onChange={handleOnChange} type="text" />
+              <input
+                value={inputQty}
+                className="total--barang w-8 text-center appearance-none"
+                onChange={handleOnChange}
+                type="text"
+              />
               <div
                 className="btn--plus px-4 py-3 text-emerald-500 hover:cursor-pointer"
                 onClick={() => {
@@ -104,7 +109,8 @@ function PemesananProduct({ data, idData }) {
             </div>
             <div className="">
               <p className="font-normal text-sm">
-                Stok sisa <span className="stok--sisa">{data.stock - inputQty}</span>
+                Stok sisa{" "}
+                <span className="stok--sisa">{data.stock - inputQty}</span>
               </p>
             </div>
           </div>
@@ -126,7 +132,9 @@ function PemesananProduct({ data, idData }) {
                   />
                 </div>
                 <div className="text-right md:w-[25%]">
-                  <button className="bg-emerald-500 py-2 px-4 text-white rounded-md ">Tambah</button>
+                  <button className="bg-emerald-500 py-2 px-4 text-white rounded-md ">
+                    Tambah
+                  </button>
                 </div>
               </form>
             )}
@@ -138,15 +146,22 @@ function PemesananProduct({ data, idData }) {
               <p className="font-normal text-sm mx-3">Subtotal</p>
             </div>
             <div>
-              <h3 className="font-bold text-lg mx-3">$ {data.price * inputQty}</h3>
+              <h3 className="font-bold text-lg mx-3">
+                $ {data.price * inputQty}
+              </h3>
             </div>
           </div>
 
-          <button className="border rounded-lg w-full p-3 mt-4 bg-emerald-500 text-white font-medium text-sm flex justify-center" onClick={handleCheckout}>
+          <button
+            className="border rounded-lg w-full p-3 mt-4 bg-emerald-500 text-white font-medium text-sm flex justify-center"
+            onClick={handleCheckout}
+          >
             {loading ? <Spinner /> : "Tambahkan ke Keranjang"}
           </button>
           <Link to={`/checkout/${idData}`}>
-            <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">Langsung Checkout</button>
+            <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">
+              Langsung Checkout
+            </button>
           </Link>
         </section>
         <ModalCardAtc isOpen={isOpen} setIsOpen={setIsOpen} />
