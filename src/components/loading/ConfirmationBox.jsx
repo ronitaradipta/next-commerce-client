@@ -15,7 +15,7 @@ const ConfirmationBox = ({ addressId, setActive, getUserAddress, setMessage, set
   };
 
   return (
-    <div id="confirmation-box" className="fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] z-[999]">
+    <div id="confirmation-box" className="fixed top-0 right-0 bottom-0 left-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] z-[99999]">
       <div className="w-[450px] flex flex-col items-center  py-5 px-5 bg-white opacity-1 rounded-md ">
         <div className="font-bold text-lg mb-5">HAPUS ALAMAT</div>
         <div className="mb-5">Apakah Anda yakin untuk menghapus "Rumah"? Anda tidak dapat mengembalikan alamat yang sudah dihapus.</div>

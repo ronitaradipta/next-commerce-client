@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import callApi from "../../../services/callApi";
 import Spinner from "../../loading/Spinner";
 
-const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage }) => {
+const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage, getUserAddress }) => {
   const [input, setInput] = useState({
     name: "",
     address: "",
@@ -15,9 +15,8 @@ const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
   const SubmitNewAddress = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setIsSuccess(false);
     try {
+      setIsLoading(true);
       await callApi.post("/address", {
         name: input.name,
         address: input.address,
@@ -29,11 +28,12 @@ const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage }) => {
       });
       setIsLoading(false);
       setIsSuccess(true);
-
       setMessage("Berhasil menambahkan alamat baru");
       setTimeout(() => {
-        setnewAddressForm(null);
+        getUserAddress();
+        setIsSuccess(false);
       }, 1500);
+      setnewAddressForm("address-list");
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +89,7 @@ const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage }) => {
       </div>
       <div className="flex flex-col  w-full  mb-5 gap-2 justify-center items-center">
         <p>Dengan klik “Simpan”, kamu menyetujui Syarat & Ketentuan.</p>
-        <button className="bg-green-600 py-3 px-5 w-[120px] font-semibold rounded text-white hover:bg-green-800" type="submit">
+        <button className="bg-green-600 flex justify-center py-3 px-5 w-[120px] font-semibold rounded text-white hover:bg-green-800" type="submit">
           {isLoading ? <Spinner /> : "Simpan"}
         </button>
       </div>

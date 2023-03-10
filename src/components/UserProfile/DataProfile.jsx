@@ -5,7 +5,7 @@ const DataProfile = ({ showEditData, user }) => {
     <div className="flex justify-between items-center">
       <div className="name">{user !== null ? user : "Belum diisi"}</div>
 
-      <button id="btn-cancel-dob" className="px-3 py-2 text-green-500" type="button" onClick={showEditData}>
+      <button className="px-3 py-2 text-green-500" type="button" onClick={showEditData}>
         Ubah
       </button>
     </div>

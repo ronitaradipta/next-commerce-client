@@ -1,6 +1,6 @@
 import React from "react";
 
-const AddressList = ({ id, sortedAddress, showConfirmationBox, setMainAddress, getUserAddress }) => {
+const AddressList = ({ id, sortedAddress, showConfirmationBox, setMainAddress, getEditFormData }) => {
   if (sortedAddress.length === 0) {
     return (
       <div id={id} className="w-full flex justify-center items-center py-20">
@@ -19,7 +19,9 @@ const AddressList = ({ id, sortedAddress, showConfirmationBox, setMainAddress, g
           </div>
           <p className="mt-2 text-sm sm:text-base">{address.address}</p>
           <div className="flex gap-5 items-center w-full">
-            <button className="text-green-500 font-semibold mt-6">Ubah</button>
+            <button onClick={() => getEditFormData(address.id)} className="text-green-500 font-semibold mt-6">
+              Ubah
+            </button>
             {!address.isMain ? (
               <button onClick={() => showConfirmationBox(address.id)} className="text-emerald-500 font-medium mt-6">
                 Hapus

@@ -24,7 +24,7 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
     e.preventDefault();
     try {
       setLoader(true);
-      setIsSuccess(false);
+
       const response = await callApi.put("/users/password", {
         oldPassword: password.oldPassword,
         newPassword: password.newPassword,
@@ -35,6 +35,7 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
       setLoader(false);
       setTimeout(() => {
         setActiveComponent(null);
+        setIsSuccess(false);
       }, 1500);
     } catch (error) {
       setErrorMessage(error.response.data.message);
@@ -50,7 +51,7 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
   };
 
   return (
-    <div  className="fixed flex justify-center items-center top-0 left-0 right-0 bottom-0  animate-modal bg-[rgba(0,0,0,0.5)] z-[99]">
+    <div className="fixed flex justify-center items-center top-0 left-0 right-0 bottom-0  animate-modal bg-[rgba(0,0,0,0.5)] z-[99]">
       <div class=" py-5 px-8 rounded-10 bg-primary-grey text-base-responsive bg-white border rounded-xl ">
         <header className="flex justify-between mb-5">
           <h2>Password Change</h2>
@@ -75,7 +76,9 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end">{passwordVisible.oldPassword ? <BiHide onClick={() => handlePasswordVisibility("oldPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("oldPassword")} />}</div>
+                <div class="w-[10%] flex justify-end  cursor-pointer">
+                  {passwordVisible.oldPassword ? <BiHide onClick={() => handlePasswordVisibility("oldPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("oldPassword")} />}
+                </div>
               </div>
               <small class="text-red"></small>
             </div>
@@ -92,7 +95,9 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end">{passwordVisible.newPassword ? <BiHide onClick={() => handlePasswordVisibility("newPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("newPassword")} />}</div>
+                <div class="w-[10%] flex justify-end cursor-pointer">
+                  {passwordVisible.newPassword ? <BiHide onClick={() => handlePasswordVisibility("newPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("newPassword")} />}
+                </div>
               </div>
               <small class="text-red"></small>
             </div>
@@ -110,7 +115,9 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end">{passwordVisible.confirmPassword ? <BiHide onClick={() => handlePasswordVisibility("confirmPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("confirmPassword")} />}</div>
+                <div class="w-[10%] flex justify-end  cursor-pointer">
+                  {passwordVisible.confirmPassword ? <BiHide onClick={() => handlePasswordVisibility("confirmPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("confirmPassword")} />}
+                </div>
               </div>
               <small class="text-red"></small>
             </div>

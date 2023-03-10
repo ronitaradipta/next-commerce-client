@@ -20,14 +20,14 @@ const EditDataProfile = ({ id, showEditData, user, handleChangeInput, updateProf
         <div className="flex mb-5">
           <input id={id} type={type} className="w-full border-b-2 outline-none" name={name} value={user} onChange={handleChangeInput} />
         </div>
-      )}  
+      )}
 
       <div className="flex justify-end">
         <div className="flex gap-5">
-          <button id="btn-cancel-dob" className="px-3 py-2 bg-green-500" type="submit" onClick={showEditData}>
+          <button className="px-3 py-2 bg-green-500" type="submit" onClick={showEditData}>
             Batal
           </button>
-          <button id="btn-change-dob" className="flex justify-center items-center min-w-[35px] px-5 bg-green-500" type="submit">
+          <button className="flex justify-center items-center min-w-[35px] px-5 bg-green-500" type="submit">
             {Loader ? <Spinner /> : "Simpan"}
           </button>
         </div>

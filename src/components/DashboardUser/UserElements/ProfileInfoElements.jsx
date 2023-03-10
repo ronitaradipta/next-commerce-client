@@ -8,7 +8,7 @@ const ProfileInfoElements = ({ activeComponent, user, Loader, updateProfile, sho
       <div className="flex flex-col mb-5 gap-5 ">
         <div className="font-bold text-[20px]">Biodata</div>
         <div>
-          <div className="font-semibold text-base-responsive ">Nama </div>{" "}
+          <div className="font-semibold text-base-responsive ">Nama </div>
           {activeComponent === "input-name" ? ( // check if component is active
             <EditDataProfile id="input-name" name="name" loader={Loader} type="text" title="nama" updateProfile={updateProfile} showEditData={() => showEditData("input-name")} user={input.name} handleChangeInput={handleChangeInput} />
           ) : (
