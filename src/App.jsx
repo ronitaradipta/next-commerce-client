@@ -149,9 +149,9 @@ function App() {
       <Route
         path="/register-store"
         element={
-          <NonUserAuth>
+          <UserAuth>
             <StoreRegisterPage />
-          </NonUserAuth>
+          </UserAuth>
         }
       />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />

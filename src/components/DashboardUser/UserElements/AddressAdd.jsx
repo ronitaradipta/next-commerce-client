@@ -13,6 +13,15 @@ const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage, getUserAd
     phoneNumber: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [charCount, setCharCount] = useState({
+    name: 0,
+    address: 0,
+  });
+  const MAX_CHAR = {
+    name: 30,
+    address: 200,
+  };
+
   const SubmitNewAddress = async (e) => {
     e.preventDefault();
     try {
@@ -40,22 +49,32 @@ const AddressAdd = ({ id, setnewAddressForm, setIsSuccess, setMessage, getUserAd
   };
 
   const inputHandler = (e) => {
-    const { name, value } = e.target;
+    const name = e.target.name;
+    const value = e.target.value.slice(0, MAX_CHAR[name]);
+    const count = value.length;
     setInput({ ...input, [name]: value });
+    setCharCount({ ...charCount, [name]: count });
   };
+
   return (
     <form id={id} onSubmit={SubmitNewAddress} className="w-full bg-white py-10 absolute z-[999]">
       <div className="flex flex-col mb-5 gap-2">
         <label htmlFor="name" className=" font-semibold">
           Label Alamat
         </label>
-        <input id="name" type="text" className="w-full py-2 px-5 rounded border outline-none" name="name" onChange={inputHandler} />
+        <input id="name" type="text" className="w-full py-2 px-5 rounded border outline-none" name="name" onChange={inputHandler} maxLength={MAX_CHAR.name} />
+        <div className="flex justify-end">
+          {charCount.name}/{MAX_CHAR.name}
+        </div>
       </div>
       <div className="flex flex-col mb-5 gap-2">
         <label htmlFor="full-address" className=" font-semibold">
           Alamat Lengkap
         </label>
-        <textarea id="" cols="30" rows="10" className="border outline-none min-h-[150px] max-h-[150px] rounded-lg overflow-scroll px-2" name="address" onChange={inputHandler}></textarea>
+        <textarea id="" cols="30" rows="10" className="border outline-none min-h-[150px] max-h-[150px] rounded-lg overflow-scroll px-2" name="address" onChange={inputHandler} maxLength={MAX_CHAR.address}></textarea>
+        <div className="flex justify-end">
+          {charCount.address}/{MAX_CHAR.address}
+        </div>
       </div>
       <div className="flex flex-col mb-5 gap-2">
         <label htmlFor="name" className=" font-semibold">

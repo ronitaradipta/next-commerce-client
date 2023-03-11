@@ -35,8 +35,12 @@ const Header = ({ DataChange }) => {
   };
 
   const getUserDetails = async () => {
-    const response = await callApi.get("/users/profile");
-    setUser(response.data.data);
+    try {
+      const response = await callApi.get("/users/profile");
+      setUser(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -101,7 +105,7 @@ const Header = ({ DataChange }) => {
                     </IconContext.Provider>
                   </div>
                 </div>
-                {showMenu && <UserMenuCard />}
+                {showMenu && <UserMenuCard user={user} />}
               </ClickOutsideHide>
             )}
 

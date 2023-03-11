@@ -16,6 +16,7 @@ const RegisterPage = () => {
   const [Notification, setNotification] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
   const [SuccessMessage, setSuccessMessage] = useState("");
+  const [color, setColor] = useState("");
   const navigate = useNavigate();
 
   const registerUser = async (e) => {
@@ -40,10 +41,12 @@ const RegisterPage = () => {
       setInput({ ...input, name: "", email: "", password: "", passwordConfirm: "" });
     }
   };
+
   const handleKeyDown = () => {
     // clear Error Message once field is filled
     setErrorMessage("");
   };
+
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
