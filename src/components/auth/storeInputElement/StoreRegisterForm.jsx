@@ -1,20 +1,21 @@
 import React from "react";
 import Spinner from "../../loading/Spinner";
 
-const StoreRegisterForm = ({ name, button, loading, onSubmit, children, errMessage }) => {
+const StoreRegisterForm = ({ name, button, isLoading, onSubmit, children, errorMessage, validation, disabled }) => {
+  const inputButton = `border ${!disabled ? "bg-gray-200 cursor-not-allowed " : "bg-green-500 text-white"} rounded-md px-5 py-2 w-full mb-4 text-md font-bold justify-center flex`;
   return (
     <div className=" w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
       <div className="bg-white min-h-[24rem] rounded-lg p-7 flex flex-col gap-3">
         <h2 className="text-2xl font-bold mb-4">
           Ayo <span>{name}, Daftarkan Tokomu</span>
         </h2>
-        {errMessage && errMessage === "Invalid credentials" && <p className="text-center text-red-500 p-2">Email atau password salah</p>}
-        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+        <p className="text-red-500">{errorMessage}</p>
+        <form className="flex flex-col gap-2" onSubmit={onSubmit}>
           {children}
-          <button className="bg-emerald-500 py-2 rounded-md text-white flex justify-center" type="submit">
-            {loading && <Spinner />}
-            {!loading && button}
+          <button className={inputButton} type="submit" disabled={!disabled}>
+            {isLoading ? <Spinner /> : button}
           </button>
+          {/* <SubmitButton text={button} isLoading={isLoading} disabled={!isFormValid} /> */}
         </form>
       </div>
     </div>

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import FormCard from "../components/auth/elements/FormCard";
-import InputElement from "../components/auth/elements/InputElement";
-import LeftContainer from "../components/auth/LeftContainer";
 import callApi from "../services/callApi";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { BiShow, BiHide } from "react-icons/bi";
+import FormCard from "../components/auth/elements/FormCard";
+import LeftContainer from "../components/auth/LeftContainer";
+import Notification from "../components/loading/Notification";
+import InputElement from "../components/auth/elements/InputElement";
 
 const RegisterPage = () => {
   const [input, setInput] = useState({
@@ -12,56 +14,87 @@ const RegisterPage = () => {
     password: "",
     passwordConfirm: "",
   });
+  const navigate = useNavigate();
+  const [isMatch, setIsMatch] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [Notification, setNotification] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("");
   const [SuccessMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState({});
+  const [validation, setValidation] = useState({
+    password: false,
+    passwordConfirm: false,
+  });
 
   const registerUser = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await callApi.post("/auth/register", {
-        name: input.name,
-        email: input.email,
-        password: input.password,
-        passwordConfirm: input.passwordConfirm,
-      });
-      setLoading(false);
-      setNotification(true);
-      setSuccessMessage(response.data.message);
-      setTimeout(() => {
-        navigate("/login");
-      }, 2500);
+      const { data } = await callApi.post("/auth/register", input);
+      setSuccessMessage(data.message);
+      setIsSuccess(true);
+      setTimeout(() => navigate("/login"), 2500);
     } catch (error) {
       setErrorMessage(error.response.data.message);
+    } finally {
       setLoading(false);
-      setInput({ ...input, name: "", email: "", password: "", passwordConfirm: "" });
     }
   };
-  const handleKeyDown = () => {
-    // clear Error Message once field is filled
-    setErrorMessage("");
-  };
+
   const handleChangeInput = (e) => {
+    setErrorMessage("");
+    const { name, value } = e.target;
     setInput({ ...input, [e.target.name]: e.target.value });
+    // check if each input met the length requirement
+    const isLength = value.length > 1 && value.length < 8;
+    // check if input value are match each other
+    const isMatch = name === "passwordConfirm" ? value === input.password : true && name === "password" ? value === input.passwordConfirm : true;
+    setValidation({ ...validation, [name]: isLength });
+    setIsMatch(isMatch);
   };
+
+  // set button from disable to enable once requirement for validation fulfilled
+  useEffect(() => {
+    const { password, passwordConfirm } = validation;
+    setDisabled(password === false && passwordConfirm === false && isMatch);
+  }, [validation, isMatch]);
+
+  // set toggle button for password visibility / non-visibility
+  const passwordToggle = (type) => (
+    <div className="w-[10%] absolute right-2 flex justify-end cursor-pointer" onClick={() => setPasswordVisible((prevState) => ({ ...prevState, [type]: !prevState[type] }))}>
+      {passwordVisible[type] ? <BiHide /> : <BiShow />}
+    </div>
+  );
+  // set password alert message
+  const passwordAlert = (isValid, message) => (isValid && input.password !== "" ? <div className="text-red-500 text-sm">{message}</div> : null);
+
   return (
     <div className="flex min-h-screen flex-wrap justify-center">
-      <div className={`${Notification ? "flex" : "hidden"} mr-5 ml-5 fixed top-0 py-2 px-5 bg-green-500 opacity-0 rounded-md text-white translate-y-[150px] animate-popUp`}>
-        <svg aria-hidden="true" className="w-5 h-5 mr-1.5 text-black flex-shrink-0" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-        </svg>
-        <p>{SuccessMessage}</p>
-      </div>
+      {isSuccess && <Notification SuccessMessage={SuccessMessage} />}
       <LeftContainer />
-      <div className=" w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
-        <FormCard title="Daftar" button="DAFTAR" link="Login" question="Sudah Punya Akun?" route="/login" loading={loading} onSubmit={registerUser} ErrorMessage={ErrorMessage}>
-          <InputElement type="text" placeholder="username" name="name" value={input.name} onChange={handleChangeInput} onKeyDown={handleKeyDown} />
-          <InputElement type="email" placeholder="email" name="email" value={input.email} onChange={handleChangeInput} onKeyDown={handleKeyDown} />
-          <InputElement type="password" placeholder="password" name="password" value={input.password} onChange={handleChangeInput} onKeyDown={handleKeyDown} />
-          <InputElement type="Password" placeholder="Konfirmasi Password" name="passwordConfirm" value={input.passwordConfirm} onChange={handleChangeInput} onKeyDown={handleKeyDown} />
+      <div className="w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
+        <FormCard title="Daftar" button="DAFTAR" link="Login" question="Sudah Punya Akun?" route="/login" loading={loading} onSubmit={registerUser} ErrorMessage={ErrorMessage} disabled={disabled}>
+          <InputElement type="text" placeholder="username" name="name" value={input.name} onChange={handleChangeInput} />
+          <InputElement type="email" placeholder="email" name="email" value={input.email} onChange={handleChangeInput} />
+          <InputElement
+            password={passwordToggle("password")}
+            type={passwordVisible.password ? "text" : "password"}
+            placeholder="password"
+            name="password"
+            value={input.password}
+            onChange={handleChangeInput}
+            alert={passwordAlert(validation.password, "min. 8 karakter")}
+          />
+          <InputElement
+            password={passwordToggle("passwordConfirm")}
+            type={passwordVisible.passwordConfirm ? "text" : "password"}
+            placeholder="Konfirmasi Password"
+            name="passwordConfirm"
+            value={input.passwordConfirm}
+            onChange={handleChangeInput}
+            alert={passwordAlert(!isMatch, "password tidak sama")}
+          />
         </FormCard>
       </div>
     </div>

@@ -4,33 +4,33 @@ import CheckBoxElement from "../components/SearchResults/CheckBoxElement";
 import InputPriceElement from "../components/SearchResults/InputPriceElement";
 import SelectElement from "../components/SearchResults/SelectElement";
 import CardProduct from "../components/homepage/element/CardProduct";
-import api from "../services/api";
+import callApi from "../services/callApi";
 
 const SearchResults = () => {
   const { query, cat } = useParams();
   const [categories, setCategories] = useState([]);
   const [searchProducts, setSearchProducts] = useState([]);
-
   const fetchAllCategory = async () => {
     try {
-      const category = await api.get("/products/categories");
-      setCategories(category.data);
+      const category = await callApi.get("/categories");
+      setCategories(category.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const fetchSearchProducts = async () => {
-    let param;
+    let param = "";
     try {
       if (query) {
-        param = `search/?q=${query}`;
+        param = `search=${query}`;
       }
       if (cat) {
-        param = `category/${cat}`;
+        param = `category=${cat}`;
       }
-      const response = await api.get(`/products/${param}`);
-      setSearchProducts(response.data.products);
+      const response = await callApi.get(`/products?${param}`);
+      const result = response.data.data;
+      setSearchProducts(result);
     } catch (error) {}
   };
 
@@ -74,10 +74,9 @@ const SearchResults = () => {
         <div className="w-full md:w-[80%] pl-0 md:pl-5">
           <h2>Pencarian : {query}</h2>
           <div className="flex flex-wrap ">
-            {searchProducts.length > 0 &&
-              searchProducts.map((data) => {
-                return <CardProduct data={data} key={data.id} />;
-              })}
+            {searchProducts.map((data) => {
+              <CardProduct data={data} key={data.id} />;
+            })}
           </div>
         </div>
       </div>
