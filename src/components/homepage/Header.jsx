@@ -10,14 +10,15 @@ import Cookies from "js-cookie";
 import UserMenuCard from "../auth/elements/UserMenuCard";
 import ClickOutsideHide from "../../utils/ClickOutsideHide";
 import { FaBars, FaTimes } from "react-icons/fa";
+import callApi from "../../services/callApi";
 
-const Header = () => {
-  const [cartDatas, setcartDatas] = useState([]);
-  const [showCartContainer, setShowCartContainer] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [user, setUser] = useState("");
+const Header = ({ DataChange }) => {
   const dataUser = Cookies.get("user");
+  const [user, setUser] = useState("");
+  const [cartDatas, setcartDatas] = useState([]);
+  const [showMenu, setShowMenu] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showCartContainer, setShowCartContainer] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -33,6 +34,15 @@ const Header = () => {
     }
   };
 
+  const getUserDetails = async () => {
+    try {
+      const response = await callApi.get("/users/profile");
+      setUser(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchCartData();
   }, []);
@@ -42,9 +52,9 @@ const Header = () => {
 
   useEffect(() => {
     if (dataUser) {
-      setUser(JSON.parse(dataUser));
+      getUserDetails();
     }
-  }, []);
+  }, [DataChange]); // this will render the header everytime DataChange when user profile updated
 
   return (
     <header className="shadow-sm sticky top-0 bg-white z-10">
@@ -83,9 +93,9 @@ const Header = () => {
             {user && (
               <ClickOutsideHide reff={userButton} state={setShowMenu}>
                 <div className="flex items-center gap-3 cursor-pointer relative" onClick={() => setShowMenu((prev) => !prev)}>
-                  <img src={user.userAvatar} alt="profile" className="w-11 rounded-full border border-gray-400 ml-3" />
+                  <img src={user.user_profile.avatar} alt="profile" className="w-11 rounded-full border border-gray-400 ml-3" />
                   <div className="flex gap-2 items-center">
-                    <p className="text-sm">Hi, {user.userName}</p>
+                    <p className="text-sm">Hi, {user.name}</p>
                     <IconContext.Provider
                       value={{
                         className: "text-gray-600 w-8 h-8 hover:text-gray-500",
@@ -95,7 +105,7 @@ const Header = () => {
                     </IconContext.Provider>
                   </div>
                 </div>
-                {showMenu && <UserMenuCard />}
+                {showMenu && <UserMenuCard user={user} />}
               </ClickOutsideHide>
             )}
 

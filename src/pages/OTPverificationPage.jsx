@@ -84,10 +84,7 @@ const OTPverificationPage = () => {
   const resendOTP = async () => {
     setNotification(false);
     try {
-      const response = await callApi.post("/auth/login", {
-        email: data.email,
-        password: data.password,
-      });
+      const response = await callApi.post("/auth/login", data);
       setLoading(false);
       setSuccessMessage(response.data.message);
       setNotification(true);
