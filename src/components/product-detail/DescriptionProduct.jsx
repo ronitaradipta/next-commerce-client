@@ -8,7 +8,7 @@ function DescriptionProduct({ data }) {
   return (
     <section className="p-2 w-full sm:w-1/2 md:w-[33%]  ">
       <Description data={data} />
-      <Toko />
+      <Toko data={data} />
       <Ulasan />
     </section>
   );

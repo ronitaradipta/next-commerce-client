@@ -1,40 +1,71 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import callApi from "../services/callApi";
 import { useNavigate } from "react-router-dom";
-import StoreRegisterForm from "../components/auth/storeInputElement/StoreRegisterForm";
-import InputElement from "../components/auth/elements/InputElement";
 import LeftContainer from "../components/auth/LeftContainer";
-import axios from "axios";
+import Notification from "../components/loading/Notification";
+import StoreRegisterForm from "../components/auth/storeInputElement/StoreRegisterForm";
+import StoreInputElement from "../components/auth/storeInputElement/StoreInputElement";
 
 const StoreRegisterPage = () => {
-  const [StoreName, setStoreName] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [Address, setAddress] = useState("");
-  const [Description, setDescription] = useState("");
+  const [input, setInput] = useState({
+    name: "",
+    description: "",
+    city: "",
+  });
+
+  const MAX_CHAR = { name: 20, description: 60 };
+  const [disabled, setDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [message, setMessage] = useState({ success: "", error: "" });
+  const [charCount, setCharCount] = useState({ name: 0, description: 0 });
+  const [validation, setValidation] = useState({ name: false, description: false });
+
   const navigate = useNavigate();
 
   const registerStore = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      await axios.post("http://localhost:5000/.....", {
-        store_name: StoreName,
-        phone_number: PhoneNumber,
-        address: Address,
-        description: Description,
-      });
-    } catch (error) {}
-    setLoading(true);
-    navigate("/...");
-    setLoading(false);
+      const response = await callApi.post("/stores", input);
+      setMessage({ success: response.data.message, error: "" });
+      setIsSuccess(true);
+      setTimeout(() => navigate("/"), 2000);
+    } catch (error) {
+      setMessage({ error: response.data.message, success: "" });
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  // length validation and UI length count
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    const count = value.length;
+    setInput({ ...input, [name]: value });
+    setCharCount({ ...charCount, [name]: count });
+    setValidation({ ...validation, [name]: count >= 1 && count < 5 });
+  };
+
+  // set disabled once requirement for both input fulfilled
+  useEffect(() => setDisabled(!validation.name && !validation.description), [validation]);
+
+  // set validation alert message
+  const alert = (name) => (
+    <div className="flex w-full justify-between">
+      {!validation[name] ? <p></p> : <div className="text-red-500 text-sm"> min. 5 karakter</div>}
+      {charCount[name]}/{MAX_CHAR[name]}
+    </div>
+  );
 
   return (
     <div className="flex h-screen flex-wrap">
+      {isSuccess ? <Notification SuccessMessage={message.success} /> : ""}
       <LeftContainer />
-      <StoreRegisterForm name="Asep" button="DAFTAR" onSubmit={registerStore}>
-        <InputElement type="text" value={StoreName} placeholder="Nama Toko" name="nama toko" onChange={(e) => setStoreName(e.target.value)} />
-        <InputElement type="text" value={PhoneNumber} placeholder="No. Phone Number" name="No. Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} />
-        <InputElement type="text" value={Address} placeholder="Alamat Toko" name="Alamat Toko" onChange={(e) => setAddress(e.target.value)} />
-        <InputElement type="text" value={Description} placeholder="Deskripsi Toko" name="Deskripsi Toko" onChange={(e) => setDescription(e.target.value)} />
+      <StoreRegisterForm name="Asep" button="DAFTAR" onSubmit={registerStore} isLoading={isLoading} errorMessage={message.error} validation={validation} disabled={disabled}>
+        <StoreInputElement validation={validation.name} type="text" placeholder="Nama Toko" name="name" onChange={inputHandler} maxLength={MAX_CHAR.name} alert={alert("name")} />
+        <StoreInputElement validation={validation.description} type="text" placeholder="Deskripsi toko" name="description" onChange={inputHandler} maxLength={MAX_CHAR.description} alert={alert("description")} />
+        <StoreInputElement type="text" placeholder="Domisili" name="city" onChange={inputHandler} />
       </StoreRegisterForm>
     </div>
   );
