@@ -9,10 +9,10 @@ const SelectElement = ({ data }) => {
     >
       <option defaultValue>Pilih Kategori</option>
       {data &&
-        data.map((item, idx) => {
+        data.map(( data ) => {
           return (
-            <option value={item} key={idx}>
-              {item}
+            <option className="text-black" value={data.name} key={data.slug}>
+              {data.name} 
             </option>
           );
         })}

@@ -22,6 +22,7 @@ const OTPverificationPage = () => {
     const otpArray = [...otp];
     otpArray[index] = value;
     setOTP(otpArray);
+    console.log(otp)
   };
 
   const handleKeyDown = (e, index) => {
@@ -146,6 +147,7 @@ const OTPverificationPage = () => {
           onClick={handleResendClick}
           disabled={countdown > 0}
         >
+
           {otp.map((otpField, index) => (
             <InputElementOTP key={index} type="text" name={`otp-${index}`} value={otpField} maxLength="1" onChange={(e) => handleChangeInput(e, index)} onKeyDown={(e) => handleKeyDown(e, index)} required />
           ))}

@@ -5,6 +5,8 @@ import { FaStar } from "react-icons/fa";
 import storeStatus from "../../assets/store/store-status-gold.png";
 import storeLogo from "../../assets/store/store-logo.png";
 
+// import callApi from "../../services/callApi";
+
 const StoreInfo = ({ setModalBox }) => {
   return (
     <div className="px-0 md:px-5 py-5 w-full flex flex-wrap justify-between items-center mt-5 border rounded-xl">
