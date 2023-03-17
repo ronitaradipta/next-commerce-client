@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useRef, useState } from "react";
 import ClickOutsideHide from "../../utils/ClickOutsideHide";
 import UserMenu from "./element/UserMenu";
+import callApi from "../../services/callApi";
 
 const HeaderDashboard = () => {
   const [user, setUser] = useState("");
@@ -10,9 +11,18 @@ const HeaderDashboard = () => {
 
   const userButton = useRef(null);
 
+  const getUserDetails = async () => {
+    try {
+      const response = await callApi.get("/users/profile");
+      setUser(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (dataUser) {
-      setUser(JSON.parse(dataUser));
+      getUserDetails();
     }
   }, []);
 
@@ -25,12 +35,12 @@ const HeaderDashboard = () => {
             onClick={() => setShowMenu((prev) => !prev)}
           >
             <img
-              src={user.image}
+              src={user.user_profile.avatar}
               alt="profile"
               className="w-11 rounded-full border border-gray-400"
             />
             <div className="flex gap-2 items-center">
-              <p className="text-sm">Hi, {user.firstName}</p>
+              <p className="text-sm">Hi, {user.name}</p>
               {showMenu && <UserMenu />}
             </div>
           </div>

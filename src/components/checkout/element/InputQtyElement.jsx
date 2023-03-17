@@ -20,7 +20,7 @@ const InputQtyElement = ({ inputQty, setInputQty, data, handleOnChange }) => {
       <div
         className="btn--plus px-4 py-3 text-emerald-500 hover:cursor-pointer"
         onClick={() => {
-          inputQty < data.stock && setInputQty(inputQty + 1);
+          inputQty < data.product.stock && setInputQty(inputQty + 1);
         }}
       >
         <button>+</button>

@@ -18,7 +18,9 @@ function ImageDetail({ data }) {
         <div className="main-image">
           {loadingImg ? (
             <div>
-              {/* <button className="show-modal hover:cursor-pointer">{data && <img src={data.thumbnail} alt="" />}</button> */}
+              <button className="show-modal hover:cursor-pointer">
+                {data && <img src={data.images[0]?.image} alt="" />}
+              </button>
             </div>
           ) : (
             <Skeleton
@@ -32,7 +34,7 @@ function ImageDetail({ data }) {
         <div className="flex items-center">
           {data &&
             data.images.map((item, idx) => {
-              return <CardProduct image={item} alt={"Gambar 1"} key={idx} />;
+              return <CardProduct item={item} alt={"Gambar 1"} key={idx} />;
             })}
         </div>
       </section>

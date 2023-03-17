@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import api from "../../services/api";
+import callApi from "../../services/callApi";
 import Spinner from "../loading/Spinner";
 import ModalCardAtc from "./layouts/ModalCardAtc";
 
@@ -15,7 +15,7 @@ function PemesananProduct({ data, idData }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const [inputQty, setInputQty] = useState(0);
+  const [inputQty, setInputQty] = useState(1);
 
   const handleOnChange = (e) => {
     const value = e.target.value;
@@ -43,18 +43,17 @@ function PemesananProduct({ data, idData }) {
     isAddNote && <input type="text" />;
   };
 
-  const handleCheckout = () => {
+  const handleAddToCart = () => {
     if (!user) {
       navigate("/login");
     } else {
       const postCheckout = async () => {
         try {
           setLoading(true);
-          const response = await api.post("/carts/add", {
-            userId: user.id,
-            products: [{ id: data.id, quantity: inputQty }],
+          const response = await callApi.post("/carts/add", {
+            productId: data.id,
+            quantity: inputQty,
           });
-          console.log(response);
           setLoading(false);
           setIsOpen(true);
         } catch (error) {
@@ -67,6 +66,11 @@ function PemesananProduct({ data, idData }) {
         alert("qty produk harus lebih dari 0");
       }
     }
+  };
+
+  const handleCheckout = () => {
+    handleAddToCart();
+    navigate(`/checkout/${data.storeId}`);
   };
 
   useEffect(() => {
@@ -154,12 +158,15 @@ function PemesananProduct({ data, idData }) {
 
           <button
             className="border rounded-lg w-full p-3 mt-4 bg-emerald-500 text-white font-medium text-sm flex justify-center"
-            onClick={handleCheckout}
+            onClick={handleAddToCart}
           >
             {loading ? <Spinner /> : "Tambahkan ke Keranjang"}
           </button>
-          <Link to={`/checkout/${idData}`}>
-            <button className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full">
+          <Link to={`/checkout/${data.storeId}`}>
+            <button
+              className="border rounded-lg mt-4 border-emerald-500 p-3 text-emerald-500 font-medium text-sm w-full"
+              onClick={handleCheckout}
+            >
               Langsung Checkout
             </button>
           </Link>

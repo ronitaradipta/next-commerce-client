@@ -54,7 +54,7 @@ const LoginPage = () => {
             name="password"
             onChange={handleChangeInput}
             password={
-              <div class="w-[10%] absolute right-2 flex justify-end  cursor-pointer">
+              <div className="w-[10%] absolute right-2 flex justify-end  cursor-pointer">
                 {passwordVisible.password ? <BiHide onClick={() => handlePasswordVisibility("password")} /> : <BiShow onClick={() => handlePasswordVisibility("password")} />}
               </div>
             }
