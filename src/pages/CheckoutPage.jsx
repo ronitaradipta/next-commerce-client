@@ -1,47 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import callApi from "../services/callApi";
 import DetailProductCheckout from "../components/checkout/DetailProductCheckout";
 import DetailAddress from "../components/checkout/DetailAddress";
 import CheckoutSummary from "../components/checkout/element/CheckoutSummary";
 import { CourierSelect } from "../components/checkout/CourierSelect";
+import { useParams } from "react-router-dom";
+
 const CheckoutPage = () => {
   const [product, setProduct] = useState("");
-  const [inputQty, setInputQty] = useState(1);
   const [selectedOption, setSelectedOption] = useState("");
   const [dataCourier, setDataCourier] = useState(null);
   const [selectedCourier, setSelectedCourier] = useState(0);
+  const [userAddress, setUserAddress] = useState("");
+
+  const [selectAddress, setSelectAddress] = useState("");
   const [loading, setLoading] = useState(false);
-  const { idData } = useParams();
+
+  const { idStore } = useParams();
 
   const fetchDetailProduct = async () => {
     try {
-      const response = await callApi.get(`/products/${idData}`);
+      const response = await callApi.get(`/carts/product/${idStore}`);
       setProduct(response.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleOnChange = (e) => {
-    const value = e.target.value;
-    if (!isNaN(value)) {
-      if (value > 0) {
-        if (e.target.value > data.stock) {
-          setInputQty(data.stock);
-        } else {
-          setInputQty(e.target.value);
-        }
-      } else {
-        setInputQty(0);
-      }
-    } else setInputQty(0);
+  const fetchDataAddress = async () => {
+    try {
+      const response = await callApi.get("address/users");
+      setUserAddress(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleOptionChange = (e) => {
     const selectedOption = e.target.value;
 
     setSelectedOption(selectedOption);
+  };
+
+  const handleAddressChange = (e) => {
+    const selectedAddress = e.target.value;
+
+    setSelectAddress(selectedAddress);
   };
 
   const fetchDataCourier = async () => {
@@ -67,35 +71,33 @@ const CheckoutPage = () => {
 
   const handleCheckout = async () => {
     try {
-      if (inputQty > 0) {
-        setLoading(true);
-        const response = await callApi.post(
-          `/orders/checkout/${product.storeId}`,
-          {
-            shippingCost: selectedCourier,
-            address: "jl jl yuk cuy",
-            regency: "Kuta selatan",
-            city: "Badung",
-            province: "Bali",
-            zipcode: "80361",
-            name: "Asep surasep",
-            email: "jojojo@gmail.com",
-            phone: "0812345678",
-          }
-        );
-        console.log(response);
-        setLoading(false);
-      } else {
-        alert("Qty Produk harus lebih besar dari 0");
-      }
+      setLoading(true);
+      const response = await callApi.post(`/orders/checkout/${idStore}`, {
+        shippingCost: selectedCourier,
+        address: selectAddress,
+      });
+      setLoading(false);
+      window.location.assign(response.data.data[1].transactionUrl);
     } catch (error) {
       console.log(error);
+      alert(error.message);
       setLoading(false);
+    }
+  };
+
+  const handleDeleteProduct = async (data) => {
+    try {
+      const response = await callApi.delete(`/carts/${data}`);
+      console.log(response);
+      fetchDetailProduct();
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchDetailProduct();
+    fetchDataAddress();
     setSelectedOption("jne");
   }, []);
 
@@ -108,14 +110,23 @@ const CheckoutPage = () => {
       <div className="lg:w-9/12 w-full">
         <h2 className="font-bold text-xl mb-9">Detail Produk</h2>
         <hr className="border-t border-t-gray-300" />
-        <DetailProductCheckout
-          data={product}
-          inputQty={inputQty}
-          setInputQty={setInputQty}
-          handleOnChange={handleOnChange}
-        />
+        {product &&
+          product.products?.map((item, idx) => {
+            return (
+              <DetailProductCheckout
+                key={idx}
+                data={item}
+                handleDeleteProduct={handleDeleteProduct}
+              />
+            );
+          })}
+
         <hr className="border-t border-t-gray-300" />
-        <DetailAddress />
+        <DetailAddress
+          userAddress={userAddress}
+          selectAddress={selectAddress}
+          handleAddressChange={handleAddressChange}
+        />
         <CourierSelect
           selectedOption={selectedOption}
           dataCourier={dataCourier}
@@ -125,13 +136,15 @@ const CheckoutPage = () => {
           loading={loading}
         />
       </div>
-      <CheckoutSummary
-        data={product}
-        inputQty={inputQty}
-        selectedCourier={selectedCourier}
-        handleCheckout={handleCheckout}
-        loading={loading}
-      />
+      {product && (
+        <CheckoutSummary
+          data={product}
+          selectedCourier={selectedCourier}
+          handleCheckout={handleCheckout}
+          loading={loading}
+          selectAddress={selectAddress}
+        />
+      )}
     </main>
   );
 };

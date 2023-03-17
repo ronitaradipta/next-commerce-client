@@ -20,6 +20,7 @@ import StoreRegisterPage from "./pages/StoreRegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import OTPverificationPage from "./pages/OTPverificationPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -40,9 +41,19 @@ function App() {
           </HeaderFooter>
         }
       />
+      <Route
+        path="/cart"
+        element={
+          <UserAuth>
+            <HeaderFooter>
+              <CartPage />
+            </HeaderFooter>
+          </UserAuth>
+        }
+      />
 
       <Route
-        path="/checkout/:idData"
+        path="/checkout/:idStore"
         element={
           <UserAuth>
             <HeaderFooter>
