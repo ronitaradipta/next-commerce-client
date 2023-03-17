@@ -47,7 +47,7 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
 
   return (
     <div id={id} className="fixed flex justify-center items-center top-0 left-0 right-0 bottom-0  animate-modal bg-[rgba(0,0,0,0.5)] z-[99]">
-      <div class=" py-5 px-8 rounded-10 bg-primary-grey text-base-responsive bg-white border rounded-xl ">
+      <div className=" py-5 px-8 rounded-10 bg-primary-grey text-base-responsive bg-white border rounded-xl ">
         <header className="flex justify-between mb-5">
           <h2>Password Change</h2>
           <button className="hover:bg-neutral-200 py-2 px-2 rounded" onClick={showEditData}>
@@ -58,67 +58,67 @@ const PasswordUpdate = ({ id, showEditData, setLoader, Loader, setSuccessMessage
           <p>{ErrorMessage}</p>
         </div>
 
-        <form onSubmit={updatePassword} class="w-full lg:max-w-[440px]">
-          <div class="mb-5">
-            <div class="font-medium mb-1.5">Password Lama</div>
-            <div class="relative bg-white">
-              <div class="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
+        <form onSubmit={updatePassword} className="w-full lg:max-w-[440px]">
+          <div className="mb-5">
+            <div className="font-medium mb-1.5">Password Lama</div>
+            <div className="relative bg-white">
+              <div className="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
                 <input
                   name="oldPassword"
-                  class="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
+                  className="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
                   placeholder="Masukkan password lama"
                   type={passwordVisible.oldPassword ? "text" : "password"}
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end  cursor-pointer">
+                <div className="w-[10%] flex justify-end  cursor-pointer">
                   {passwordVisible.oldPassword ? <BiHide onClick={() => handlePasswordVisibility("oldPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("oldPassword")} />}
                 </div>
               </div>
-              <small class="text-red"></small>
+              <small className="text-red"></small>
             </div>
           </div>
-          <div class="mb-5">
-            <div class="font-medium mb-1.5">Password Baru</div>
-            <div class="relative bg-white">
-              <div class="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
+          <div className="mb-5">
+            <div className="font-medium mb-1.5">Password Baru</div>
+            <div className="relative bg-white">
+              <div className="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
                 <input
                   name="newPassword"
-                  class="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
+                  className="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
                   placeholder="Masukkan password baru"
                   type={passwordVisible.newPassword ? "text" : "password"}
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end cursor-pointer">
+                <div className="w-[10%] flex justify-end cursor-pointer">
                   {passwordVisible.newPassword ? <BiHide onClick={() => handlePasswordVisibility("newPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("newPassword")} />}
                 </div>
               </div>
-              <small class="text-red"></small>
+              <small className="text-red"></small>
             </div>
           </div>
-          <div class="text-grey-90 -mt-2 mb-4">Password minimal 8 karakter dengan kombinasi huruf kecil dan angka.</div>
-          <div class="mb-5">
-            <div class="font-medium mb-1.5">Konfirmasi Password Baru</div>
-            <div class="relative bg-white">
-              <div class="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
+          <div className="text-grey-90 -mt-2 mb-4">Password minimal 8 karakter dengan kombinasi huruf kecil dan angka.</div>
+          <div className="mb-5">
+            <div className="font-medium mb-1.5">Konfirmasi Password Baru</div>
+            <div className="relative bg-white">
+              <div className="flex items-center py-2.5 px-3 rounded border-2 border-grey-ec">
                 <input
                   name="confirmPassword"
-                  class="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
+                  className="w-full sm-only:text-sm focus:outline-none focus:shadow-outline"
                   placeholder="Konfirmasi Password Baru"
                   type={passwordVisible.confirmPassword ? "text" : "password"}
                   onChange={inputHandler}
                   onKeyDown={clearField}
                 />
-                <div class="w-[10%] flex justify-end  cursor-pointer">
+                <div className="w-[10%] flex justify-end  cursor-pointer">
                   {passwordVisible.confirmPassword ? <BiHide onClick={() => handlePasswordVisibility("confirmPassword")} /> : <BiShow onClick={() => handlePasswordVisibility("confirmPassword")} />}
                 </div>
               </div>
-              <small class="text-red"></small>
+              <small className="text-red"></small>
             </div>
           </div>
-          <div class="text-grey-90 -mt-2 mb-4">Password minimal 8 karakter dengan kombinasi huruf kecil dan angka.</div>
-          <div class="flex justify-end">
+          <div className="text-grey-90 -mt-2 mb-4">Password minimal 8 karakter dengan kombinasi huruf kecil dan angka.</div>
+          <div className="flex justify-end">
             <button id="password-update" className="bg-green-500 py-2 px-5 flex justify-center w-[100px] h-[40px] rounded" type="submit">
               {Loader ? <Spinner /> : "Simpan"}
             </button>
