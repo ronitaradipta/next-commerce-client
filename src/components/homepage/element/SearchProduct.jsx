@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdOutlineSearch } from "react-icons/md";
 import { IconContext } from "react-icons";
-import api from "../../../services/api";
+import callApi from "../../../services/callApi";
 import debounce from "lodash/debounce";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,13 +12,24 @@ const SearchProduct = () => {
   const [productResults, setProductResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const highlightMatchedKeywords = (text, keyword) => {
+    const regex = new RegExp(keyword, "gi");
+    return (text ?? "").replace(regex, (match) => `<b>${match}</b>`);
+  };
 
   const fetchSearch = async () => {
-    if (loading) {
-      const response = await api.get(`/products/search?q=${inputSearch}`);
-      setProductResults(response.data.products);
-      setLoading(false);
+    setLoading(true);
+    try {
+      const response = await callApi.get(`/products?search=${inputSearch}`);
+      const highlightedResults = response.data.data.map((product) => ({
+        ...product,
+        highlightedTitle: highlightMatchedKeywords(product.name, inputSearch),
+      }));
+      setProductResults(highlightedResults);
+    } catch (error) {
+      console.log(error);
     }
+    setLoading(false);
   };
 
   const handleChangeInput = (e) => {
@@ -29,16 +40,13 @@ const SearchProduct = () => {
   const searchSumbit = (e) => {
     e.preventDefault();
     setInputSearch("");
-    return navigate(`/search-results/${inputSearch}`);
+    return navigate(`/search-results/product?search=${inputSearch}`);
   };
 
-  const debouncedChangeHandler = useCallback(
-    debounce(handleChangeInput, 300),
-    []
-  );
+  const debouncedChangeHandler = useCallback(debounce(handleChangeInput, 300), []);
 
   const handleClickListSearch = (menu) => {
-    navigate(`/search-results/${menu}`);
+    navigate(`/search-results/product?search=${menu}`);
     setInputSearch("");
   };
 
@@ -60,14 +68,10 @@ const SearchProduct = () => {
             onChange={debouncedChangeHandler}
             required
           />
+
           {!inputSearch && (
-            <button
-              type="submit"
-              className="text-white absolute right-1 bottom-0.5 font-medium text-sm px-2 py-2"
-            >
-              <IconContext.Provider
-                value={{ className: "text-gray-600 w-6 h-6" }}
-              >
+            <button type="submit" className="text-white absolute right-1 bottom-0.5 font-medium text-sm px-2 py-2">
+              <IconContext.Provider value={{ className: "text-gray-600 w-6 h-6" }}>
                 <MdOutlineSearch />
               </IconContext.Provider>
             </button>
@@ -83,28 +87,21 @@ const SearchProduct = () => {
               productResults.length > 0 &&
               productResults.map((item) => {
                 return (
-                  <a
-                    className="w-full py-3 block group cursor-pointer"
-                    onClick={() => handleClickListSearch(item.title)}
-                    key={item.id}
-                  >
+                  <a className="w-full py-3 block group cursor-pointer" onClick={() => handleClickListSearch(item.name)} key={item.id}>
                     <li className=" group-hover:text-emerald-500 group flex gap-2">
                       <IconContext.Provider
                         value={{
-                          className:
-                            "text-gray-600 group-hover:text-emerald-500 w-6 h-6",
+                          className: "text-gray-600 group-hover:text-emerald-500 w-6 h-6",
                         }}
                       >
                         <MdOutlineSearch />
                       </IconContext.Provider>
-                      {item.title}
+                      <div dangerouslySetInnerHTML={{ __html: item.highlightedTitle }} />
                     </li>
                   </a>
                 );
               })}
-            {!loading &&
-              productResults.length === 0 &&
-              "Tidak ada produk yang cocok"}
+            {!loading && productResults.length === 0 && "Tidak ada produk yang cocok"}
           </ul>
         </div>
       )}
