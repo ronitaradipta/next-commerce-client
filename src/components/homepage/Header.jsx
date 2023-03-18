@@ -5,12 +5,11 @@ import { MdArrowDropDown, MdShoppingCart } from "react-icons/md";
 import SearchProduct from "./element/SearchProduct";
 import { Link } from "react-router-dom";
 import CartList from "./element/CartList";
-import api from "../../services/api";
+import callApi from "../../services/callApi";
 import Cookies from "js-cookie";
 import UserMenuCard from "../auth/elements/UserMenuCard";
 import ClickOutsideHide from "../../utils/ClickOutsideHide";
 import { FaBars, FaTimes } from "react-icons/fa";
-import callApi from "../../services/callApi";
 
 const Header = ({ DataChange }) => {
   const dataUser = Cookies.get("user");
@@ -26,8 +25,8 @@ const Header = ({ DataChange }) => {
 
   const fetchCartData = async () => {
     try {
-      const product = await api.get(`/users/5/carts`);
-      const data = product.data.carts[0].products;
+      const product = await callApi.get(`/carts/product`);
+      const data = product.data.data.products;
       setcartDatas(data);
     } catch (error) {
       console.log(error);
@@ -72,8 +71,15 @@ const Header = ({ DataChange }) => {
           </div>
           <SearchProduct />
           <div className="flex items-center justify-end relative">
-            <ClickOutsideHide reff={cartButton} state={setShowCartContainer} className="flex items-center">
-              <a className="w-8 h-8 md:mr-4 cursor-pointer relative" onClick={() => setShowCartContainer((prev) => !prev)}>
+            <ClickOutsideHide
+              reff={cartButton}
+              state={setShowCartContainer}
+              className="flex items-center"
+            >
+              <a
+                className="w-8 h-8 md:mr-4 cursor-pointer relative"
+                onClick={() => setShowCartContainer((prev) => !prev)}
+              >
                 <IconContext.Provider
                   value={{
                     className: "text-gray-600 w-8 h-8 hover:text-gray-500",
@@ -81,8 +87,10 @@ const Header = ({ DataChange }) => {
                 >
                   <MdShoppingCart />
                 </IconContext.Provider>
-                {user && cartDatas.length ? (
-                  <div className="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 animate-bounce text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">{cartDatas.length}</div>
+                {user && cartDatas?.length ? (
+                  <div className="inline-flex absolute -top-2 -right-2 justify-center items-center w-5 h-5 animate-bounce text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white">
+                    {cartDatas.length}
+                  </div>
                 ) : (
                   ""
                 )}
@@ -92,8 +100,15 @@ const Header = ({ DataChange }) => {
 
             {user && (
               <ClickOutsideHide reff={userButton} state={setShowMenu}>
-                <div className="flex items-center gap-3 cursor-pointer relative" onClick={() => setShowMenu((prev) => !prev)}>
-                  <img src={user.user_profile.avatar} alt="profile" className="w-11 rounded-full border border-gray-400 ml-3" />
+                <div
+                  className="flex items-center gap-3 cursor-pointer relative"
+                  onClick={() => setShowMenu((prev) => !prev)}
+                >
+                  <img
+                    src={user.user_profile.avatar}
+                    alt="profile"
+                    className="w-11 rounded-full border border-gray-400 ml-3"
+                  />
                   <div className="flex gap-2 items-center">
                     <p className="text-sm">Hi, {user.name}</p>
                     <IconContext.Provider
@@ -116,25 +131,49 @@ const Header = ({ DataChange }) => {
             )}
             {!user && (
               <div className="md:hidden">
-                <button onClick={toggleMenu} className="outline-none focus:outline-none" type="button">
-                  {isMenuOpen ? <FaTimes className="text-gray-500 text-2xl" /> : <FaBars className="text-gray-500 text-2xl" />}
+                <button
+                  onClick={toggleMenu}
+                  className="outline-none focus:outline-none"
+                  type="button"
+                >
+                  {isMenuOpen ? (
+                    <FaTimes className="text-gray-500 text-2xl" />
+                  ) : (
+                    <FaBars className="text-gray-500 text-2xl" />
+                  )}
                 </button>
               </div>
             )}
-            <div className={`${isMenuOpen ? "" : "hidden"} md:hidden fixed w-full h-full top-16 left-0 flex justify-center items-center`}>
+            <div
+              className={`${
+                isMenuOpen ? "" : "hidden"
+              } md:hidden fixed w-full h-full top-16 left-0 flex justify-center items-center`}
+            >
               <div className="w-full bg-white md:w-1/2 min-h-[24rem] rounded-lg p-7 flex flex-col gap-3">
                 {!user && (
                   <button className="bg-emerald-500 text-white px-5 py-3 rounded-lg hover:bg-emerald-600 text-sm">
                     <Link to="/login">Daftar/login</Link>
                   </button>
                 )}
-                <Link to="/" className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500" onClick={toggleMenu}>
+                <Link
+                  to="/"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
                   Home
                 </Link>
-                <Link to="/about" className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500" onClick={toggleMenu}>
+                <Link
+                  to="/about"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
                   About Us
                 </Link>
-                <Link to="/contact" className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500" onClick={toggleMenu}>
+                <Link
+                  to="/contact"
+                  className="text-gray-500 text-lg font-semibold mb-5 hover:text-emerald-500"
+                  onClick={toggleMenu}
+                >
                   Contact Us
                 </Link>
               </div>

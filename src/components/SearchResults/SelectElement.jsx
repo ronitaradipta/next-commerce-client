@@ -7,7 +7,7 @@ const SelectElement = ({ data, handleFilter, value }) => {
         Semua Kategori
       </option>
       {data &&
-        data.map((item, idx) => {
+        data.map(( data ) => {
           return (
             <option value={item.slug} key={idx}>
               {item.name}
