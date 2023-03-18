@@ -7,7 +7,7 @@ const Category = () => {
 
   // style
   const cardContainer = "flex flex-wrap justify-center";
-// API 
+  // API
   const AllCategory = async () => {
     try {
       const category = await callApi.get("/categories");
@@ -26,7 +26,7 @@ const Category = () => {
       <h2>Kategori Pilihan</h2>
       <div className={cardContainer}>
         {datas.map((data, idx) => {
-          return <CardCategory data={data.name} image={data.image} key={data.slug} />;
+          return <CardCategory data={data.slug} image={data.image} key={data.idx} />;
         })}
       </div>
     </section>
