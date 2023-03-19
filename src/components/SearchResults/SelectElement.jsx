@@ -9,8 +9,8 @@ const SelectElement = ({ data, handleFilter, value }) => {
       {data &&
         data.map(( data ) => {
           return (
-            <option value={item.slug} key={idx}>
-              {item.name}
+            <option value={data.slug}>
+              {data.name}
             </option>
           );
         })}

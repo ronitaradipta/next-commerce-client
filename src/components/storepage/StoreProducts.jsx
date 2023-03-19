@@ -12,29 +12,14 @@ const StoreProducts = () => {
   const {idData} = useParams();
 
   const fetchAllCategory = async () => {
-    try {
-      // const category = await api.get("/products/categories");
+    try {;
       const category = await callApi.get("/categories");
       setCategories(category.data.data); 
-      // setCategories(category.data.data); 
-      console.log(category.data.data)
     } catch (error) {
-      console.log(error);
+  
     }
   };
 
-  // const fetchSearchProducts = async () => {
-  //   let param;
-  //   try {
-  //     if (query) {
-  //       param = `search/?q=${query}`;
-  //     }
-  //     if (cat) {
-  //       param = `category/${cat}`;
-  //     }
-  //     const response = await api.get(`/products`);
-  //     setProducts(response.data.products);
-  //   } catch (error) {}
   const fetchSearchProducts = async () => {
     let param;
     try {
@@ -46,7 +31,6 @@ const StoreProducts = () => {
       }
       const response = await callApi.get(`/stores/${idData}/products`);
       setProducts(response.data.data);
-      console.log(response.data.data)
     } catch (error) {}
   };
 

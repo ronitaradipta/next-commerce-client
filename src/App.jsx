@@ -155,7 +155,7 @@ function App() {
         }
       />
       {/* newly added by : fiqri oemry */}
-      <Route path="/store-info" element={<StorePage />} />
+      <Route path="/store-info/:idData" element={<StorePage />} />
       <Route
         path="/register-store"
         element={
