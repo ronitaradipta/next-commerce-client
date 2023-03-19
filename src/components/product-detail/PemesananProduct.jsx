@@ -151,7 +151,12 @@ function PemesananProduct({ data, idData }) {
             </div>
             <div>
               <h3 className="font-bold text-lg mx-3">
-                $ {data.price * inputQty}
+                Rp.
+                {(data.price * inputQty).toLocaleString("id-ID", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                  currency: "IDR",
+                })}
               </h3>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { BsCheck2 } from "react-icons/bs";
@@ -9,21 +9,19 @@ const InputSelect = ({
   inputCategory,
   setInputCategory,
   name,
+  selectedCategoryName,
 }) => {
   return (
     <div className="flex flex-wrap mb-6">
       <label className="w-full md:w-[20%] mb-2">
         <span className="font-semibold text-base">{label}</span>
       </label>
-      <Listbox
-        value={inputCategory}
-        onChange={setInputCategory}
-        name={name}
-        required
-      >
+      <Listbox onChange={setInputCategory} name={name} required>
         <div className="relative w-full md:w-[80%] ">
           <Listbox.Button className="relative border border-gray-300 font-normal rounded p-2 w-full text-left">
-            <span className="block truncate">{inputCategory}</span>
+            <span className="block truncate">
+              {selectedCategoryName || "Pilih Kategori"}
+            </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <HiChevronUpDown
                 className="h-5 w-5 text-gray-400"
@@ -50,16 +48,16 @@ const InputSelect = ({
                   }
                   value={item.id}
                 >
-                  {({ inputCategory }) => (
+                  {({ active }) => (
                     <>
                       <span
                         className={`block truncate ${
-                          inputCategory ? "font-medium" : "font-normal"
+                          active ? "font-medium" : "font-normal"
                         }`}
                       >
                         {item.name}
                       </span>
-                      {inputCategory ? (
+                      {active ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-600">
                           <BsCheck2 className="h-5 w-5" aria-hidden="true" />
                         </span>
