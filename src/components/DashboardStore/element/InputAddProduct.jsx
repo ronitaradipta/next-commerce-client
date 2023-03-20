@@ -1,6 +1,13 @@
 import React from "react";
 
-const InputAddProduct = ({ label, placeholder, type, name, onChange }) => {
+const InputAddProduct = ({
+  label,
+  placeholder,
+  type,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <>
       <label className="mb-6 w-full flex flex-wrap">
@@ -11,6 +18,7 @@ const InputAddProduct = ({ label, placeholder, type, name, onChange }) => {
           type={type}
           placeholder={placeholder}
           name={name}
+          value={value}
           className="border border-gray-300 font-normal rounded p-2 w-full md:w-[80%]"
           onChange={(e) => onChange(e.target.value)}
           required

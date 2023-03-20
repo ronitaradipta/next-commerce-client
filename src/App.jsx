@@ -123,6 +123,14 @@ function App() {
         }
       />
       <Route
+        path="/edit-product/:id"
+        element={
+          <UserAuth>
+            <AddProduct />
+          </UserAuth>
+        }
+      />
+      <Route
         path="/list-products"
         element={
           <UserAuth>
