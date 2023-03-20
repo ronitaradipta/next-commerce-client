@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import InputAddProduct from "../components/DashboardStore/element/InputAddProduct";
 import InputMedia from "../components/DashboardStore/element/InputMedia";
 import InputSelect from "../components/DashboardStore/element/InputSelect";
@@ -16,7 +16,10 @@ const AddProduct = () => {
   const [inputToggle, setInputToggle] = useState(true);
   const [mediaInput, setMediaInput] = useState([]);
   const [inputTitles, setInputTitles] = useState("");
-  const [inputCategory, setInputCategory] = useState("Pilih Kategori");
+  const [inputCategory, setInputCategory] = useState("");
+  const selectedCategoryName = inputCategory
+    ? datas.find((item) => item.id === inputCategory)?.name
+    : "";
   const [inputDescriptions, setInputDescriptions] = useState("");
   const [inputPrice, setInputPrice] = useState(0);
   const [inputStock, setInputStock] = useState(0);
@@ -26,6 +29,7 @@ const AddProduct = () => {
   const [message, setMessage] = useState({ error: "", success: "" });
 
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const fetchAllCategory = async () => {
     try {
@@ -36,11 +40,27 @@ const AddProduct = () => {
     }
   };
 
+  const getDataProduct = async () => {
+    try {
+      const response = await callApi.get(`/products/${id}`);
+      const { data } = response.data;
+      setInputTitles(data.name);
+      setInputCategory(data.categoryId);
+      setInputDescriptions(data.description);
+      setInputPrice(data.price);
+      setInputStock(data.stock);
+      setShowImageInput(data.images);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleImageUpload = (event, index) => {
     const files = event.target.files;
     const imageURL = URL.createObjectURL(files[0]);
     let newImages = [...showImageInput];
-    newImages[index] = imageURL;
+    newImages[index] = { image: imageURL };
+    console.log(newImages);
     setShowImageInput(newImages);
     setMediaInput([...mediaInput, files[0]]);
   };
@@ -60,15 +80,21 @@ const AddProduct = () => {
     e.preventDefault();
     try {
       setLoading(true);
+      let response;
+      if (id) {
+        response = await callApi.put(`/products/${id}`, data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        response = await callApi.post("/products", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
 
-      console.log(data);
-
-      const response = await callApi.post("/products", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response);
       setMessage({ success: response.data.message });
       setisSuccess(true);
       setTimeout(() => {
@@ -78,13 +104,15 @@ const AddProduct = () => {
       }, 2500);
     } catch (error) {
       console.log(error);
-      console.log(data);
       setLoading(false);
-      setMessage({ error: error.response.data.message });
+      setMessage({ error: error.response.data.error });
     }
   };
 
   useEffect(() => {
+    if (id) {
+      getDataProduct();
+    }
     fetchAllCategory();
   }, []);
   return (
@@ -115,12 +143,13 @@ const AddProduct = () => {
               ))}
             </div>
           </div>
-          <p className="text-center text-red-500 p-2">{message.error}</p>
+
           <div className="w-full bg-white p-6 mt-6 rounded-lg shadow-md">
             <InputAddProduct
               label="Nama Produk"
               placeholder="Contoh : Tas Selempang Pria"
               type="text"
+              value={inputTitles}
               name="name"
               onChange={setInputTitles}
             />
@@ -128,6 +157,7 @@ const AddProduct = () => {
               label="Kategori"
               data={datas}
               inputCategory={inputCategory}
+              selectedCategoryName={selectedCategoryName}
               setInputCategory={setInputCategory}
               name="categoryId"
             />
@@ -135,6 +165,7 @@ const AddProduct = () => {
               label="Deskripsi Produk"
               placeholder="Tulis deskripsi produk..."
               name="description"
+              value={inputDescriptions}
               onChange={setInputDescriptions}
             />
             <InputAddProduct
@@ -142,6 +173,7 @@ const AddProduct = () => {
               placeholder="Rp..."
               type="number"
               name="price"
+              value={inputPrice}
               onChange={setInputPrice}
             />
             <SwitchToggle
@@ -154,9 +186,11 @@ const AddProduct = () => {
               placeholder="Masukkan jumlah stok"
               type="number"
               name="stock"
+              value={inputStock}
               onChange={setInputStock}
             />
           </div>
+          <p className="text-center text-red-500 p-2">{message.error}</p>
           <div className="w-full mt-6 flex justify-center md:justify-end gap-4">
             <Link to="/store-dashboard">
               <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">
@@ -169,8 +203,7 @@ const AddProduct = () => {
                 inputDescriptions &&
                 inputCategory !== "Pilih Kategori" &&
                 inputPrice &&
-                inputStock &&
-                mediaInput.length
+                inputStock
                   ? "bg-emerald-500 text-white"
                   : "bg-gray-200 text-gray-400"
               } font-medium p-3 rounded-md w-48 flex justify-center`}
@@ -179,13 +212,12 @@ const AddProduct = () => {
                 !inputDescriptions ||
                 inputCategory === "Pilih Kategori" ||
                 !inputPrice ||
-                !inputStock ||
-                !mediaInput.length
+                !inputStock
               }
               type="submit"
               onClick={handleSubmit}
             >
-              {loading ? <Spinner /> : "Tambah Produk"}
+              {loading ? <Spinner /> : id ? "Edit Produk" : "Tambah Produk"}
             </button>
           </div>
         </form>

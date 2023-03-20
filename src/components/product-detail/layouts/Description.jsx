@@ -40,7 +40,15 @@ function Description({ data }) {
       )}
       {loading ? (
         <div className="my-1">
-          <h3 className="font-bold text-3xl">${data && data.price}</h3>
+          <h3 className="font-bold text-3xl">
+            Rp.
+            {data &&
+              data.price.toLocaleString("id-ID", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2,
+                currency: "IDR",
+              })}
+          </h3>
         </div>
       ) : (
         <Skeleton
