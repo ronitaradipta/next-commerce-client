@@ -15,6 +15,7 @@ const ProductRecommendations = () => {
   const fetchData = async () => {
     try {
       const product = await callApi.get(`/products/?limit=${limit}`);
+
       setDatas(product.data.data);
       if (loading) {
         setLimit(limit + 5);
