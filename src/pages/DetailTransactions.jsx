@@ -12,10 +12,8 @@ const DetailTransactions = () => {
   const fetchDataTransaction = async () => {
     try {
       const response = await api.get("orders/store");
-      // console.log(response.data.data);
       setDataTransaction(response.data.data);
-      
-      console.log(response.data.data.OrderDetails)
+      console.log(response.data.data)
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +25,7 @@ const DetailTransactions = () => {
 
   const menu = [
     "Semua Pesanan",
-    "Pesanan Dikirim",
+    "Menunggu Pembayaran",
     "Siap Dikirim",
     "Dalam Pengiriman",
     "Pesanan Selesai",
@@ -57,20 +55,17 @@ const DetailTransactions = () => {
         <div className="flex flex-col gap-6 mt-6">
           {dataTransaction.length > 0 &&
             dataTransaction.map((data, ) => {
-              // console.log(dataTransaction)
-
-              const { customerAddress, customerDetail, totalPrice, orderDetails, orderStatus, shippingStatus, shippingCost, trackingNumber  } = data;
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
-                  {/* <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={orderDetails?.productId} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                  <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
+                    <img src={data.OrderDetails[0].product.productGalleries?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{ProductId}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {orderDetails.quantity} x {discountedPrice}
+                        {data.OrderDetails[0].price}
                       </p>
                       <a
                         href="#"
@@ -79,25 +74,30 @@ const DetailTransactions = () => {
                         Lihat Produk Lainnya
                       </a>
                     </div>
-                  </div> */}
+                  </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
                     <div className="font-semibold">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
-                      {customerAddress}
+                      {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-xl font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-md font-semibold">Status</div>
+                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
+                  </div>
+                  <div className="md:w-8/12 lg:w-4/12 py-2">
+                   
+                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
-                      {customerDetail}
+                      {data.customerDetail}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
                     <h3 className="text-gray-500 text-sm md:text-md">
-                      Jumlah Pesanan {orderDetails} Barang
+                      Jumlah Pesanan {data.OrderDetails[0].quantity} Barang
                     </h3>
                     <p className="text-sm md:text-xl font-semibold">
-                      Total Harga : Rp. {totalPrice}
+                      Total Harga : Rp. {data.totalPrice}
                     </p>
                   </div>
                 </div>
@@ -105,8 +105,13 @@ const DetailTransactions = () => {
             })}
         </div>
       )}
-      {activeTabIndex === 1 && <div>Pesanan Dikirim</div>}
+      {activeTabIndex === 1 && <div>
+        dah
+      </div>}
       {activeTabIndex === 2 && <div>Siap Dikirim</div>}
+      {activeTabIndex === 3 && <div>Siap Dikirim</div>}
+      {activeTabIndex === 4 && <div>Siap Dikirim</div>}
+      {activeTabIndex === 5 && <div>Siap Dikirim</div>}
     </LayoutDashboard>
   );
 };

@@ -21,6 +21,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import OTPverificationPage from "./pages/OTPverificationPage";
 import CartPage from "./pages/CartPage";
+import OrderlistUser from "./pages/OrderlistUser";
 
 function App() {
   return (
@@ -177,6 +178,14 @@ function App() {
         }
       />
       <Route path="*" element={<ErrorPage />} />
+
+      <Route 
+        path="/order-list" 
+        element={
+          <UserAuth>
+            <OrderlistUser/>
+          </UserAuth>
+          }/>
     </Routes>
   );
 }
