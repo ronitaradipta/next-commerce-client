@@ -3,6 +3,7 @@ import TitlePage from "../components/DashboardStore/element/TitlePage";
 import LayoutDashboard from "../components/layout/LayoutDashboard";
 import api from "../services/callApi";
 import productimg from "../assets/images/laptop-stand.png";
+import { Link } from "react-router-dom";
 
 const DetailTransactions = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -79,29 +80,26 @@ const DetailTransactions = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
                    
-                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -133,29 +131,26 @@ const DetailTransactions = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
                    
-                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -187,29 +182,26 @@ const DetailTransactions = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
                    
-                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -241,29 +233,26 @@ const DetailTransactions = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
                    
-                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -295,29 +284,27 @@ const DetailTransactions = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                  
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
                    
-                    <div className="text-sm md:text-md font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>

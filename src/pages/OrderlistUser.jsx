@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom';
 import TitlePage from "../components/DashboardStore/element/TitlePage";
 import Header from "../components/homepage/Header";
 import api from "../services/callApi";
@@ -12,6 +13,7 @@ const OrderlistUser = () => {
           const response = await api.get("orders/user");
           // console.log(response.data.data);
           setDataTransaction(response.data.data);
+          console.log(response.data.data);
           
         } catch (error) {
           console.log(error);
@@ -35,7 +37,7 @@ const OrderlistUser = () => {
       return(data.shippingStatus === "in_progress")
     })
 
-    console.log(filterShippingStatusDelivered)
+    
     const menu = [
         "Semua Pesanan",
         "Menunggu Pembayaran",
@@ -79,28 +81,25 @@ const OrderlistUser = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data && data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data && data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data && data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                    <div className="font-semibold">Alamat</div>
+                    <div className=" text-sm md:text-lg font-semibold">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       { data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Nama Toko</div>
+                    <div className=" md:text-lg text-sm font-semibold">Nama Toko</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.OrderDetails[0].product.store.name}
                     </p>
@@ -132,22 +131,19 @@ const OrderlistUser = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data && data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data && data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data && data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                    <div className="font-semibold">Alamat</div>
+                    <div className="text-sm md:text-md font-semibold">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       { data.customerAddress}
                     </p>
@@ -185,28 +181,26 @@ const OrderlistUser = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data && data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data && data.OrderDetails[0].price}
+                      {data.OrderDetails[0].quantity} X {data && data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          target="_blank"
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       { data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Nama Toko</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Toko</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.OrderDetails[0].product.store.name}
                     </p>
@@ -238,28 +232,25 @@ const OrderlistUser = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data && data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data && data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X {data && data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       { data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Nama Toko</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Toko</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.OrderDetails[0].product.store.name}
                     </p>
@@ -277,7 +268,8 @@ const OrderlistUser = () => {
             })}
         </div>
       )}
-      {activeTabIndex === 4 && <div className="flex flex-col gap-6 mt-6">
+     {activeTabIndex === 4 && (
+        <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusDelivered.length > 0 &&
           filterShippingStatusDelivered.map((data) => {
               return (
@@ -290,28 +282,25 @@ const OrderlistUser = () => {
                     <div className="flex flex-col justify-between">
                       <div className="text-sm font-semibold md:text-[18px]">{data && data.OrderDetails[0].product.name}</div>
                       <p className="text-gray-500 text-sm md:text-base">
-                        {data && data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X {data && data.OrderDetails[0].price}
                       </p>
-                      <a
-                        href="#"
-                        className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                      >
-                        Lihat Produk Lainnya
-                      </a>
+                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
+                        <a
+                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
+                        >
+                          Lihat Produk Lainnya
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                  <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Status</div>
-                      <p className="text-gray-500 text-[10px] md:text-sm">{data.shippingStatus}</p>
-                  </div>
-                    <div className="font-semibold">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       { data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                    <div className="text-sm md:text-md font-semibold">Nama Toko</div>
+                    <div className="text-sm md:text-lg font-semibold">Nama Toko</div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.OrderDetails[0].product.store.name}
                     </p>
@@ -327,7 +316,8 @@ const OrderlistUser = () => {
                 </div>
               );
             })}
-        </div>}
+        </div>
+      )}
 
       </section>
 
