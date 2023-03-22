@@ -6,7 +6,7 @@ import UserMenu from "./element/UserMenu";
 const HeaderDashboard = () => {
   const [user, setUser] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-  const dataUser = Cookies.get("user");
+  const dataUser = Cookies.get("token");
 
   const userButton = useRef(null);
 
