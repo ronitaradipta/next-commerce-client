@@ -6,7 +6,7 @@ import UserMenu from "./element/UserMenu";
 const HeaderDashboard = () => {
   const [user, setUser] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-  const dataUser = Cookies.get("token");
+  const dataUser = Cookies.get("user");
 
   const userButton = useRef(null);
 
@@ -20,8 +20,15 @@ const HeaderDashboard = () => {
     <ClickOutsideHide reff={userButton} state={setShowMenu}>
       <div className="w-full h-16 shadow-lg bg-white flex items-center justify-end px-4 sticky top-0">
         {user && (
-          <div className="flex items-center gap-3 cursor-pointer relative" onClick={() => setShowMenu((prev) => !prev)}>
-            <img src={user.userAvatar} alt="profile" className="w-11 rounded-full border border-gray-400" />
+          <div
+            className="flex items-center gap-3 cursor-pointer relative"
+            onClick={() => setShowMenu((prev) => !prev)}
+          >
+            <img
+              src={user.userAvatar}
+              alt="profile"
+              className="w-11 rounded-full border border-gray-400"
+            />
             <div className="flex gap-2 items-center">
               <p className="text-sm">Hi, {user.userName}</p>
               {showMenu && <UserMenu />}

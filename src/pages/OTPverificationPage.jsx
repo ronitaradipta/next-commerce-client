@@ -110,7 +110,10 @@ const OTPverificationPage = () => {
       });
       setLoading(false);
       setSuccessMessage(response.data.message);
-      Cookies.set("token", response.data.data, { expires: 1 });
+      Cookies.set("token", response.data.data.token, { expires: 1 });
+      Cookies.set("user", JSON.stringify(response.data.data.user), {
+        expires: 1,
+      });
       setNotification(true);
       setOTP(["", "", "", "", "", ""]);
       setTimeout(() => {
