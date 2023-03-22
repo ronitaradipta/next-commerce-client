@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const CardProductStore = ({ data }) => {
+  console.log(data)
   const cardStyle = "w-full rounded-lg h-full shadow-md cursor-pointer";
   const cardImage = "w-full h-[200px] rounded-t-lg";
 

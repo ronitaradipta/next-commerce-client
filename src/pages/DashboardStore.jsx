@@ -19,6 +19,7 @@ const DashboardStore = () => {
     try {
       const response = await callApi.get("/orders/store");
       setDataTransaction(response.data);
+      console.log(response.data)
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +86,7 @@ const DashboardStore = () => {
                 >
                   <div className="flex gap-2 md:w-8/12 lg:w-6/12 xl:w-4/12">
                     <img
-                      src={product.ProductGalleries[0].image}
+                      src={product.ProductGalleries[0]?.image}
                       alt="image"
                       className="w-24 h-24 "
                     />
