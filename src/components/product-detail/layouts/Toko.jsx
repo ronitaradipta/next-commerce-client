@@ -3,6 +3,7 @@ import Skeleton from "@mui/material/Skeleton";
 // import toko1 from "../../../assets/images/img/toko.jpg"; replace default picture with image from store
 
 function Toko({ data }) {
+  // console.log(data)
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setTimeout(() => {
@@ -20,8 +21,8 @@ function Toko({ data }) {
       )}
       {loading ? (
         <div className="mb-6">
-          <h3 className="font-semibold text-base">{data.store.name}</h3>
-          <p className="font-normal text-sm">{data.store.city}</p>
+          <h3 className="font-semibold text-base">{data.storeName}</h3>
+          <p className="font-normal text-sm">{data.storeCity}</p>
         </div>
       ) : (
         <Skeleton animation="wave" variant="rounded" width={150} height={50} />

@@ -10,20 +10,26 @@ import { useParams } from "react-router-dom";
 const StorePage = () => {
   const [storeName, setStoreName] = useState();
   const [ShopDetails, setShopDetails] = useState(false);
-  const {idData} = useParams
+  const {idData} = useParams();
+  const { query, cat } = useParams();
 
-  const fetchStrore = async()=> {
-    try{
-      // const response = await callApi.get(`/stores/${idData}`)
-      const response = await callApi.get(`/stores/`)
-      setStoreName(response.data)
+  const fetchStore = async () => {
+    let param;
+    try {
+      if (query) {
+        param = `search/?q=${query}`;
+      }
+      if (cat) {
+        param = `category/${cat}`;
+      }
+      const response = await callApi.get(`/stores/${idData}/products`);
+      setStoreName(response.data);
       // console.log(response.data)
-    }catch (error){
-      console.log(error);
-    }
-  }
+    } catch (error) {}
+  };
+
   useEffect(()=>{
-    fetchStrore()
+    fetchStore()
   },[]);
   
   const setModalBox = () => {
@@ -31,11 +37,10 @@ const StorePage = () => {
   };
   return (
     <div className="min-h-screen">
-      {ShopDetails && <StoreDetails setModalBox={setModalBox} />}
+      {ShopDetails && <StoreDetails setModalBox={setModalBox} data={storeName} />}
       <Header />
       <div className="page_border max-w-screen-xl mx-auto p-5 flex flex-col items-center">
-        {/* <StoreInfo data={storeName} idData={idData} /> */}
-        <StoreInfo  />
+        <StoreInfo data={storeName} setModalBox={setModalBox}/>
         <StoreProducts />
       </div>
       <Footer />

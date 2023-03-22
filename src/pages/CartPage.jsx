@@ -16,6 +16,7 @@ const CartPage = () => {
     try {
       const response = await callApi.get(`/carts/product`);
       setProduct(response.data.data.products);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
