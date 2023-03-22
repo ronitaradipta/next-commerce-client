@@ -4,8 +4,10 @@ import { MdClose } from "react-icons/md";
 import { MdShareLocation } from "react-icons/md";
 import siCepat from "../../../assets/store/sicepat_logo.jpg";
 
-const StoreDetails = ({ setModalBox }) => {
+const StoreDetails = ({ setModalBox, data }) => {
   const [open, setOpen] = useState(0);
+  console.log(data)
+
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -15,7 +17,7 @@ const StoreDetails = ({ setModalBox }) => {
       <div className="mx-auto max-w-screen-lg flex items-center justify-center">
         <div className="w-[95%] md:w-[85%] max-h-[90vh]  bg-white rounded-xl flex flex-col text-[35px] ">
           <div className="header relative h-[20%] py-5 flex justify-center items-center border-b-2 ">
-            <h2 className="text-[20px] font-bold">TOKO SERBA ADA SEMUA</h2>
+            <h2 className="text-[20px] font-bold">{data.storeName}</h2>
             <button className="rounded-full border-2 border-black text-[20px] absolute right-5 top-5" onClick={setModalBox}>
               <MdClose />
             </button>
@@ -25,12 +27,12 @@ const StoreDetails = ({ setModalBox }) => {
               <div className="topside flex flex-wrap mb-5">
                 <div className="store_info md:w-[30%] py-5  ">
                   <h2 className="text-[20px] font-semibold mb-2">Deskripsi Toko</h2>
-                  <p className="text-[15px] mb-2 text-justify">Toko Kami Selalu menjunjung tinggi kualitas pada produk sehingga produk selalu baru dan keadaan baik.</p>
+                  <p className="text-[15px] mb-2 text-justify">{data.storeDescription}</p>
                   <div className="location flex gap-2 items-center">
                     <div className="logo text-[16px]">
                       <MdShareLocation />
                     </div>
-                    <div className="title text-[16px]">Jakarta</div>
+                    <div className="title text-[16px]">{data.storeCity}</div>
                   </div>
                   <div className="location flex gap-2 items-center">
                     <div className="logo text-[16px]">

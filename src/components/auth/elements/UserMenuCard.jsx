@@ -1,6 +1,7 @@
 import React from "react";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
+import {MdReceipt} from "react-icons/md"
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,12 @@ const UserMenuCard = ({ user }) => {
             <RiUserSettingsFill className="text-[25px]" />
           </div>
           <p>Profile Saya</p>
+        </Link>
+        <Link to="/order-list" className="flex items-center gap-5 mb-2">
+          <div className="h-10 w-10 rounded-full border flex justify-center items-center">
+            <MdReceipt className="text-[25px]" />
+          </div>
+          <p>Pesanan Saya</p>
         </Link>
         {/*ternary option for user-as cumtomer only or as a Seller having store*/}
         {user.Store === null ? (
