@@ -8,9 +8,9 @@ import callApi from "../../../services/callApi";
 const UserMenuCard = ({ user }) => {
   const navigate = useNavigate();
   const handleLogOut = async () => {
-    Cookies.remove("user");
+    Cookies.remove("token");
     try {
-      const response = await callApi.get("/auth/logout");
+      const response = await callApi.post("/auth/logout");
       if (response) navigate("/login");
     } catch (error) {
       console.log(error);
@@ -37,14 +37,21 @@ const UserMenuCard = ({ user }) => {
         ) : (
           <Link to="/store-dashboard" className="flex items-center gap-5 mb-2 ">
             <div className="h-10 w-10 overflow-hidden rounded-full border">
-              <img className="object-contain w-full" src={user.Store?.image} alt="store_avatar" />
+              <img
+                className="object-contain w-full"
+                src={user.Store?.image}
+                alt="store_avatar"
+              />
             </div>
             <p>Menu Seller</p>
           </Link>
         )}
       </div>
       <hr className="border border-t-gray-200 mt-2" />
-      <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4" onClick={handleLogOut}>
+      <button
+        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
+        onClick={handleLogOut}
+      >
         Log Out
       </button>
     </div>

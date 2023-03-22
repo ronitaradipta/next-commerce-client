@@ -12,7 +12,7 @@ import ClickOutsideHide from "../../utils/ClickOutsideHide";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const Header = ({ DataChange }) => {
-  const dataUser = Cookies.get("user");
+  const dataUser = Cookies.get("token");
   const [user, setUser] = useState("");
   const [cartDatas, setcartDatas] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
