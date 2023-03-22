@@ -37,10 +37,10 @@ const StorePage = () => {
   };
   return (
     <div className="min-h-screen">
-      {ShopDetails && <StoreDetails setModalBox={setModalBox} />}
+      {ShopDetails && <StoreDetails setModalBox={setModalBox} data={storeName} />}
       <Header />
       <div className="page_border max-w-screen-xl mx-auto p-5 flex flex-col items-center">
-        <StoreInfo data={storeName}/>
+        <StoreInfo data={storeName} setModalBox={setModalBox}/>
         <StoreProducts />
       </div>
       <Footer />
