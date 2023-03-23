@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 const instance = axios.create({
   baseURL: "http://localhost:8080",
-  headers: { "content-type": "multipart/form-data" },
   withCredentials: true,
 });
 
