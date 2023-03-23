@@ -26,7 +26,7 @@ function MainProduct() {
 
   return (
     <main>
-      <div className="mx-auto max-w-screen-xl flex flex-wrap container py-5">
+      <div className="mx-auto max-w-screen-xl flex flex-wrap container pt-14 pb-40">
         <ImageProduct data={product} />
         <DescriptionProduct data={product} />
         <PemesananProduct data={product} idData={idData} />
