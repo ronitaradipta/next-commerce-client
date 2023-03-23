@@ -42,7 +42,7 @@ const TableListProducts = ({ data, searchParams, paginate, setPaginate, errorDis
                 {data.map((item) => (
                   <tr className="bg-white border-b" key={item.id}>
                     <td scope="row" className="px-6 py-4 font-normal text-gray-900 whitespace-nowrap flex items-center gap-6 ">
-                      <img src={item.images} alt={item.name} className="w-24 h-24 object-cover rounded-md border" />
+                      <img src={item.images[0]?.image} alt={item.name} className="w-24 h-24 object-cover rounded-md border" />
                       <div className="flex flex-col gap-2">
                         <div className="mb-2" dangerouslySetInnerHTML={{ __html: highlightMatchedKeywords(item.name, searchParams) }} />
                         <div className="italic text-[12px]">
