@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 
 const CardProduct = ({ data }) => {
+  console.log(data)
   const cardStyle = "rounded-lg h-full shadow-md cursor-pointer";
   const cardImage = "w-full h-48 rounded-t-lg";
 

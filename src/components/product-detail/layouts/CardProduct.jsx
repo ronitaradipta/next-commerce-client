@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-function CardProduct({ item, alt, onClick }) {
+function CardProduct({ data, alt, onClick }) {
+  console.log(data)
   const [loadingImg, setLoadingImg] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function CardProduct({ item, alt, onClick }) {
         >
           <img
             className="w-full object-cover"
-            src={item.image}
+            src={data?.image}
             alt={alt}
             width={64}
           />
