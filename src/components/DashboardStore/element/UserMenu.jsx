@@ -24,15 +24,14 @@ const UserMenu = () => {
   };
 
   return (
-    <div className="absolute top-14 right-0 bg-white px-6 py-3 w-[300px] shadow-lg rounded-md">
+    <div className="absolute top-14 right-0 bg-white px-6 py-3 w-[300px] shadow-lg rounded-md z-[999]">
       {listMenu.map((item, index) => {
         return (
           <Link to={item.link} key={index}>
             <div className="flex gap-3 items-center group py-3">
               <IconContext.Provider
                 value={{
-                  className:
-                    "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
+                  className: "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
                 }}
               >
                 {item.icon}
@@ -44,9 +43,7 @@ const UserMenu = () => {
       })}
       <hr className="border border-t-gray-200 mt-2" />
       <Link to="/login" onClick={handleLogOut}>
-        <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4">
-          Log Out
-        </button>
+        <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4">Log Out</button>
       </Link>
     </div>
   );

@@ -10,15 +10,29 @@ const ProductPagination = ({ currentPage, totalPages, paginate }) => {
 
   return (
     <ul className="flex justify-center items-center space-x-2 my-4">
-      <GrPrevious className="cursor-pointer" onClick={() => paginate(currentPage - 1)} />
+      <GrPrevious
+        className={`${currentPage === 1 ? "text-gray-300  cursor-not-allowed" : "text-gray-700 cursor-pointer"}`}
+        onClick={() => {
+          if (currentPage > 1) {
+            paginate(currentPage - 1);
+          }
+        }}
+      />
       {pageNumbers.map((number) => (
         <li key={number}>
-          <button onClick={() => paginate(number)} className={` text-gray-700 border-b-2  font-bold py-2 px-4  ${number === currentPage ? "border-green-500 text-green-500" : "border-none"}`}>
+          <button onClick={() => paginate(number)} className={`text-gray-700 border-b-2 font-bold py-2 px-4 ${number === currentPage ? "border-green-500 text-green-500" : "border-none"}`}>
             {number}
           </button>
         </li>
       ))}
-      <GrNext className="cursor-pointer" onClick={() => paginate(currentPage + 1)} />
+      <GrNext
+        className={`${currentPage === totalPages ? "text-gray-300  cursor-not-allowed" : "text-gray-700 cursor-pointer"}`}
+        onClick={() => {
+          if (currentPage < totalPages) {
+            paginate(currentPage + 1);
+          }
+        }}
+      />
     </ul>
   );
 };

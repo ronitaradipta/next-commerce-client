@@ -4,15 +4,15 @@ import Skeleton from "@mui/material/Skeleton";
 
 const CardProduct = ({ data }) => {
   const [loading, setLoading] = useState(false);
-
+  console.log(data.images);
   useEffect(() => {
     setTimeout(() => setLoading(true), 1000);
   }, []);
-
+  console.log("ini imagee :", data.images[0]);
   return (
     <Link className="w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 p-2 mb-4" to={`/product-detail/${data.id}`}>
       <div className="rounded-lg h-full shadow-md cursor-pointer">
-        {loading ? <img src="" alt={data.name} className="w-full h-48 rounded-t-lg" /> : <Skeleton variant="rounded" animation="wave" width="w-1/3" height={200} />}
+        {loading ? <img src={data.images.length > 0 ? data.images[0].image : ""} alt={data.name} className="w-full h-48 rounded-t-lg" /> : <Skeleton variant="rounded" animation="wave" width="w-1/3" height={200} />}
         <div className="p-3 flex flex-col gap-2">
           {loading ? (
             <div>
