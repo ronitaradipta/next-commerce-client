@@ -20,6 +20,8 @@ import StoreRegisterPage from "./pages/StoreRegisterPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import OTPverificationPage from "./pages/OTPverificationPage";
+import CartPage from "./pages/CartPage";
+import OrderlistUser from "./pages/OrderlistUser";
 
 function App() {
   return (
@@ -40,9 +42,19 @@ function App() {
           </HeaderFooter>
         }
       />
+      <Route
+        path="/cart"
+        element={
+          <UserAuth>
+            <HeaderFooter>
+              <CartPage />
+            </HeaderFooter>
+          </UserAuth>
+        }
+      />
 
       <Route
-        path="/checkout/:idData"
+        path="/checkout/:idStore"
         element={
           <UserAuth>
             <HeaderFooter>
@@ -112,6 +124,14 @@ function App() {
         }
       />
       <Route
+        path="/edit-product/:id"
+        element={
+          <UserAuth>
+            <AddProduct />
+          </UserAuth>
+        }
+      />
+      <Route
         path="/list-products"
         element={
           <UserAuth>
@@ -144,7 +164,7 @@ function App() {
         }
       />
       {/* newly added by : fiqri oemry */}
-      <Route path="/store-info" element={<StorePage />} />
+      <Route path="/store-info/:idData" element={<StorePage />} />
       <Route
         path="/register-store"
         element={
@@ -166,6 +186,14 @@ function App() {
         }
       />
       <Route path="*" element={<ErrorPage />} />
+
+      <Route 
+        path="/order-list" 
+        element={
+          <UserAuth>
+            <OrderlistUser/>
+          </UserAuth>
+          }/>
     </Routes>
   );
 }

@@ -5,7 +5,7 @@ const EditDataProfile = ({ id, showEditData, user, handleChangeInput, updateProf
   return (
     <form className="py-6  relative rounded " onSubmit={updateProfile}>
       {name == "gender" ? (
-        <div class="radio_wrapper text-base-responsive flex gap-5">
+        <div className="radio_wrapper text-base-responsive flex gap-5">
           <div>
             <input type="radio" name="gender" id="profile-gender-field-male" value="laki-laki" checked={user === "laki-laki"} onChange={handleChangeInput} />
             <label for="profile-gender-field-male">Laki-laki</label>

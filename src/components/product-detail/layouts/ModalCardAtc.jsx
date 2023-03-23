@@ -63,7 +63,7 @@ const ModalCardAtc = ({ isOpen, setIsOpen }) => {
                       className=" justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2"
                       onClick={() => {
                         setIsOpen(false);
-                        navigate("/checkout");
+                        navigate("/cart");
                       }}
                     >
                       Lihat Keranjang
@@ -71,7 +71,10 @@ const ModalCardAtc = ({ isOpen, setIsOpen }) => {
                     <button
                       type="button"
                       className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-emerald-700 focus:z-10 focus:ring-4 focus:ring-gray-200 "
-                      onClick={() => setIsOpen(false)}
+                      onClick={() => {
+                        setIsOpen(false);
+                        window.location.reload();
+                      }}
                     >
                       Lanjut Belanja
                     </button>
