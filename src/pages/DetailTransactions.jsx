@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import TitlePage from "../components/DashboardStore/element/TitlePage";
 import LayoutDashboard from "../components/layout/LayoutDashboard";
 import api from "../services/callApi";
-import productimg from "../assets/images/laptop-stand.png";
 import { Link } from "react-router-dom";
 import DetailTransakionList from "../components/DashboardUser/DetailTransakionList";
+import NoDataPreview from "../components/DashboardStore/element/NoDataPreview";
 
 const DetailTransactions = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
@@ -68,52 +68,57 @@ const DetailTransactions = () => {
       </div>
       {activeTabIndex === 0 && (
         <div className="flex flex-col gap-6 mt-6">
-          {dataTransaction.length > 0 &&
+          {dataTransaction.length > 0 ? (
             dataTransaction.map((data) => {
-              return (
-                <DetailTransakionList data={data} key={data.id}/>
-              );
-            })}
+              return <DetailTransakionList data={data} key={data.id} />;
+            })
+          ) : (
+            <NoDataPreview />
+          )}
         </div>
       )}
       {activeTabIndex === 1 && (
         <div className="flex flex-col gap-6 mt-6">
-          {filterShippingStatusWaitingPayment.length > 0 &&
+          {filterShippingStatusWaitingPayment.length > 0 ? (
             filterShippingStatusWaitingPayment.map((data) => {
-              return (
-                <DetailTransakionList data={data} key={data.id}/>
-              );
-            })}
+              return <DetailTransakionList data={data} key={data.id} />;
+            })
+          ) : (
+            <NoDataPreview />
+          )}
         </div>
       )}
       {activeTabIndex === 2 && (
         <div className="flex flex-col gap-6 mt-6">
-          {filterShippingStatusNew.length > 0 &&
+          {filterShippingStatusNew.length > 0 ? (
             filterShippingStatusNew.map((data) => {
-              return (
-                <DetailTransakionList data={data} key={data.id}/>
-              );
-            })}
+              return <DetailTransakionList data={data} key={data.id} />;
+            })
+          ) : (
+            <NoDataPreview />
+          )}
         </div>
       )}
       {activeTabIndex === 3 && (
         <div className="flex flex-col gap-6 mt-6">
-          {filterShippingStatusInProgress.length > 0 &&
+          {filterShippingStatusInProgress.length > 0 ? (
             filterShippingStatusInProgress.map((data) => {
-              return (
-                <DetailTransakionList data={data} key={data.id}/>
-              );
-            })}
+              return <DetailTransakionList data={data} key={data.id} />;
+            })
+          ) : (
+            <NoDataPreview />
+          )}
         </div>
       )}
       {activeTabIndex === 4 && (
         <div className="flex flex-col gap-6 mt-6">
-          {filterShippingStatusDelivered.length > 0 &&
+          {filterShippingStatusDelivered.length > 0 ? (
             filterShippingStatusDelivered.map((data) => {
-              return (
-                <DetailTransakionList data={data} key={data.id}/>
-              );
-            })}
+              return <DetailTransakionList data={data} key={data.id} />;
+            })
+          ) : (
+            <NoDataPreview />
+          )}
         </div>
       )}
     </LayoutDashboard>
