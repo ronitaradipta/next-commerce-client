@@ -1,4 +1,5 @@
 import React from "react";
+import formatRupiah from "../../../utils/formatRupiah";
 import Spinner from "../../loading/Spinner";
 
 const CheckoutSummary = ({
@@ -13,7 +14,7 @@ const CheckoutSummary = ({
       <h2 className="font-bold text-lg">Ringkasan Belanja</h2>
       <div className="flex justify-between">
         <p>Total harga</p>
-        <p>Rp. {data && data.totalPrice}</p>
+        <p>{data && formatRupiah(data.totalPrice)}</p>
       </div>
       <div className="flex justify-between">
         <p>Ongkos kirim</p>
@@ -22,7 +23,9 @@ const CheckoutSummary = ({
       <hr className="border-t border-t-gray-300" />
       <div className="flex justify-between">
         <p className="font-bold text-lg">Total Tagihan</p>
-        <p className="font-bold">Rp. {selectedCourier + data.totalPrice}</p>
+        <p className="font-bold">
+          {formatRupiah(selectedCourier + data.totalPrice)}
+        </p>
       </div>
       <div className="flex justify-center">
         <button

@@ -125,14 +125,14 @@ const AddressUpdate = ({ id, showEditData }) => {
               {newAddressForm === "address-list" ? (
                 <button
                   onClick={() => OpenForm("address-form")}
-                  className="bg-green-500 py-2 px-5 rounded font-semibold"
+                  className="bg-green-500 text-white py-2 px-5 rounded font-semibold"
                 >
                   +Tambah Alamat
                 </button>
               ) : (
                 <button
                   onClick={() => OpenForm("address-list")}
-                  className="bg-green-500 py-2 px-5 rounded font-semibold"
+                  className="bg-green-500 text-white py-2 px-5 rounded font-semibold"
                 >
                   Batal
                 </button>

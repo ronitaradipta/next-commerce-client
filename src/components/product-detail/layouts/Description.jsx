@@ -59,7 +59,7 @@ function Description({ data }) {
           sx={{ marginBottom: 1.5 }}
         />
       )}
-      {loading ? (
+      {/* {loading ? (
         <div className="flex items-center space-x-2 my-1 mb-7">
           <div className="rounded-lg bg-red-300 px-1 py-0">
             <p className="text-semibold font-normal text-red-600">
@@ -82,7 +82,7 @@ function Description({ data }) {
           height={25}
           sx={{ marginBottom: 2.5 }}
         />
-      )}
+      )} */}
       {loading ? (
         <div className="mb-6">
           <p className="font-normal text-sm break-words">

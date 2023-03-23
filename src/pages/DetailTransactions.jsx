@@ -15,7 +15,6 @@ const DetailTransactions = () => {
     try {
       const response = await api.get("orders/store");
       setDataTransaction(response.data.data);
-      // console.log(response.data.data)
     } catch (error) {
       console.log(error);
     }
@@ -25,19 +24,19 @@ const DetailTransactions = () => {
     fetchDataTransaction();
   }, []);
 
-  const filterShippingStatusDelivered = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "delivered")
-  })
-  
-  const filterShippingStatusWaitingPayment = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "waiting_payment")
-  })
-  const filterShippingStatusNew = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "new")
-  })
-  const filterShippingStatusInProgress = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "in_progress")
-  })
+  const filterShippingStatusDelivered = dataTransaction.filter((data) => {
+    return data.shippingStatus === "delivered";
+  });
+
+  const filterShippingStatusWaitingPayment = dataTransaction.filter((data) => {
+    return data.shippingStatus === "waiting_payment";
+  });
+  const filterShippingStatusNew = dataTransaction.filter((data) => {
+    return data.shippingStatus === "new";
+  });
+  const filterShippingStatusInProgress = dataTransaction.filter((data) => {
+    return data.shippingStatus === "in_progress";
+  });
 
   const menu = [
     "Semua Pesanan",
@@ -70,7 +69,7 @@ const DetailTransactions = () => {
       {activeTabIndex === 0 && (
         <div className="flex flex-col gap-6 mt-6">
           {dataTransaction.length > 0 &&
-            dataTransaction.map((data, ) => {
+            dataTransaction.map((data) => {
               return (
                 <DetailTransakionList data={data} key={data.id}/>
               );
@@ -80,7 +79,7 @@ const DetailTransactions = () => {
       {activeTabIndex === 1 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusWaitingPayment.length > 0 &&
-            filterShippingStatusWaitingPayment.map((data, ) => {
+            filterShippingStatusWaitingPayment.map((data) => {
               return (
                 <DetailTransakionList data={data} key={data.id}/>
               );
@@ -90,7 +89,7 @@ const DetailTransactions = () => {
       {activeTabIndex === 2 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusNew.length > 0 &&
-            filterShippingStatusNew.map((data, ) => {
+            filterShippingStatusNew.map((data) => {
               return (
                 <DetailTransakionList data={data} key={data.id}/>
               );
@@ -100,7 +99,7 @@ const DetailTransactions = () => {
       {activeTabIndex === 3 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusInProgress.length > 0 &&
-            filterShippingStatusInProgress.map((data, ) => {
+            filterShippingStatusInProgress.map((data) => {
               return (
                 <DetailTransakionList data={data} key={data.id}/>
               );
@@ -110,7 +109,7 @@ const DetailTransactions = () => {
       {activeTabIndex === 4 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusDelivered.length > 0 &&
-            filterShippingStatusDelivered.map((data, ) => {
+            filterShippingStatusDelivered.map((data) => {
               return (
                 <DetailTransakionList data={data} key={data.id}/>
               );
