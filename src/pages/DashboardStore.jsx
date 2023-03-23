@@ -19,7 +19,7 @@ const DashboardStore = () => {
     try {
       const response = await callApi.get("/orders/store");
       setDataTransaction(response.data);
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +101,7 @@ const DashboardStore = () => {
                         href="#"
                         className="font-medium text-emerald-500 text-[12px] md:text-sm"
                       >
-                        Lihat Produk Lainnya
+                        Lihat Detail Transaksi
                       </a>
                     </div>
                   </div>
