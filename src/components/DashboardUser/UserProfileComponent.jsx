@@ -49,7 +49,15 @@ const UserProfileComponent = ({ onDataChange }) => {
     try {
       setLoader(true);
       // set for handling with file
-      const response = await callApi.put("/users/profile/update", { ...input, avatar: e });
+      const response = await callApi.put(
+        "/users/profile/update",
+        { ...input, avatar: e },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       setSuccessMessage(response.data.message);
       setIsSuccess(true);
       setTimeout(() => {
@@ -77,11 +85,9 @@ const UserProfileComponent = ({ onDataChange }) => {
     }
   };
 
-  const showEditData = (id) =>
-    setActiveComponent(id === activeComponent ? null : id);
+  const showEditData = (id) => setActiveComponent(id === activeComponent ? null : id);
 
-  const handleChangeInput = (e) =>
-    setInput({ ...input, [e.target.name]: e.target.value });
+  const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
 
   // set skeleton previoew when data is fetching
   if (!user && isLoading) {
@@ -90,20 +96,10 @@ const UserProfileComponent = ({ onDataChange }) => {
     return (
       <div className="px-5">
         {/* notification message once process success */}
-        <div className="flex justify-center">
-          {isSuccess && <Notification SuccessMessage={SuccessMessage} />}
-        </div>
+        <div className="flex justify-center">{isSuccess && <Notification SuccessMessage={SuccessMessage} />}</div>
 
         {/* Address Update ModalBox */}
-        {activeComponent === "address-list" ? (
-          <AddressUpdate
-            id="address-list"
-            user={user.Addresses}
-            showEditData={showEditData}
-          />
-        ) : (
-          ""
-        )}
+        {activeComponent === "address-list" ? <AddressUpdate id="address-list" user={user.Addresses} showEditData={showEditData} /> : ""}
 
         {/* password Update ModalBox */}
         {activeComponent === "password-update" ? (
@@ -122,20 +118,8 @@ const UserProfileComponent = ({ onDataChange }) => {
         )}
 
         <div className=" w-full flex flex-wrap d:flex-row rounded-b-lg">
-          <AvatarElements
-            src={user.user_profile.avatar}
-            uploadImage={uploadImage}
-            showEditData={() => showEditData("password-update")}
-          />
-          <ProfileInfoElements
-            activeComponent={activeComponent}
-            user={user}
-            Loader={Loader}
-            updateProfile={updateProfile}
-            showEditData={showEditData}
-            input={input}
-            handleChangeInput={handleChangeInput}
-          />
+          <AvatarElements src={user.user_profile.avatar} uploadImage={uploadImage} showEditData={() => showEditData("password-update")} />
+          <ProfileInfoElements activeComponent={activeComponent} user={user} Loader={Loader} updateProfile={updateProfile} showEditData={showEditData} input={input} handleChangeInput={handleChangeInput} />
           <AddressElements showEditData={showEditData} user={user} />
         </div>
       </div>
