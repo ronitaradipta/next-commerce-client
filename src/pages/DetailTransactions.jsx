@@ -14,7 +14,7 @@ const DetailTransactions = () => {
     try {
       const response = await api.get("orders/store");
       setDataTransaction(response.data.data);
-      console.log(response.data.data)
+      console.log(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -24,19 +24,19 @@ const DetailTransactions = () => {
     fetchDataTransaction();
   }, []);
 
-  const filterShippingStatusDelivered = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "delivered")
-  })
-  
-  const filterShippingStatusWaitingPayment = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "waiting_payment")
-  })
-  const filterShippingStatusNew = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "new")
-  })
-  const filterShippingStatusInProgress = dataTransaction.filter((data) =>{
-    return(data.shippingStatus === "in_progress")
-  })
+  const filterShippingStatusDelivered = dataTransaction.filter((data) => {
+    return data.shippingStatus === "delivered";
+  });
+
+  const filterShippingStatusWaitingPayment = dataTransaction.filter((data) => {
+    return data.shippingStatus === "waiting_payment";
+  });
+  const filterShippingStatusNew = dataTransaction.filter((data) => {
+    return data.shippingStatus === "new";
+  });
+  const filterShippingStatusInProgress = dataTransaction.filter((data) => {
+    return data.shippingStatus === "in_progress";
+  });
 
   const menu = [
     "Semua Pesanan",
@@ -69,37 +69,50 @@ const DetailTransactions = () => {
       {activeTabIndex === 0 && (
         <div className="flex flex-col gap-6 mt-6">
           {dataTransaction.length > 0 &&
-            dataTransaction.map((data, ) => {
+            dataTransaction.map((data) => {
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
                   <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={data && data.OrderDetails[0].product.ProductGalleries[0]?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                    <img
+                      src={
+                        data &&
+                        data.OrderDetails[0].product.ProductGalleries[0]?.image
+                      }
+                      alt="image"
+                      className="w-16 h-16 md:w-24 md:h-24 "
+                    />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">
+                        {data.OrderDetails[0].product.name}
+                      </div>
                       <p className="text-gray-500 text-sm md:text-base">
-                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X{" "}
+                        {data.OrderDetails[0].price}
                       </p>
-                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
-                        <a
-                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                        >
-                          Lihat Produk Lainnya
+                      <Link
+                        to={`/product-detail/${data.OrderDetails[0].product.id}`}
+                      >
+                        <a className="font-medium text-emerald-500 text-[12px] md:text-sm">
+                          Lihat Detail Transaksi
                         </a>
                       </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">
+                      Alamat
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                   
-                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">
+                      Nama Pemesan
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -120,37 +133,49 @@ const DetailTransactions = () => {
       {activeTabIndex === 1 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusWaitingPayment.length > 0 &&
-            filterShippingStatusWaitingPayment.map((data, ) => {
+            filterShippingStatusWaitingPayment.map((data) => {
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
                   <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={data.OrderDetails[0].product.ProductGalleries[0]?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                    <img
+                      src={
+                        data.OrderDetails[0].product.ProductGalleries[0]?.image
+                      }
+                      alt="image"
+                      className="w-16 h-16 md:w-24 md:h-24 "
+                    />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">
+                        {data.OrderDetails[0].product.name}
+                      </div>
                       <p className="text-gray-500 text-sm md:text-base">
-                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X{" "}
+                        {data.OrderDetails[0].price}
                       </p>
-                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
-                        <a
-                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                        >
+                      <Link
+                        to={`/product-detail/${data.OrderDetails[0].product.id}`}
+                      >
+                        <a className="font-medium text-emerald-500 text-[12px] md:text-sm">
                           Lihat Produk Lainnya
                         </a>
                       </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">
+                      Alamat
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                   
-                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">
+                      Nama Pemesan
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -171,37 +196,50 @@ const DetailTransactions = () => {
       {activeTabIndex === 2 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusNew.length > 0 &&
-            filterShippingStatusNew.map((data, ) => {
+            filterShippingStatusNew.map((data) => {
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
                   <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={data && data.OrderDetails[0].product.ProductGalleries[0]?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                    <img
+                      src={
+                        data &&
+                        data.OrderDetails[0].product.ProductGalleries[0]?.image
+                      }
+                      alt="image"
+                      className="w-16 h-16 md:w-24 md:h-24 "
+                    />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">
+                        {data.OrderDetails[0].product.name}
+                      </div>
                       <p className="text-gray-500 text-sm md:text-base">
-                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X{" "}
+                        {data.OrderDetails[0].price}
                       </p>
-                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
-                        <a
-                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                        >
+                      <Link
+                        to={`/product-detail/${data.OrderDetails[0].product.id}`}
+                      >
+                        <a className="font-medium text-emerald-500 text-[12px] md:text-sm">
                           Lihat Produk Lainnya
                         </a>
                       </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">
+                      Alamat
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                   
-                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">
+                      Nama Pemesan
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -222,37 +260,50 @@ const DetailTransactions = () => {
       {activeTabIndex === 3 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusInProgress.length > 0 &&
-            filterShippingStatusInProgress.map((data, ) => {
+            filterShippingStatusInProgress.map((data) => {
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
                   <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={data && data.OrderDetails[0].product.ProductGalleries[0]?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                    <img
+                      src={
+                        data &&
+                        data.OrderDetails[0].product.ProductGalleries[0]?.image
+                      }
+                      alt="image"
+                      className="w-16 h-16 md:w-24 md:h-24 "
+                    />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">
+                        {data.OrderDetails[0].product.name}
+                      </div>
                       <p className="text-gray-500 text-sm md:text-base">
-                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X{" "}
+                        {data.OrderDetails[0].price}
                       </p>
-                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
-                        <a
-                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                        >
+                      <Link
+                        to={`/product-detail/${data.OrderDetails[0].product.id}`}
+                      >
+                        <a className="font-medium text-emerald-500 text-[12px] md:text-sm">
                           Lihat Produk Lainnya
                         </a>
                       </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">
+                      Alamat
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                   
-                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">
+                      Nama Pemesan
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>
@@ -273,38 +324,50 @@ const DetailTransactions = () => {
       {activeTabIndex === 4 && (
         <div className="flex flex-col gap-6 mt-6">
           {filterShippingStatusDelivered.length > 0 &&
-            filterShippingStatusDelivered.map((data, ) => {
+            filterShippingStatusDelivered.map((data) => {
               return (
                 <div
                   className="bg-white w-full flex rounded-lg p-4 md:p-6 shadow-lg justify-between gap-2 flex-col lg:flex-row"
                   key={data}
                 >
                   <div className="flex gap-x-5 md:w-8/12 lg:w-6/12 xl:w-4/12">
-                    <img src={data && data.OrderDetails[0].product.ProductGalleries[0]?.image} alt="image" className="w-16 h-16 md:w-24 md:h-24 " />
+                    <img
+                      src={
+                        data &&
+                        data.OrderDetails[0].product.ProductGalleries[0]?.image
+                      }
+                      alt="image"
+                      className="w-16 h-16 md:w-24 md:h-24 "
+                    />
                     <div className="flex flex-col justify-between">
-                      <div className="text-sm font-semibold md:text-[18px]">{data.OrderDetails[0].product.name}</div>
+                      <div className="text-sm font-semibold md:text-[18px]">
+                        {data.OrderDetails[0].product.name}
+                      </div>
                       <p className="text-gray-500 text-sm md:text-base">
-                      {data.OrderDetails[0].quantity} X {data.OrderDetails[0].price}
+                        {data.OrderDetails[0].quantity} X{" "}
+                        {data.OrderDetails[0].price}
                       </p>
-                      <Link to={`/product-detail/${data.OrderDetails[0].product.id}`}>
-                        <a
-                  
-                          className="font-medium text-emerald-500 text-[12px] md:text-sm"
-                        >
+                      <Link
+                        to={`/product-detail/${data.OrderDetails[0].product.id}`}
+                      >
+                        <a className="font-medium text-emerald-500 text-[12px] md:text-sm">
                           Lihat Produk Lainnya
                         </a>
                       </Link>
                     </div>
                   </div>
                   <div className=" md:w-8/12 lg:w-4/12 py-2">
-                    <div className="font-semibold text-sm md:text-lg">Alamat</div>
+                    <div className="font-semibold text-sm md:text-lg">
+                      Alamat
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerAddress}
                     </p>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">
-                   
-                    <div className="text-sm md:text-lg font-semibold">Nama Pemesan</div>
+                    <div className="text-sm md:text-lg font-semibold">
+                      Nama Pemesan
+                    </div>
                     <p className="text-gray-500 text-[10px] md:text-sm">
                       {data.customerDetail}
                     </p>

@@ -5,6 +5,7 @@ import DetailAddress from "../components/checkout/DetailAddress";
 import CheckoutSummary from "../components/checkout/element/CheckoutSummary";
 import { CourierSelect } from "../components/checkout/CourierSelect";
 import { useParams } from "react-router-dom";
+import AddressUpdate from "../components/DashboardUser/AddressUpdate";
 
 const CheckoutPage = () => {
   const [product, setProduct] = useState("");

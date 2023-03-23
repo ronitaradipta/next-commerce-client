@@ -1,5 +1,6 @@
 import React from "react";
 import { BsFillTrashFill } from "react-icons/bs";
+import formatRupiah from "../../utils/formatRupiah";
 
 const DetailProductCheckout = ({ data, handleDeleteProduct }) => {
   return (
@@ -15,7 +16,9 @@ const DetailProductCheckout = ({ data, handleDeleteProduct }) => {
           Jumlah: {data && data.quantity}
         </p>
         <div className="flex gap-2 items-center">
-          <p className="text-xl font-bold">Rp. {data && data.product.price}</p>
+          <p className="text-xl font-bold">
+            {data && formatRupiah(data.product.price)}
+          </p>
           {/* <span className="bg-red-300 text-red-500 font-bold p-1 rounded-md">
             {data && Math.ceil(data.discountPercentage)}%
           </span> */}

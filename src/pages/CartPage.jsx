@@ -4,11 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import CheckBox from "../components/cart/CheckBox";
 import Notification from "../components/loading/Notification";
 import callApi from "../services/callApi";
+import formatRupiah from "../utils/formatRupiah";
 
 const CartPage = () => {
   const [product, setProduct] = useState("");
   const [successDelete, setSuccessDelete] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState("");
+  const [inputQty, setInputQty] = useState(1);
+  const [activeComponent, setActiveComponent] = useState(null);
 
   const navigate = useNavigate();
 
@@ -16,7 +19,6 @@ const CartPage = () => {
     try {
       const response = await callApi.get(`/carts/product`);
       setProduct(response.data.data.products);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +42,52 @@ const CartPage = () => {
     setSelectedProducts(productId);
   };
 
+  const totalPrice = () => {
+    const total = product
+      .filter((item) => {
+        return item.product.storeId === selectedProducts;
+      })
+      .reduce((acc, cart) => {
+        return acc + cart.product.price * cart.quantity;
+      }, 0);
+
+    return formatRupiah(total);
+  };
+
   const handleCheckout = () => {
     navigate(`/checkout/${selectedProducts}`);
+  };
+
+  const handleOnChange = (e) => {
+    const value = e.target.value;
+    if (!isNaN(value)) {
+      if (value > 0) {
+        if (e.target.value > data.stock) {
+          setInputQty(data.stock);
+        } else {
+          setInputQty(e.target.value);
+        }
+      } else {
+        setInputQty(0);
+      }
+    } else setInputQty(0);
+  };
+
+  const editCart = async (id) => {
+    try {
+      const response = await callApi.put(`/carts/${id}`, {
+        quantity: inputQty,
+      });
+      fetchDetailProduct();
+      setActiveComponent(null);
+      setInputQty(1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const showEditData = (id) => {
+    setActiveComponent(id === activeComponent ? null : id);
   };
 
   useEffect(() => {
@@ -84,9 +130,10 @@ const CartPage = () => {
                     <h3 className="text-md font-medium">
                       {item && product.name}
                     </h3>
+                    <p className="text-gray-400">Jumlah : {item.quantity}</p>
                     <div className="flex gap-2 items-center">
                       <p className="text-xl font-bold">
-                        Rp. {item && product.price}
+                        {item && formatRupiah(product.price)}
                       </p>
                       {/* <span className="bg-red-300 text-red-500 font-bold p-1 rounded-md">
             {item && Math.ceil(item.discountPercentage)}%
@@ -114,6 +161,53 @@ const CartPage = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="flex gap-4 items-center mt-6">
+                      <button
+                        className={`${
+                          activeComponent !== idx
+                            ? "text-emerald-500"
+                            : "text-gray-500"
+                        } font-semibold text-sm`}
+                        onClick={() => showEditData(idx)}
+                      >
+                        {activeComponent !== idx ? "Edit Keranjang" : "Batal"}
+                      </button>
+                      {activeComponent === idx && (
+                        <>
+                          <div className="flex space-x-9 border items-center flex-grow-0 font-normal text-lg">
+                            <div
+                              className="btn--min px-4 py-3 text-emerald-500 hover:cursor-pointer"
+                              onClick={() => {
+                                inputQty > 0 && setInputQty(inputQty - 1);
+                              }}
+                            >
+                              <button>-</button>
+                            </div>
+                            <input
+                              value={inputQty}
+                              className="total--barang w-8 text-center appearance-none"
+                              onChange={handleOnChange}
+                              type="text"
+                            />
+                            <div
+                              className="btn--plus px-4 py-3 text-emerald-500 hover:cursor-pointer"
+                              onClick={() => {
+                                inputQty < product.stock &&
+                                  setInputQty(inputQty + 1);
+                              }}
+                            >
+                              <button>+</button>
+                            </div>
+                          </div>
+                          <button
+                            className="text-sm font-semibold text-emerald-500"
+                            onClick={() => editCart(item.id)}
+                          >
+                            Simpan Perubahan
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                   <div className="flex justify-end items-end md:w-4/12">
                     <button onClick={() => handleDeleteProduct(product.id)}>
@@ -129,14 +223,11 @@ const CartPage = () => {
       <div className="lg:w-3/12 w-full h-72 p-5 border border-gray-300 rounded-lg flex flex-col gap-4">
         <h2 className="font-bold text-lg">Ringkasan Belanja</h2>
         <div className="flex justify-between">
-          <p>Total harga</p>
-          {/* <p>Rp. {product && product.products.product.totalPrice}</p> */}
+          <p className="text-lg">Total harga</p>
+          <p>{selectedProducts && totalPrice()}</p>
         </div>
         <hr className="border-t border-t-gray-300" />
-        <div className="flex justify-between">
-          <p className="font-bold text-lg">Total Tagihan</p>
-          {/* <p className="font-bold">Rp. {product.products.product.totalPrice}</p> */}
-        </div>
+
         <div className="flex justify-center ">
           <button
             className="bg-emerald-500 text-white py-4 w-full rounded-lg  flex items-center justify-center"

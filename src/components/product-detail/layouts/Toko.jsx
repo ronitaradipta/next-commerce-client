@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { Link } from "react-router-dom";
 
-
 function Toko({ data }) {
-  console.log(data)
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setTimeout(() => {
@@ -15,12 +13,21 @@ function Toko({ data }) {
     <Link to={`/store-info/${data.storeId}`}>
       <div className="flex mt-4 hover:cursor-pointer w-52">
         {loading ? (
-          
-            <div className="space-x-4 mr-4">
-              <img className="rounded-full" src={data?.storeImage} alt="toko" width="50px" height="50px" />
-            </div>
+          <div className="space-x-4 mr-4">
+            <img
+              className="rounded-full h-12 w-12"
+              src={data?.storeImage}
+              alt="toko"
+            />
+          </div>
         ) : (
-          <Skeleton animation="wave" variant="circular" width={50} height={50} sx={{ marginRight: 2 }} />
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={50}
+            height={50}
+            sx={{ marginRight: 2 }}
+          />
         )}
         {loading ? (
           <div className="mb-6">
@@ -28,7 +35,12 @@ function Toko({ data }) {
             <p className="font-normal text-sm">{data.storeCity}</p>
           </div>
         ) : (
-          <Skeleton animation="wave" variant="rounded" width={150} height={50} />
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={150}
+            height={50}
+          />
         )}
       </div>
     </Link>

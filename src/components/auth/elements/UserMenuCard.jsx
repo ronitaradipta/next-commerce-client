@@ -1,7 +1,7 @@
 import React from "react";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
-import {MdReceipt} from "react-icons/md"
+import { MdReceipt } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +9,12 @@ import callApi from "../../../services/callApi";
 const UserMenuCard = ({ user }) => {
   const navigate = useNavigate();
   const handleLogOut = async () => {
-    Cookies.remove("token");
     try {
-      const response = await callApi.post("/auth/logout");
-      if (response) navigate("/login");
+      const response = await callApi.get("/auth/logout");
+      console.log(response);
+      Cookies.remove("token");
+      Cookies.remove("user");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

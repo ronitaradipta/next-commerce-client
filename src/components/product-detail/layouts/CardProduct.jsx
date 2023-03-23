@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-function CardProduct({ data, alt, onClick }) {
-  console.log(data)
+function CardProduct({ data, alt }) {
   const [loadingImg, setLoadingImg] = useState(false);
 
   useEffect(() => {
@@ -11,17 +10,13 @@ function CardProduct({ data, alt, onClick }) {
     }, 1000);
   });
   return (
-    <div className="p-1 w-[20%]">
+    <div className="p-1 w-[20%] border border-gray-300">
       {loadingImg ? (
-        <button
-          className="show--modal h-full w-full overflow-hidden hover:cursor-pointer"
-          onClick={onClick}
-        >
+        <button className="h-full w-full overflow-hidden hover:cursor-pointer">
           <img
-            className="w-full object-cover"
+            className=" object-cover h-16 w-16"
             src={data?.image}
             alt={alt}
-            width={64}
           />
         </button>
       ) : (
