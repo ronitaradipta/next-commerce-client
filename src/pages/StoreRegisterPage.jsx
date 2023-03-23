@@ -19,7 +19,10 @@ const StoreRegisterPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState({ success: "", error: "" });
   const [charCount, setCharCount] = useState({ name: 0, description: 0 });
-  const [validation, setValidation] = useState({ name: false, description: false });
+  const [validation, setValidation] = useState({
+    name: false,
+    description: false,
+  });
 
   const navigate = useNavigate();
 
@@ -32,7 +35,8 @@ const StoreRegisterPage = () => {
       setIsSuccess(true);
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
-      setMessage({ error: response.data.message, success: "" });
+      console.log(error);
+      setMessage({ error: error.response.data.message, success: "" });
     } finally {
       setIsLoading(false);
     }
@@ -48,12 +52,19 @@ const StoreRegisterPage = () => {
   };
 
   // set disabled once requirement for both input fulfilled
-  useEffect(() => setDisabled(!validation.name && !validation.description), [validation]);
+  useEffect(
+    () => setDisabled(!validation.name && !validation.description),
+    [validation]
+  );
 
   // set validation alert message
   const alert = (name) => (
     <div className="flex w-full justify-between">
-      {!validation[name] ? <p></p> : <div className="text-red-500 text-sm"> min. 5 karakter</div>}
+      {!validation[name] ? (
+        <p></p>
+      ) : (
+        <div className="text-red-500 text-sm"> min. 5 karakter</div>
+      )}
       {charCount[name]}/{MAX_CHAR[name]}
     </div>
   );
@@ -62,10 +73,38 @@ const StoreRegisterPage = () => {
     <div className="flex h-screen flex-wrap">
       {isSuccess ? <Notification SuccessMessage={message.success} /> : ""}
       <LeftContainer />
-      <StoreRegisterForm name="Asep" button="DAFTAR" onSubmit={registerStore} isLoading={isLoading} errorMessage={message.error} validation={validation} disabled={disabled}>
-        <StoreInputElement validation={validation.name} type="text" placeholder="Nama Toko" name="name" onChange={inputHandler} maxLength={MAX_CHAR.name} alert={alert("name")} />
-        <StoreInputElement validation={validation.description} type="text" placeholder="Deskripsi toko" name="description" onChange={inputHandler} maxLength={MAX_CHAR.description} alert={alert("description")} />
-        <StoreInputElement type="text" placeholder="Domisili" name="city" onChange={inputHandler} />
+      <StoreRegisterForm
+        button="DAFTAR"
+        onSubmit={registerStore}
+        isLoading={isLoading}
+        errorMessage={message.error}
+        validation={validation}
+        disabled={disabled}
+      >
+        <StoreInputElement
+          validation={validation.name}
+          type="text"
+          placeholder="Nama Toko"
+          name="name"
+          onChange={inputHandler}
+          maxLength={MAX_CHAR.name}
+          alert={alert("name")}
+        />
+        <StoreInputElement
+          validation={validation.description}
+          type="text"
+          placeholder="Deskripsi toko"
+          name="description"
+          onChange={inputHandler}
+          maxLength={MAX_CHAR.description}
+          alert={alert("description")}
+        />
+        <StoreInputElement
+          type="text"
+          placeholder="Domisili"
+          name="city"
+          onChange={inputHandler}
+        />
       </StoreRegisterForm>
     </div>
   );

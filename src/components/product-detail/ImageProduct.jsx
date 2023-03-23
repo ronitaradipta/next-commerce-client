@@ -19,7 +19,7 @@ function ImageDetail({ data }) {
               <button className="hover:cursor-pointer">
                 {data && (
                   <img
-                    src={data.images[0].image}
+                    src={data.images[0]?.image}
                     className="w-full h-[200px]"
                     alt=""
                   />

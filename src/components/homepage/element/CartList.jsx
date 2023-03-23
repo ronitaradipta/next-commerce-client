@@ -14,8 +14,7 @@ const CartList = ({ data, user }) => {
         </div>
       )}
 
-      {user &&
-        data?.length > 0 &&
+      {user && data?.length > 0 ? (
         data.map((item) => {
           return (
             <div
@@ -36,7 +35,13 @@ const CartList = ({ data, user }) => {
               </p>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="flex flex-col items-center">
+          <img src={emptycart} alt="icon" className="h-36 mb-6" />
+          <h2>Tidak ada produk di keranjang!</h2>
+        </div>
+      )}
       {!user && (
         <div className="flex flex-col items-center">
           <img src={emptycart} alt="icon" className="h-36 mb-6" />
