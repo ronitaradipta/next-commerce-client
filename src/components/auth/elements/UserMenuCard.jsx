@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import callApi from "../../../services/callApi";
+
 const UserMenuCard = ({ user }) => {
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -19,7 +20,7 @@ const UserMenuCard = ({ user }) => {
       console.log(error);
     }
   };
-
+  console.log(user);
   return (
     <div className="absolute top-14 right-0 bg-white px-6 py-3 w-[300px] shadow-lg rounded-md">
       <div>
@@ -52,7 +53,7 @@ const UserMenuCard = ({ user }) => {
                 alt="store_avatar"
               />
             </div>
-            <p>Menu Seller</p>
+            <p>{user.Store?.name}</p>
           </Link>
         )}
       </div>

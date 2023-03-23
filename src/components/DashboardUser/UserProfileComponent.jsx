@@ -37,23 +37,19 @@ const UserProfileComponent = ({ onDataChange }) => {
   useEffect(() => {
     if (dataCookies) getUserDetail();
   }, [dataCookies, isSuccess]);
-
-  const uploadImage = (e) => updateProfile(e.target.files[0]);
-
+  const uploadImage = (e) => {
+    updateProfile(e.target.files[0]);
+  };
   // run the update function for each variable
   const updateProfile = async (e) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
+
     try {
       setLoader(true);
       // set for handling with file
-      const config = { headers: { "content-type": "multipart/form-data" } };
-      const response = await callApi.put(
-        "/users/profile/update",
-        { ...input, avatar: e },
-        config
-      );
+      const response = await callApi.put("/users/profile/update", { ...input, avatar: e });
       setSuccessMessage(response.data.message);
       setIsSuccess(true);
       setTimeout(() => {
