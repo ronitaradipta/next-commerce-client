@@ -20,7 +20,6 @@ const EditDataProfile = ({ id, showEditData, user, handleChangeInput, updateProf
           <input id={id} type={type} className="w-full border-b-2 outline-none" name={name} value={user} onChange={handleChangeInput} />
         </div>
       )}
-
       <div className="flex justify-end">
         <div className="flex gap-5">
           <button className="px-3 py-2 bg-green-500" type="submit" onClick={showEditData}>
