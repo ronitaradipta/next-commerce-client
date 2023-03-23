@@ -6,12 +6,11 @@ import {
   MdSettings,
   MdShoppingBag,
 } from "react-icons/md";
-import store from "../../assets/images/store-logo.png";
 import DropdownMenu from "./DropdownMenu";
 import DropdownContainer from "./element/DropdownContainer";
 import ListMenu from "./ListMenu";
 
-const SideBarDashboard = () => {
+const SideBarDashboard = ({ data }) => {
   const [menuToggle, setMenuToggle] = useState(true);
   const [showSubmenu, setShowSubmenu] = useState(false);
 
@@ -42,11 +41,11 @@ const SideBarDashboard = () => {
         {menuToggle && "Sembunyikan Menu"}
       </button>
       <div className="py-3 border-t border-b border-gray-300 mt-4 md:mt-6 lg:mt:8 flex gap-3 items-center justify-center px-4">
-        <img src={store} alt="store" className="w-9" />
+        <img src={data.image} alt="store" className="w-9 rounded-full" />
         {menuToggle && (
           <div>
-            <h3 className="text-sm md:text-base font-semibold">Toko Sederhana</h3>
-            <p className="text-gray-500 text-sm">Surabaya</p>
+            <h3 className="text-sm md:text-base font-semibold">{data.name}</h3>
+            <p className="text-gray-500 text-sm">{data.city}</p>
           </div>
         )}
       </div>
