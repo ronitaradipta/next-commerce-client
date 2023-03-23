@@ -5,13 +5,15 @@ import { FaStar } from "react-icons/fa";
 import storeStatus from "../../assets/store/store-status-gold.png";
 import storeLogo from "../../assets/store/store-logo.png";
 
-const StoreInfo = ({ setModalBox }) => {
+
+const StoreInfo = ({ setModalBox, data }) => {
+  // console.log(data)
   return (
     <div className="px-0 md:px-5 py-5 w-full flex flex-wrap justify-between items-center mt-5 border rounded-xl">
       <div className="leftside flex justify-center md:justify-start w-full md:w-1/2">
         <div className="store_display flex items-center mr-5">
           <div className="image_border border-2 rounded-full w-[80px] h-[80px] overflow-hidden ">
-            <img className="object-cover" src={storeLogo} alt="store-diplay-picture" />
+            <img className="object-cover" src={data?.storeImage} alt="store-diplay-picture" />
           </div>
         </div>
         <div className="store_info">
@@ -19,14 +21,14 @@ const StoreInfo = ({ setModalBox }) => {
             <span className="store-status w-[20px] h-[20px] overflow-hidden">
               <img className="object-cover" src={storeStatus} alt="storesLogoStatus" />
             </span>
-            <h2 className="text-[20px] font-bold">Toko Serba Ada semua</h2>
+            <h2 className="text-[20px] font-bold">{data?.storeName}</h2>
           </div>
           <div className="store_status flex gap-2 mb-2">
             <div className="online_status text-[15px] font-semibold text-green-500">
               <b> • </b>Online
             </div>
             <div className="location text-[15px]">
-              <b> • </b>Jakarta
+              <b> • </b>{data?.storeCity}
             </div>
           </div>
           <div className="store_support flex items-center flex-wrap gap-2">

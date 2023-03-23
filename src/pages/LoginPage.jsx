@@ -17,10 +17,14 @@ const LoginPage = () => {
   const [message, setMessage] = useState({ error: "", success: "" });
 
   const handlePasswordVisibility = (inputName) => {
-    setPasswordVisible({ ...passwordVisible, [inputName]: !passwordVisible[inputName] });
+    setPasswordVisible({
+      ...passwordVisible,
+      [inputName]: !passwordVisible[inputName],
+    });
   };
 
-  const handleChangeInput = (e) => setInput({ ...input, [e.target.name]: e.target.value });
+  const handleChangeInput = (e) =>
+    setInput({ ...input, [e.target.name]: e.target.value });
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -46,16 +50,40 @@ const LoginPage = () => {
       {isSuccess ? <Notification SuccessMessage={message.success} /> : ""}
       <LeftContainer />
       <div className=" w-full md:w-1/2 flex justify-center items-center bg-emerald-500">
-        <FormCard title="Login" button="LOG IN" link="Daftar" question="Pengguna Baru?" route="/register" onChange={handleChangeInput} loading={loading} onSubmit={loginUser} ErrorMessage={message.error} disabled={disabled}>
-          <InputElement type="text" placeholder="Username / Email" name="email" onChange={handleChangeInput} />
+        <FormCard
+          title="Login"
+          button="LOG IN"
+          link="Daftar"
+          question="Pengguna Baru?"
+          route="/register"
+          onChange={handleChangeInput}
+          loading={loading}
+          onSubmit={loginUser}
+          ErrorMessage={message.error}
+          disabled={disabled}
+        >
+          <InputElement
+            type="text"
+            placeholder="Username / Email"
+            name="email"
+            onChange={handleChangeInput}
+          />
           <InputElement
             type={passwordVisible.password ? "text" : "password"}
             placeholder="password"
             name="password"
             onChange={handleChangeInput}
             password={
-              <div class="w-[10%] absolute right-2 flex justify-end  cursor-pointer">
-                {passwordVisible.password ? <BiHide onClick={() => handlePasswordVisibility("password")} /> : <BiShow onClick={() => handlePasswordVisibility("password")} />}
+              <div className="w-[10%] absolute right-2 flex justify-end  cursor-pointer">
+                {passwordVisible.password ? (
+                  <BiHide
+                    onClick={() => handlePasswordVisibility("password")}
+                  />
+                ) : (
+                  <BiShow
+                    onClick={() => handlePasswordVisibility("password")}
+                  />
+                )}
               </div>
             }
           />

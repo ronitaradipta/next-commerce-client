@@ -1,18 +1,21 @@
 import React from "react";
-import Cookies from "js-cookie";
-import { Link } from "react-router-dom";
+import { RiUserSettingsFill } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
+import { MdReceipt } from "react-icons/md";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import callApi from "../../../services/callApi";
-import { RiUserSettingsFill } from "react-icons/ri";
 
 const UserMenuCard = ({ user }) => {
   const navigate = useNavigate();
   const handleLogOut = async () => {
-    Cookies.remove("user");
     try {
       const response = await callApi.get("/auth/logout");
-      if (response) navigate("/login");
+      console.log(response);
+      Cookies.remove("token");
+      Cookies.remove("user");
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -27,6 +30,12 @@ const UserMenuCard = ({ user }) => {
           </div>
           <p>Profile Saya</p>
         </Link>
+        <Link to="/order-list" className="flex items-center gap-5 mb-2">
+          <div className="h-10 w-10 rounded-full border flex justify-center items-center">
+            <MdReceipt className="text-[25px]" />
+          </div>
+          <p>Pesanan Saya</p>
+        </Link>
         {/*ternary option for user-as cumtomer only or as a Seller having store*/}
         {user.Store === null ? (
           <Link to="/register-store" className="flex items-center gap-5 mb-2 ">
@@ -38,14 +47,21 @@ const UserMenuCard = ({ user }) => {
         ) : (
           <Link to="/store-dashboard" className="flex items-center gap-5 mb-2 ">
             <div className="h-10 w-10 overflow-hidden rounded-full border">
-              <img className="object-contain w-full" src={user.Store?.image} alt="store_avatar" />
+              <img
+                className="object-contain w-full"
+                src={user.Store?.image}
+                alt="store_avatar"
+              />
             </div>
             <p>{user.Store?.name}</p>
           </Link>
         )}
       </div>
       <hr className="border border-t-gray-200 mt-2" />
-      <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4" onClick={handleLogOut}>
+      <button
+        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
+        onClick={handleLogOut}
+      >
         Log Out
       </button>
     </div>

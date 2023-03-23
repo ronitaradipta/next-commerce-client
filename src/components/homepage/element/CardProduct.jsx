@@ -8,7 +8,7 @@ const CardProduct = ({ data }) => {
   useEffect(() => {
     setTimeout(() => setLoading(true), 1000);
   }, []);
-  console.log("ini imagee :", data.images[0]);
+
   return (
     <Link className="w-1/2 sm:w-1/3 lg:w-1/4 xl:w-1/5 p-2 mb-4" to={`/product-detail/${data.id}`}>
       <div className="rounded-lg h-full shadow-md cursor-pointer">

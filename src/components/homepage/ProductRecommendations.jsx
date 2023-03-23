@@ -5,20 +5,24 @@ import CardProduct from "./element/CardProduct";
 
 const ProductRecommendations = () => {
   const [datas, setDatas] = useState([]);
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(10);
   const [loading, setLoading] = useState(false);
+  const [lastItem, setLastItem] = useState(false);
 
   // styles
   const cardContainerStyle = "flex flex-wrap justify-start";
 
   const fetchData = async () => {
     try {
-      const product = await callApi.get(`/products?${limit}`);
+      const product = await callApi.get(`/products/?limit=${limit}`);
 
       setDatas(product.data.data);
       if (loading) {
         setLimit(limit + 5);
         setLoading(false);
+      }
+      if (product.data.totalProducts === product.data.data.length) {
+        setLastItem(true);
       }
     } catch (error) {
       console.log(error);
@@ -43,9 +47,14 @@ const ProductRecommendations = () => {
       </div>
 
       <div className="flex justify-center mt-6">
-        <button className="border-2 border-emerald-500 font-medium text-emerald-500 rounded-lg w-80 py-3 flex items-center justify-center" onClick={loadMoreData}>
-          {loading ? <Spinner /> : "Tampilkan Lebih Banyak"}
-        </button>
+        {!lastItem && (
+          <button
+            className="border-2 border-emerald-500 font-medium text-emerald-500 rounded-lg w-80 py-3 flex items-center justify-center"
+            onClick={loadMoreData}
+          >
+            {loading ? <Spinner /> : "Tampilkan Lebih Banyak"}
+          </button>
+        )}
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
-// import toko1 from "../../../assets/images/img/toko.jpg"; replace default picture with image from store
+import { Link } from "react-router-dom";
 
 function Toko({ data }) {
   const [loading, setLoading] = useState(false);
@@ -10,23 +10,40 @@ function Toko({ data }) {
     }, 2000);
   });
   return (
-    <div className="flex mt-4 hover:cursor-pointer w-52">
-      {loading ? (
-        <div className="space-x-4 mr-4">
-          <img className="rounded-full" src={data.store?.image} alt="toko" width="50px" height="50px" />
-        </div>
-      ) : (
-        <Skeleton animation="wave" variant="circular" width={50} height={50} sx={{ marginRight: 2 }} />
-      )}
-      {loading ? (
-        <div className="mb-6">
-          <h3 className="font-semibold text-base">{data.store.name}</h3>
-          <p className="font-normal text-sm">{data.store.city}</p>
-        </div>
-      ) : (
-        <Skeleton animation="wave" variant="rounded" width={150} height={50} />
-      )}
-    </div>
+    <Link to={`/store-info/${data.storeId}`}>
+      <div className="flex mt-4 hover:cursor-pointer w-52">
+        {loading ? (
+          <div className="space-x-4 mr-4">
+            <img
+              className="rounded-full h-12 w-12"
+              src={data?.storeImage}
+              alt="toko"
+            />
+          </div>
+        ) : (
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={50}
+            height={50}
+            sx={{ marginRight: 2 }}
+          />
+        )}
+        {loading ? (
+          <div className="mb-6">
+            <h3 className="font-semibold text-base">{data.storeName}</h3>
+            <p className="font-normal text-sm">{data.storeCity}</p>
+          </div>
+        ) : (
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={150}
+            height={50}
+          />
+        )}
+      </div>
+    </Link>
   );
 }
 
