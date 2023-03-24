@@ -14,7 +14,12 @@ const CheckoutSummary = ({
       <h2 className="font-bold text-lg">Ringkasan Belanja</h2>
       <div className="flex justify-between">
         <p>Total harga</p>
-        <p>{data && formatRupiah(data.totalPrice)}</p>
+        <p>
+          {(data &&
+            !isNaN(data.totalPrice) &&
+            formatRupiah(parseInt(data.totalPrice))) ||
+            0}
+        </p>
       </div>
       <div className="flex justify-between">
         <p>Ongkos kirim</p>
@@ -24,7 +29,9 @@ const CheckoutSummary = ({
       <div className="flex justify-between">
         <p className="font-bold text-lg">Total Tagihan</p>
         <p className="font-bold">
-          {formatRupiah(selectedCourier + data.totalPrice)}
+          {(!isNaN(data.totalPrice) &&
+            formatRupiah(selectedCourier + data.totalPrice)) ||
+            0}
         </p>
       </div>
       <div className="flex justify-center">
