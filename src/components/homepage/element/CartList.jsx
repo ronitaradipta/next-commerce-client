@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import emptycart from "../../../assets/images/emptycart.svg";
 
 const CartList = ({ data, user }) => {
+  console.log("datalu :", data);
   return (
     <div className="bg-white shadow-lg rounded-lg h-72 w-[500px] absolute top-14 p-8 overflow-y-auto flex flex-col gap-6">
       {user && (
@@ -18,22 +19,15 @@ const CartList = ({ data, user }) => {
         data?.length > 0 &&
         data.map((item) => {
           return (
-            <div
-              className="flex justify-between items-center"
-              key={item.product.id}
-            >
+            <div className="flex justify-between items-center" key={item.product.id}>
               <div className="flex gap-4">
-                <img src="" alt="image" />
+                <img className="w-12 h-12 overflow-hidden" src={item.product.ProductGalleries[0].image} alt="image" />
                 <div>
-                  <h3 className="font-bold text-lg truncate w-40">
-                    {item.product.name}
-                  </h3>
+                  <h3 className="font-bold text-lg truncate w-40">{item.product.name}</h3>
                   <p className="text-gray-500">{item.quantity} barang</p>
                 </div>
               </div>
-              <p className="text-lg font-bold text-red-500">
-                Rp.{item.product.price}
-              </p>
+              <p className="text-lg font-bold text-red-500">Rp.{item.product.price}</p>
             </div>
           );
         })}
