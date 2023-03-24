@@ -19,8 +19,16 @@ const UserMenu = () => {
     },
   ];
 
-  const handleLogOut = () => {
-    Cookies.remove("user");
+  const handleLogOut = async () => {
+    try {
+      const response = await callApi.get("/auth/logout");
+      console.log(response);
+      Cookies.remove("token");
+      Cookies.remove("user");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -31,7 +39,8 @@ const UserMenu = () => {
             <div className="flex gap-3 items-center group py-3">
               <IconContext.Provider
                 value={{
-                  className: "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
+                  className:
+                    "text-gray-600 w-6 h-6 group-hover:text-emerald-500",
                 }}
               >
                 {item.icon}
@@ -43,7 +52,9 @@ const UserMenu = () => {
       })}
       <hr className="border border-t-gray-200 mt-2" />
       <Link to="/login" onClick={handleLogOut}>
-        <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4">Log Out</button>
+        <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4">
+          Log Out
+        </button>
       </Link>
     </div>
   );
