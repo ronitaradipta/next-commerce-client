@@ -37,7 +37,7 @@ const CardCategory = ({ data, image }) => {
     <Link className="p-1 w-1/3 sm:w-[20%] md:w-[16.5%] lg:w-[12.5%] xl:w-[10%]" to={`/category/${data}`}>
       {loadingImg ? (
         <div className={cardStyle}>
-          <img src={images[image]} alt="category" className="w-20" />
+          <img src={image} alt="category" className="w-20" />
           <p className="text-sm">{data}</p>
         </div>
       ) : (

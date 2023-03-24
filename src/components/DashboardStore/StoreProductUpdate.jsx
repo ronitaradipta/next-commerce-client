@@ -57,7 +57,11 @@ const StoreProductUpdate = ({ id, handleEdit, datas }) => {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => formData.append(key, value));
       images.forEach((image) => formData.append("images", image));
-      await callApi.put(`/products/${datas.id}`, formData);
+      await callApi.put(`/products/${datas.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setSuccessMessage("Data Produk Berhasil diperbaharui");
       setIsSuccess(true);
       setTimeout(() => handleEdit(null), 1500);

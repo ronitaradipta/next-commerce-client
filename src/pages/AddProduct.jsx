@@ -17,9 +17,7 @@ const AddProduct = () => {
   const [mediaInput, setMediaInput] = useState([]);
   const [inputTitles, setInputTitles] = useState("");
   const [inputCategory, setInputCategory] = useState("");
-  const selectedCategoryName = inputCategory
-    ? datas.find((item) => item.id === inputCategory)?.name
-    : "";
+  const selectedCategoryName = inputCategory ? datas.find((item) => item.id === inputCategory)?.name : "";
   const [inputDescriptions, setInputDescriptions] = useState("");
   const [inputPrice, setInputPrice] = useState(0);
   const [inputStock, setInputStock] = useState(0);
@@ -50,6 +48,7 @@ const AddProduct = () => {
       setInputPrice(data.price);
       setInputStock(data.stock);
       setShowImageInput(data.images);
+      console.log(data.images);
     } catch (error) {
       console.log(error);
     }
@@ -125,95 +124,33 @@ const AddProduct = () => {
           <div className="w-full bg-white rounded-lg flex flex-wrap p-6  mt-6 shadow-md">
             <div className="w-full lg:w-3/12 pr-5">
               <h3 className="font-semibold text-base mb-6">Upload Gambar</h3>
-              <p className="text-sm">
-                Format gambar .jpg .jpeg .png dan ukuran minimum 300 x 300px
-                (Untuk gambar optimal gunakan ukuran minimum 700 x 700 px).
-              </p>
+              <p className="text-sm">Format gambar .jpg .jpeg .png dan ukuran minimum 300 x 300px (Untuk gambar optimal gunakan ukuran minimum 700 x 700 px).</p>
             </div>
             <div className="w-full lg:w-[75%] flex flex-wrap lg:flex-nowrap lg:gap-4">
               {[0, 1, 2, 3, 4].map((index) => (
-                <InputMedia
-                  title="Foto"
-                  name="images"
-                  key={index}
-                  index={index}
-                  showImageInput={showImageInput}
-                  onChange={handleImageUpload}
-                />
+                <InputMedia title="Foto" name="images" key={index} index={index} showImageInput={showImageInput} onChange={handleImageUpload} />
               ))}
             </div>
           </div>
 
           <div className="w-full bg-white p-6 mt-6 rounded-lg shadow-md">
-            <InputAddProduct
-              label="Nama Produk"
-              placeholder="Contoh : Tas Selempang Pria"
-              type="text"
-              value={inputTitles}
-              name="name"
-              onChange={setInputTitles}
-            />
-            <InputSelect
-              label="Kategori"
-              data={datas}
-              inputCategory={inputCategory}
-              selectedCategoryName={selectedCategoryName}
-              setInputCategory={setInputCategory}
-              name="categoryId"
-            />
-            <TextArea
-              label="Deskripsi Produk"
-              placeholder="Tulis deskripsi produk..."
-              name="description"
-              value={inputDescriptions}
-              onChange={setInputDescriptions}
-            />
-            <InputAddProduct
-              label="Harga"
-              placeholder="Rp..."
-              type="number"
-              name="price"
-              value={inputPrice}
-              onChange={setInputPrice}
-            />
-            <SwitchToggle
-              label="Status Produk"
-              inputToggle={inputToggle}
-              setInputToggle={setInputToggle}
-            />
-            <InputAddProduct
-              label="Stok Produk"
-              placeholder="Masukkan jumlah stok"
-              type="number"
-              name="stock"
-              value={inputStock}
-              onChange={setInputStock}
-            />
+            <InputAddProduct label="Nama Produk" placeholder="Contoh : Tas Selempang Pria" type="text" value={inputTitles} name="name" onChange={setInputTitles} />
+            <InputSelect label="Kategori" data={datas} inputCategory={inputCategory} selectedCategoryName={selectedCategoryName} setInputCategory={setInputCategory} name="categoryId" />
+            <TextArea label="Deskripsi Produk" placeholder="Tulis deskripsi produk..." name="description" value={inputDescriptions} onChange={setInputDescriptions} />
+            <InputAddProduct label="Harga" placeholder="Rp..." type="number" name="price" value={inputPrice} onChange={setInputPrice} />
+            <SwitchToggle label="Status Produk" inputToggle={inputToggle} setInputToggle={setInputToggle} />
+            <InputAddProduct label="Stok Produk" placeholder="Masukkan jumlah stok" type="number" name="stock" value={inputStock} onChange={setInputStock} />
           </div>
           <p className="text-center text-red-500 p-2">{message.error}</p>
           <div className="w-full mt-6 flex justify-center md:justify-end gap-4">
             <Link to="/store-dashboard">
-              <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">
-                Batal
-              </button>
+              <button className="font-medium p-3 border border-gray-300 text-gray-500 w-48 rounded-md">Batal</button>
             </Link>
             <button
               className={`${
-                inputTitles &&
-                inputDescriptions &&
-                inputCategory !== "Pilih Kategori" &&
-                inputPrice &&
-                inputStock
-                  ? "bg-emerald-500 text-white"
-                  : "bg-gray-200 text-gray-400"
+                inputTitles && inputDescriptions && inputCategory !== "Pilih Kategori" && inputPrice && inputStock ? "bg-emerald-500 text-white" : "bg-gray-200 text-gray-400"
               } font-medium p-3 rounded-md w-48 flex justify-center`}
-              disabled={
-                !inputTitles ||
-                !inputDescriptions ||
-                inputCategory === "Pilih Kategori" ||
-                !inputPrice ||
-                !inputStock
-              }
+              disabled={!inputTitles || !inputDescriptions || inputCategory === "Pilih Kategori" || !inputPrice || !inputStock}
               type="submit"
               onClick={handleSubmit}
             >

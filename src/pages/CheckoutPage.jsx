@@ -53,14 +53,11 @@ const CheckoutPage = () => {
     try {
       if (selectedOption) {
         setLoading(true);
-        const response = await callApi.post(
-          `/services/courier/${selectedOption}`,
-          {
-            origin: "501",
-            destination: "114",
-            weight: 1700,
-          }
-        );
+        const response = await callApi.post(`/services/courier/${selectedOption}`, {
+          origin: "501",
+          destination: "114",
+          weight: 1700,
+        });
         setDataCourier(response.data.data[0]);
         setLoading(false);
       }
@@ -113,39 +110,14 @@ const CheckoutPage = () => {
         <hr className="border-t border-t-gray-300" />
         {product &&
           product.products?.map((item, idx) => {
-            return (
-              <DetailProductCheckout
-                key={idx}
-                data={item}
-                handleDeleteProduct={handleDeleteProduct}
-              />
-            );
+            return <DetailProductCheckout key={idx} data={item} handleDeleteProduct={handleDeleteProduct} />;
           })}
 
         <hr className="border-t border-t-gray-300" />
-        <DetailAddress
-          userAddress={userAddress}
-          selectAddress={selectAddress}
-          handleAddressChange={handleAddressChange}
-        />
-        <CourierSelect
-          selectedOption={selectedOption}
-          dataCourier={dataCourier}
-          handleOptionChange={handleOptionChange}
-          selectedCourier={selectedCourier}
-          setSelectedCourier={setSelectedCourier}
-          loading={loading}
-        />
+        <DetailAddress userAddress={userAddress} selectAddress={selectAddress} handleAddressChange={handleAddressChange} />
+        <CourierSelect selectedOption={selectedOption} dataCourier={dataCourier} handleOptionChange={handleOptionChange} selectedCourier={selectedCourier} setSelectedCourier={setSelectedCourier} loading={loading} />
       </div>
-      {product && (
-        <CheckoutSummary
-          data={product}
-          selectedCourier={selectedCourier}
-          handleCheckout={handleCheckout}
-          loading={loading}
-          selectAddress={selectAddress}
-        />
-      )}
+      {product && <CheckoutSummary data={product} selectedCourier={selectedCourier} handleCheckout={handleCheckout} loading={loading} selectAddress={selectAddress} />}
     </main>
   );
 };

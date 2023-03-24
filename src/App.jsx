@@ -187,13 +187,14 @@ function App() {
       />
       <Route path="*" element={<ErrorPage />} />
 
-      <Route 
-        path="/order-list" 
+      <Route
+        path="/order-list"
         element={
           <UserAuth>
-            <OrderlistUser/>
+            <OrderlistUser />
           </UserAuth>
-          }/>
+        }
+      />
     </Routes>
   );
 }

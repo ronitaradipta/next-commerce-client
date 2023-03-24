@@ -16,7 +16,7 @@ const Category = () => {
       console.log(error);
     }
   };
-
+  console.log("ini data :", datas);
   useEffect(() => {
     AllCategory();
   }, []);

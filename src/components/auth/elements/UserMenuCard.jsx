@@ -47,21 +47,14 @@ const UserMenuCard = ({ user }) => {
         ) : (
           <Link to="/store-dashboard" className="flex items-center gap-5 mb-2 ">
             <div className="h-10 w-10 overflow-hidden rounded-full border">
-              <img
-                className="object-contain w-full"
-                src={user.Store?.image}
-                alt="store_avatar"
-              />
+              <img className="object-contain w-full" src={user.Store?.image} alt="store_avatar" />
             </div>
             <p>{user.Store?.name}</p>
           </Link>
         )}
       </div>
       <hr className="border border-t-gray-200 mt-2" />
-      <button
-        className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4"
-        onClick={handleLogOut}
-      >
+      <button className="p-2 bg-emerald-500 text-white font-medium w-full rounded-md mt-4" onClick={handleLogOut}>
         Log Out
       </button>
     </div>
