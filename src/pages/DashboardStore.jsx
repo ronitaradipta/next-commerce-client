@@ -10,6 +10,7 @@ import ProductLoading from "../components/loading/ProductLoading";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import formatRupiah from "../utils/formatRupiah";
+import { Link } from "react-router-dom";
 
 const DashboardStore = () => {
   const [dataTransaction, setDataTransaction] = useState([]);
@@ -97,12 +98,12 @@ const DashboardStore = () => {
                       <p className="text-gray-500 text-sm md:text-base ">
                         {quantity} x {price}
                       </p>
-                      <a
-                        href="#"
+                      <Link
+                        to="/store-transaction "
                         className="font-medium text-emerald-500 text-[12px] md:text-sm"
                       >
                         Lihat Detail Transaksi
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="md:w-8/12 lg:w-4/12 py-2">

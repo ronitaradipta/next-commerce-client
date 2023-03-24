@@ -9,7 +9,7 @@ import NoDataPreview from "../components/DashboardStore/element/NoDataPreview";
 const DetailTransactions = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [dataTransaction, setDataTransaction] = useState([]);
-  const [dataDetail, setDataDetail] = useState([]);
+  const isStore = true;
 
   const fetchDataTransaction = async () => {
     try {
@@ -70,7 +70,13 @@ const DetailTransactions = () => {
         <div className="flex flex-col gap-6 mt-6">
           {dataTransaction.length > 0 ? (
             dataTransaction.map((data) => {
-              return <DetailTransakionList data={data} key={data.id} />;
+              return (
+                <DetailTransakionList
+                  isStore={isStore}
+                  data={data}
+                  key={data.id}
+                />
+              );
             })
           ) : (
             <NoDataPreview />
