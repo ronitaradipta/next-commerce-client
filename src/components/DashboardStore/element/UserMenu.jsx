@@ -2,8 +2,9 @@ import React from "react";
 import { IconContext } from "react-icons";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import callApi from "../../../services/callApi";
 
 const UserMenu = () => {
   const listMenu = [
@@ -18,6 +19,8 @@ const UserMenu = () => {
       link: "/profile",
     },
   ];
+
+  const navigate = useNavigate();
 
   const handleLogOut = async () => {
     try {

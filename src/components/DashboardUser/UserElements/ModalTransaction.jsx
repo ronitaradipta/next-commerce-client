@@ -38,6 +38,7 @@ const ModalTransaction = ({ data, selectedCard, setSelectedCard }) => {
       setTimeout(() => {
         setisSuccess(false);
         setLoading(false);
+        window.location.reload();
       }, 2500);
     } catch (error) {
       console.log(error);
@@ -57,6 +58,7 @@ const ModalTransaction = ({ data, selectedCard, setSelectedCard }) => {
         setisSuccess(false);
         setLoading(false);
         setSelectedCard(null);
+        window.location.reload();
       }, 2500);
     } catch (error) {
       console.log(error);
