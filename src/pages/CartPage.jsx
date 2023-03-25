@@ -43,13 +43,16 @@ const CartPage = () => {
   };
 
   const totalPrice = () => {
-    const total = product
-      .filter((item) => {
-        return item.product.storeId === selectedProducts;
-      })
-      .reduce((acc, cart) => {
-        return acc + cart.product.price * cart.quantity;
-      }, 0);
+    let total = 0;
+    if (product) {
+      total = product
+        .filter((item) => {
+          return item.product.storeId === selectedProducts;
+        })
+        .reduce((acc, cart) => {
+          return acc + cart.product.price * cart.quantity;
+        }, 0);
+    }
 
     return formatRupiah(total);
   };

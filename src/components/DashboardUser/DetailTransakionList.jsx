@@ -26,7 +26,7 @@ function DetailTransakionList({ data }) {
             {formatRupiah(data.OrderDetails[0].price)}
           </p>
           <button
-            className="font-medium text-emerald-500 text-[12px] md:text-sm"
+            className="text-left font-medium text-emerald-500 text-[12px] md:text-sm"
             onClick={() => handleCardClick(data.id)}
             type="button"
           >

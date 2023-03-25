@@ -18,6 +18,7 @@ const StoreSetting = () => {
     try {
       const response = await callApi.get("/stores/user");
       setDataStore(response.data.data);
+      setDescription(response.data.data.description);
     } catch (error) {
       console.log(error);
     }
